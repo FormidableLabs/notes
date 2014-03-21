@@ -36,6 +36,13 @@ module.exports = function (grunt) {
     },
 
     // ------------------------------------------------------------------------
+    // Clean tasks.
+    // ------------------------------------------------------------------------
+    clean: {
+      vendor: "<%= vendorPath %>"
+    },
+
+    // ------------------------------------------------------------------------
     // Copy tasks.
     // ------------------------------------------------------------------------
     copy: {
@@ -63,22 +70,17 @@ module.exports = function (grunt) {
             expand: true,
             flatten: true,
             src: [
-              "mocha/mocha.js",
-              "mocha/mocha.css",
-              "chai/chai.js",
-              "sinon-chai/lib/sinon-chai.js",
-              "blanket/dist/qunit/blanket.js",
+              // App libraries.
               "jquery/dist/jquery.js",
+              "lodash/dist/lodash.js",
               "json2/json2.js",
-              "underscore/underscore.js",
               "backbone/backbone.js",
-              "backbone.localStorage/backbone.localStorage.js"
+              "backbone.localStorage/backbone.localStorage.js",
+              "showdown/showdown/src/showdown.js",
+
+              // Test libraries.
+              "sinonjs/sinon.js"
             ]
-          },
-          // Copy and **rename** Sinon.JS library file.
-          {
-            src: "<%= bowerPath %>/sinon/index.js",
-            dest: "<%= vendorPath %>/sinon.js"
           },
           // Copy css/fonts/js of bootstrap's distribution.
           {
@@ -90,20 +92,23 @@ module.exports = function (grunt) {
               "fonts/**",
               "js/**"
             ]
-          },
-          // Copy all of showdown's distribution.
-          {
-            cwd: "<%= bowerPath %>/showdown/src",
-            dest: "<%= vendorPath %>/showdown",
-            expand: true,
-            src: ["**"]
           }
         ]
       }
     }
   });
 
-  // Load vendor tasks.
+  // Load dependencies.
   grunt.loadNpmTasks("grunt-contrib-jshint");
+  grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-contrib-copy");
+
+  // --------------------------------------------------------------------------
+  // Tasks: Build
+  // --------------------------------------------------------------------------
+  grunt.registerTask("build:vendor", [
+    "clean:vendor",
+    "copy:vendor"
+  ]);
+
 };
