@@ -1,8 +1,16 @@
 define([
   "jquery",
   "backbone",
-  "app/views/note"
-], function ($, Backbone, NoteView) {
+  "app/views/notes",
+  "app/views/note",
+  "app/views/note-nav"
+], function (
+  $,
+  Backbone,
+  NotesView,
+  NoteView,
+  NoteNavView
+) {
   "use strict";
 
   // Router
@@ -21,8 +29,13 @@ define([
 
     initialize: function (opts) {
       opts || (opts = {});
-      this.notesView = opts.notesView;
-      this.noteNavView = opts.noteNavView;
+
+      this.notesView = new NotesView({
+        collection: opts.collection
+      }, {
+        router: this
+      });
+      this.noteNavView = new NoteNavView();
 
       // Validation.
       if (!this.notesView) { throw new Error("No notesView"); }
@@ -60,7 +73,8 @@ define([
       // Create note and add to DOM.
       this.noteView = new NoteView({ model: model }, {
         action: action,
-        nav: this.noteNavView
+        nav: this.noteNavView,
+        router: this
       });
       $("#note").html(this.noteView.render().$el);
     }

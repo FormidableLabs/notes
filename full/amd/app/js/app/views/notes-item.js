@@ -30,10 +30,10 @@ define([
     },
 
     initialize: function (attrs, opts) {
-      // Get router from options. Also allow to be empty
-      // so that tests can `render` without.
+      // Get router from options.
       opts || (opts = {});
       this.router = opts.router;
+      if (!this.router) { throw new Error("No router"); }
 
       this.listenTo(this.model, {
         "change":   function () { this.render(); },

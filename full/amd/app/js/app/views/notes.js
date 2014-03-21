@@ -34,7 +34,12 @@ define([
       }
     },
 
-    initialize: function () {
+    initialize: function (attrs, opts) {
+      // Get router from options.
+      opts || (opts = {});
+      this.router = opts.router;
+      if (!this.router) { throw new Error("No router"); }
+
       // Cache view and just show on re-render.
       this.$input = this.$("#note-new-input");
 
@@ -68,7 +73,11 @@ define([
 
     // Add single child note view to front of notes list.
     addNote: function (model) {
-      var view = new NotesItemView({ model: model });
+      var view = new NotesItemView({
+        model: model
+      }, {
+        router: this.router
+      });
 
       this.$("#notes-list tr")
         .filter(":last")
