@@ -89,30 +89,14 @@
       <div id="note" class="region region-note" style="display: none;"></div>
     </div>
 
-    <!-- JavaScript Core Libraries -->
-    <script src="js/vendor/lodash.js"></script>
-    <script src="js/vendor/jquery.js"></script>
-    <script src="js/vendor/json2.js"></script>
-    <script src="js/vendor/backbone.js"></script>
-    <script src="js/vendor/backbone.localStorage.js"></script>
-    <script src="js/vendor/bootstrap/js/bootstrap.js"></script>
-    <script src="js/vendor/showdown.js"></script>
-
-    <!-- JavaScript Application Libraries -->
-    <script src="js/app/namespace.js"></script>
-    <script src="js/app/config.js"></script>
-    <script src="js/app/models/note.js"></script>
-    <script src="js/app/collections/notes.js"></script>
-    <script src="js/app/templates/templates.js"></script>
-    <script src="js/app/views/note-nav.js"></script>
-    <script src="js/app/views/note-view.js"></script>
-    <script src="js/app/views/note.js"></script>
-    <script src="js/app/views/notes-item.js"></script>
-    <script src="js/app/views/notes-filter.js"></script>
-    <script src="js/app/views/notes.js"></script>
-    <script src="js/app/routers/router.js"></script>
-
-    <!-- Bootstrap and start application. -->
-    <script src="js/app/app.js"></script>
+    <!-- JavaScript -->
+    <script src="js/vendor/require.js"></script>
+    <script>
+      // Load RequireJS configuration.
+      require(["./js/config.js"], function () {
+        // Then, bootstrap and start application.
+        require(["app/app"]);
+      })
+    </script>
   </body>
 </html>
