@@ -9,7 +9,8 @@
     "backbone": "1.1.2",
     "backbone.localStorage": "1.1.7",
     "showdown": "0.3.1",
-    "bootstrap": "3.1.1"
+    "bootstrap": "3.1.1",
+    "requirejs": "2.1.11"
   },
   "devDependencies": {
     "sinonjs": "1.9.0"

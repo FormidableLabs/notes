@@ -70,6 +70,9 @@ module.exports = function (grunt) {
             expand: true,
             flatten: true,
             src: [
+              // Infrastructure.
+              "requirejs/require.js",
+
               // App libraries.
               "jquery/dist/jquery.js",
               "lodash/dist/lodash.js",
