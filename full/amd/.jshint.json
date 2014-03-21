@@ -2,6 +2,7 @@
   // Settings
   "passfail"      : false,  // Stop on first error.
   "maxerr"        : 100,    // Maximum error before stopping.
+  "quotmark"      : "double", // Forces double quotes for strings
 
   // Environments (predefined globals).
   "browser"       : true,   // Standard browser globals e.g. `window`,.
