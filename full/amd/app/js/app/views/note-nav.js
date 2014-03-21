@@ -1,5 +1,5 @@
-(function () {
-  'use strict';
+define(["backbone"], function (Backbone) {
+  "use strict";
 
   // Note Navigation Bar View
   // ------------------------
@@ -13,7 +13,7 @@
   // * `nav:view`
   // * `nav:edit`
   // * `nav:delete`
-  App.Views.NoteNav = Backbone.View.extend({
+  var NoteNavView = Backbone.View.extend({
 
     el: "#note-nav",
 
@@ -59,4 +59,6 @@
     }
 
   });
-}());
+
+  return NoteNavView;
+});

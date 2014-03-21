@@ -1,7 +1,11 @@
-// Configuration
-// -------------
-// Stores all application configuration.
-App.Config = _.extend(App.Config, {
-  // Local Storage Name
-  storeName: "notes"
+define([], function () {
+  // Configuration
+  // -------------
+  // Stores all application configuration.
+  var config = {
+    // Local Storage Name
+    storeName: "notes"
+  };
+
+  return config;
 });

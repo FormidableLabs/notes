@@ -1,14 +1,23 @@
-(function () {
-  'use strict';
+define([
+  "backbone",
+  "app/config",
+  "app/models/note",
+
+  // Patch Backbone. Import has side-effects, so don't use variable.
+  "backbone.localStorage"
+], function (Backbone, config, NoteModel) {
+  "use strict";
 
   // Notes Collection
   // ----------------
   // Uses HTML `localStorage`.
-  App.Collections.Notes = Backbone.Collection.extend({
+  var NotesCollection = Backbone.Collection.extend({
 
-    model: App.Models.Note,
+    model: NoteModel,
 
-    localStorage: new Backbone.LocalStorage(App.Config.storeName)
+    localStorage: new Backbone.LocalStorage(config.storeName)
 
   });
-}());
+
+  return NotesCollection;
+});

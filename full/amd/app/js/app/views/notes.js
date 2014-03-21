@@ -1,5 +1,15 @@
-(function () {
-  'use strict';
+define([
+  "jquery",
+  "backbone",
+  "app/views/notes-filter",
+  "app/views/notes-item"
+], function (
+  $,
+  Backbone,
+  NotesFilterView,
+  NotesItemView
+) {
+  "use strict";
 
   var ENTER = 13;
 
@@ -8,10 +18,10 @@
   // Displays a list of notes.
   //
   // Contains:
-  // * App.Views.NotesFilter: Helper view for query filter.
-  // * App.Views.NotesItem: Child view for single note listing.
+  // * "/app/views/notes-filter": Child view for query filter.
+  // * "/app/views/notes-item": Child view for single note listing.
   //
-  App.Views.Notes = Backbone.View.extend({
+  var NotesView = Backbone.View.extend({
 
     el: "#notes",
 
@@ -24,7 +34,12 @@
       }
     },
 
-    initialize: function () {
+    initialize: function (attrs, opts) {
+      // Get router from options.
+      opts || (opts = {});
+      this.router = opts.router;
+      if (!this.router) { throw new Error("No router"); }
+
       // Cache view and just show on re-render.
       this.$input = this.$("#note-new-input");
 
@@ -41,7 +56,7 @@
       });
 
       // Create helper filter view.
-      this.filterView = new App.Views.NotesFilter({
+      this.filterView = new NotesFilterView({
         collection: this.collection
       });
 
@@ -58,7 +73,11 @@
 
     // Add single child note view to front of notes list.
     addNote: function (model) {
-      var view = new App.Views.NotesItem({ model: model });
+      var view = new NotesItemView({
+        model: model
+      }, {
+        router: this.router
+      });
 
       this.$("#notes-list tr")
         .filter(":last")
@@ -107,4 +126,6 @@
     }
 
   });
-}());
+
+  return NotesView;
+});

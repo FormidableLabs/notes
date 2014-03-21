@@ -30,7 +30,10 @@ module.exports = function (grunt) {
       client: {
         options: _readJsonCfg(".jshint.json"),
         files: {
-          src: []
+          src: [
+            "app/js/*.js",
+            "app/js/app/**/*.js"
+          ]
         }
       }
     },
@@ -75,7 +78,7 @@ module.exports = function (grunt) {
 
               // App libraries.
               "jquery/dist/jquery.js",
-              "lodash/dist/lodash.js",
+              "lodash/dist/lodash.underscore.js",
               "json2/json2.js",
               "backbone/backbone.js",
               "backbone.localStorage/backbone.localStorage.js",

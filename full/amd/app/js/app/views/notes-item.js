@@ -1,10 +1,18 @@
-(function () {
-  'use strict';
+define([
+  "underscore",
+  "backbone",
+  "app/templates/templates"
+], function (
+  _,
+  Backbone,
+  templates
+) {
+  "use strict";
 
   // Notes Item View
   // ---------------
   // A single note within a list of notes.
-  App.Views.NotesItem = Backbone.View.extend({
+  var NotesItemView = Backbone.View.extend({
 
     // Set rendered DOM element `id` property to the model's id.
     id: function () { return this.model.id; },
@@ -13,7 +21,7 @@
 
     className: "notes-item",
 
-    template: _.template(App.Templates["template-notes-item"]),
+    template: _.template(templates["template-notes-item"]),
 
     events: {
       "click .note-view":   function () { this.viewNote(); },
@@ -22,10 +30,10 @@
     },
 
     initialize: function (attrs, opts) {
-      // Get router from options or app. Also allow to be empty
-      // so that tests can `render` without.
+      // Get router from options.
       opts || (opts = {});
-      this.router = opts.router || app.router;
+      this.router = opts.router;
+      if (!this.router) { throw new Error("No router"); }
 
       this.listenTo(this.model, {
         "change":   function () { this.render(); },
@@ -54,4 +62,6 @@
     }
 
   });
-}());
+
+  return NotesItemView;
+});

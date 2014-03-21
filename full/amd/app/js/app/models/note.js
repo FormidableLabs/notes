@@ -1,9 +1,9 @@
-(function () {
-  'use strict';
+define(["backbone"], function (Backbone) {
+  "use strict";
 
   // Note Model
   // ----------
-  App.Models.Note = Backbone.Model.extend({
+  var NoteModel = Backbone.Model.extend({
 
     defaults: function () {
       return {
@@ -14,4 +14,6 @@
     }
 
   });
-}());
+
+  return NoteModel;
+});

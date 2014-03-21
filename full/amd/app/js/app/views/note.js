@@ -1,19 +1,31 @@
-(function () {
-  'use strict';
+define([
+  "jquery",
+  "underscore",
+  "backbone",
+  "app/views/note-view",
+  "app/templates/templates"
+], function (
+  $,
+  _,
+  Backbone,
+  NoteViewView,
+  templates
+) {
+  "use strict";
 
   // Note View
   // ---------
   // A single note.
   //
   // Contains:
-  // * App.Views.NoteNav: Helper view for navigation events.
-  // * App.Views.NoteView: Child view for rendering Markdown.
+  // * "app/views/note-nav": Helper view for navigation events. (From `nav`).
+  // * "app/views/note-view": Child view for rendering Markdown.
   //
-  App.Views.Note = Backbone.View.extend({
+  var NoteView = Backbone.View.extend({
 
     id: "note-panes",
 
-    template: _.template(App.Templates["template-note"]),
+    template: _.template(templates["template-note"]),
 
     events: {
       "blur   #note-form-edit": "saveNote",
@@ -24,15 +36,13 @@
       // Default to empty options.
       opts || (opts = {});
 
-      // Add member variables.
-      //
-      // Router can be set directly (e.g., tests), or use global.
-      // The `app.router` object *does* exist at this point.
+      // Add member objects.
       this.nav = opts.nav;
-      this.router = opts.router || app.router;
+      this.router = opts.router;
 
       // Verification.
       // -- Line Omitted in Book. --
+      if (!this.nav) { throw new Error("No nav"); }
       if (!this.router) { throw new Error("No router"); }
 
       // Add our custom listeners.
@@ -44,7 +54,7 @@
       this.render();
 
       // Add in viewer child view (which auto-renders).
-      this.noteView = new App.Views.NoteView({
+      this.noteView = new NoteViewView({
         el: this.$("#note-pane-view-content"),
         model: this.model
       });
@@ -132,4 +142,6 @@
     }
 
   });
-}());
+
+  return NoteView;
+});

@@ -2,6 +2,7 @@
   // Settings
   "passfail"      : false,  // Stop on first error.
   "maxerr"        : 100,    // Maximum error before stopping.
+  "quotmark"      : "double", // Forces double quotes for strings
 
   // Environments (predefined globals).
   "browser"       : true,   // Standard browser globals e.g. `window`,.
@@ -18,17 +19,9 @@
 
   // Custom globals.
   "predef"        : [
-      // Mocha
-      "describe",
-      "it",
-      "before",
-      "beforeEach",
-      "after",
-      "afterEach",
-
-      // Chai
-      "chai",
-      "expect",
+      // App
+      "require",
+      "define",
 
       // Sinon.JS
       "sinon"
@@ -77,7 +70,7 @@
   "noempty"       : true,   // Prohibit use of empty blocks.
   "nonew"         : true,   // Prohibit use of constructors for side-effects.
   "nomen"         : false,  // Prohibit use of initial or trailing underbars.
-  "onevar"        : true,   // Allow only one `var` statement per function.
+  "onevar"        : false,  // Allow only one `var` statement per function.
   "plusplus"      : false,  // Prohibit use of `++` & `--`.
   "sub"           : false,  // Tolerate all forms of subscript notation.
   "trailing"      : true,   // Prohibit trailing whitespaces.
