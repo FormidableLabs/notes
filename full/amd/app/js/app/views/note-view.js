@@ -1,12 +1,22 @@
-(function () {
+define([
+  "underscore",
+  "backbone",
+  "showdown",
+  "app/templates/templates"
+], function (
+  _,
+  Backbone,
+  Showdown,
+  templates
+) {
   "use strict";
 
   // Note View Pane
   // --------------
   // Render a single note pane for viewing.
-  App.Views.NoteView = Backbone.View.extend({
+  var NoteViewView = Backbone.View.extend({
 
-    template: _.template(App.Templates["template-note-view"]),
+    template: _.template(templates["template-note-view"]),
 
     converter: new Showdown.converter(),
 
@@ -25,4 +35,6 @@
       return this;
     }
   });
-}());
+
+  return NoteViewView;
+});

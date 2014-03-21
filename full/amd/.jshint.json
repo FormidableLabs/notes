@@ -19,14 +19,6 @@
 
   // Custom globals.
   "predef"        : [
-      // TODO REMOVE,
-      "_",
-      "$",
-      "Backbone",
-      "Showdown",
-      "App",
-      "app",
-
       // App
       "require",
       "define",
@@ -78,7 +70,7 @@
   "noempty"       : true,   // Prohibit use of empty blocks.
   "nonew"         : true,   // Prohibit use of constructors for side-effects.
   "nomen"         : false,  // Prohibit use of initial or trailing underbars.
-  "onevar"        : true,   // Allow only one `var` statement per function.
+  "onevar"        : false,  // Allow only one `var` statement per function.
   "plusplus"      : false,  // Prohibit use of `++` & `--`.
   "sub"           : false,  // Tolerate all forms of subscript notation.
   "trailing"      : true,   // Prohibit trailing whitespaces.

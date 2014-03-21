@@ -7,8 +7,11 @@
     // This is relative to the loading HTML page, which for our SPA is:
     // "full/amd/app/".
     //
+    // Set this to `js/vendor` to allow common vendor libraries to come in
+    // straight by normal name.
+    //
     // See: http://requirejs.org/docs/api.html#config-baseUrl
-    baseUrl: "js",
+    baseUrl: "js/vendor",
 
     // Shims: Bridge non-AMD libraries to AMD by specifying deps and exports.
     // - `deps`: Array of RJS names of libraries that are depended on.
@@ -21,28 +24,16 @@
       }
     },
 
-    // Map: Add alias for one module to another.
-    //
-    // See: http://requirejs.org/docs/api.html#config-map
-    map: {
-      // For all modules and code, alias `underscore` to `lodash`.
-      "*": {
-        "underscore": "lodash"
-      }
-    },
-
     // Paths: Prefixes / full paths to find libraries.
     //
     // See: http://requirejs.org/docs/api.html#config-paths
     paths: {
       // Vendor libraries.
-      "jquery": "vendor/jquery",
-      "lodash": "vendor/lodash.underscore",
-      "backbone": "vendor/backbone",
+      "underscore": "lodash.underscore",
 
       // Application libraries.
       // Set up "app/" as base application prefix.
-      "app": "app"
+      "app": "../app"
     }
   });
 }());

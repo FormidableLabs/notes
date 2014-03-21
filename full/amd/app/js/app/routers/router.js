@@ -1,10 +1,14 @@
-(function () {
+define([
+  "jquery",
+  "backbone",
+  "app/views/note"
+], function ($, Backbone, NoteView) {
   "use strict";
 
   // Router
   // ------
   // The router translates routes in to views.
-  App.Routers.Router = Backbone.Router.extend({
+  var Router = Backbone.Router.extend({
 
     // **Note**: Could wrap this up in functions to allow easier
     // stubbing of the underlying methods. But, there are some
@@ -17,8 +21,8 @@
 
     initialize: function (opts) {
       opts || (opts = {});
-      this.notesView = opts.notesView || app.notesView;
-      this.noteNavView = opts.noteNavView || app.noteNavView;
+      this.notesView = opts.notesView;
+      this.noteNavView = opts.noteNavView;
 
       // Validation.
       if (!this.notesView) { throw new Error("No notesView"); }
@@ -54,7 +58,7 @@
       }
 
       // Create note and add to DOM.
-      this.noteView = new App.Views.Note({ model: model }, {
+      this.noteView = new NoteView({ model: model }, {
         action: action,
         nav: this.noteNavView
       });
@@ -62,4 +66,6 @@
     }
 
   });
-}());
+
+  return Router;
+});

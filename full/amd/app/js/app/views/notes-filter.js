@@ -1,10 +1,18 @@
-(function () {
+define([
+  "jquery",
+  "underscore",
+  "backbone"
+], function (
+  $,
+  _,
+  Backbone
+) {
   "use strict";
 
   // Notes Filter View
   // -----------------
   // Controls search filter and emits filter events.
-  App.Views.NotesFilter = Backbone.View.extend({
+  var NotesFilterView = Backbone.View.extend({
 
     el: ".navbar-search",
 
@@ -93,4 +101,6 @@
     }
 
   });
-}());
+
+  return NotesFilterView;
+});
