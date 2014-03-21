@@ -1,12 +1,14 @@
 
-define(["jquery"], function () {
+define(["jquery", "backbone"], function ($, Backbone) {
   "use strict";
 
   $(function () {
     $("<h1>Hello World</h1>").prependTo($("body"));
     console.log("TODO HERE HELLO WORLD");
+
+    Backbone.history.start();
   });
-})
+});
 
 
 // // Wrap closure in jQuery "ready" function, to ensure that the DOM

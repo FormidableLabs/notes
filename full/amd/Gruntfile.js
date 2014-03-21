@@ -78,7 +78,7 @@ module.exports = function (grunt) {
 
               // App libraries.
               "jquery/dist/jquery.js",
-              "lodash/dist/lodash.js",
+              "lodash/dist/lodash.underscore.js",
               "json2/json2.js",
               "backbone/backbone.js",
               "backbone.localStorage/backbone.localStorage.js",

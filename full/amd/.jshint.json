@@ -26,17 +26,9 @@
       "App",
       "app",
 
-      // Mocha
-      "describe",
-      "it",
-      "before",
-      "beforeEach",
-      "after",
-      "afterEach",
-
-      // Chai
-      "chai",
-      "expect",
+      // App
+      "require",
+      "define",
 
       // Sinon.JS
       "sinon"
