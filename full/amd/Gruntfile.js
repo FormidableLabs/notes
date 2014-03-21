@@ -30,7 +30,9 @@ module.exports = function (grunt) {
       client: {
         options: _readJsonCfg(".jshint.json"),
         files: {
-          src: []
+          src: [
+            "app/js/app/**/*.js"
+          ]
         }
       }
     },

@@ -18,6 +18,14 @@
 
   // Custom globals.
   "predef"        : [
+      // TODO REMOVE,
+      "_",
+      "$",
+      "Backbone",
+      "Showdown",
+      "App",
+      "app",
+
       // Mocha
       "describe",
       "it",
