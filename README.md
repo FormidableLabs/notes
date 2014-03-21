@@ -29,9 +29,9 @@ full/amd/
     jasmine/      // Jasmine tests directory.
 ```
 
-
 ## TODO - TASKS
 
+* TODO: `export PATH=${PATH}:./node_modules/.bin`
 * TODO: Introduce the skeleton section..
 
 [notes_demo]: ./full/amd/app/index.html
