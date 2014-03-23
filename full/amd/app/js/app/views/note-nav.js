@@ -1,4 +1,4 @@
-define(["backbone"], function (Backbone) {
+define(["underscore", "backbone"], function (_, Backbone) {
   "use strict";
 
   // Note Navigation Bar View
