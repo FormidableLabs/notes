@@ -4,7 +4,7 @@ define([], function () {
   // Stores all application configuration.
   var config = {
     // Local Storage Name
-    storeName: "notes"
+    storeName: "notes-amd"
   };
 
   return config;

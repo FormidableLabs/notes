@@ -116,6 +116,10 @@ module.exports = function (grunt) {
     "clean:vendor",
     "copy:vendor"
   ]);
+  grunt.registerTask("build", [
+    "build:vendor",
+    "copy:vendor"
+  ]);
 
   // --------------------------------------------------------------------------
   // Tasks: Build
