@@ -1,11 +1,13 @@
 define([
   "jquery",
   "backbone",
+  "app/collections/notes",
   "app/views/notes-filter",
   "app/views/notes-item"
 ], function (
   $,
   Backbone,
+  NotesCollection,
   NotesFilterView,
   NotesItemView
 ) {
@@ -43,6 +45,9 @@ define([
       // Cache view and just show on re-render.
       this.$input = this.$("#note-new-input");
 
+      // Set collection.
+      this.collection = NotesCollection.getInstance();
+
       // Add notes when we get data.
       //
       // **Note**: This has to come **before** the filter view
@@ -56,9 +61,7 @@ define([
       });
 
       // Create helper filter view.
-      this.filterView = new NotesFilterView({
-        collection: this.collection
-      });
+      this.filterView = new NotesFilterView();
 
       // Need the collection to be fetched to kick off adding notes.
       // This is currently done in "app.js"

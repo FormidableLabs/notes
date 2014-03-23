@@ -27,12 +27,8 @@ define([
       "note/:id/:action": "note",
     },
 
-    initialize: function (opts) {
-      opts || (opts = {});
-
-      this.notesView = new NotesView({
-        collection: opts.collection
-      }, {
+    initialize: function () {
+      this.notesView = new NotesView({}, {
         router: this
       });
       this.noteNavView = new NoteNavView();

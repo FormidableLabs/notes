@@ -1,11 +1,13 @@
 define([
   "jquery",
   "underscore",
-  "backbone"
+  "backbone",
+  "app/collections/notes"
 ], function (
   $,
   _,
-  Backbone
+  Backbone,
+  NotesCollection
 ) {
   "use strict";
 
@@ -28,6 +30,9 @@ define([
 
     initialize: function () {
       this._query = this.$(".search-query").val().trim();
+
+      // Set collection.
+      this.collection = NotesCollection.getInstance();
 
       // Apply filter for any newly added notes.
       //
