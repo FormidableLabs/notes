@@ -28,9 +28,7 @@ define([
     initialize: function (opts) {
       opts || (opts = {});
 
-      this.notesView = new NotesView({}, {
-        router: this
-      });
+      this.notesView = new NotesView();
 
       // Validation.
       if (!this.notesView) { throw new Error("No notesView"); }
@@ -66,8 +64,7 @@ define([
 
       // Create note and add to DOM.
       this.noteView = new NoteView({ model: model }, {
-        action: action,
-        router: this
+        action: action
       });
       $("#note").html(this.noteView.render().$el);
     }

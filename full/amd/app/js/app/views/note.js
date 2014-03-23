@@ -35,16 +35,6 @@ define([
     },
 
     initialize: function (attrs, opts) {
-      // Default to empty options.
-      opts || (opts = {});
-
-      // Add member objects.
-      this.router = opts.router;
-
-      // Verification.
-      // -- Line Omitted in Book. --
-      if (!this.router) { throw new Error("No router"); }
-
       // Views.
       this.nav = NoteNavView.getInstance();
 
@@ -115,7 +105,7 @@ define([
       // Store new action and navigate.
       if (this.action !== action) {
         this.action = action;
-        this.router.navigate(loc, { replace: true });
+        Backbone.history.navigate(loc, { replace: true });
       }
     },
 
@@ -132,7 +122,7 @@ define([
     deleteNote: function () {
       if (confirm("Delete note?")) {
         this.model.destroy();
-        this.router.navigate("", { trigger: true, replace: true });
+        Backbone.history.navigate("", { trigger: true, replace: true });
       }
     },
 

@@ -36,12 +36,7 @@ define([
       }
     },
 
-    initialize: function (attrs, opts) {
-      // Get router from options.
-      opts || (opts = {});
-      this.router = opts.router;
-      if (!this.router) { throw new Error("No router"); }
-
+    initialize: function () {
       // Cache view and just show on re-render.
       this.$input = this.$("#note-new-input");
 
@@ -78,8 +73,6 @@ define([
     addNote: function (model) {
       var view = new NotesItemView({
         model: model
-      }, {
-        router: this.router
       });
 
       this.$("#notes-list tr")
