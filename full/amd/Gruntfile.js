@@ -98,6 +98,19 @@ module.exports = function (grunt) {
               "fonts/**",
               "js/**"
             ]
+          },
+          // Copy select Jasmine files.
+          {
+            cwd: "<%= bowerPath %>/jasmine",
+            dest: "<%= vendorPath %>/jasmine",
+            expand: true,
+            flatten: true,
+            src: [
+              "lib/jasmine-core/jasmine.css",
+              "lib/jasmine-core/jasmine.js",
+              "lib/jasmine-core/jasmine-html.js",
+              "lib/jasmine-core/boot.js"
+            ]
           }
         ]
       }

@@ -13,6 +13,7 @@
     "requirejs": "2.1.11"
   },
   "devDependencies": {
-    "sinonjs": "1.9.0"
+    "sinonjs": "1.9.0",
+    "jasmine": "2.0.0"
   }
 }
