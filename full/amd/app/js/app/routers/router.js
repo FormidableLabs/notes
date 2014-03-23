@@ -25,13 +25,9 @@ define([
       "note/:id/:action": "note",
     },
 
-    initialize: function (opts) {
-      opts || (opts = {});
-
+    initialize: function () {
+      // Create a base notes view.
       this.notesView = new NotesView();
-
-      // Validation.
-      if (!this.notesView) { throw new Error("No notesView"); }
 
       // Stash current note view for re-rendering.
       this.noteView = null;
