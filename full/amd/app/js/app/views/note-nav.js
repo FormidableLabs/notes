@@ -28,7 +28,7 @@ define(["underscore", "backbone"], function (_, Backbone) {
       this.$("li").removeClass("active");
 
       // Update the navbar UI for view/edit (not delete).
-      this.on({
+      this.listenTo(this, {
         "nav:update:view": this.updateView,
         "nav:update:edit": this.updateEdit
       });
