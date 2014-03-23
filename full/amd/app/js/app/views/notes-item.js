@@ -29,12 +29,7 @@ define([
       "click .note-delete": function () { this.deleteNote(); }
     },
 
-    initialize: function (attrs, opts) {
-      // Get router from options.
-      opts || (opts = {});
-      this.router = opts.router;
-      if (!this.router) { throw new Error("No router"); }
-
+    initialize: function () {
       this.listenTo(this.model, {
         "change":   function () { this.render(); },
         "destroy":  function () { this.remove(); }
@@ -48,12 +43,12 @@ define([
 
     viewNote: function () {
       var loc = ["note", this.model.id, "view"].join("/");
-      this.router.navigate(loc, { trigger: true });
+      Backbone.history.navigate(loc, { trigger: true });
     },
 
     editNote: function () {
       var loc = ["note", this.model.id, "edit"].join("/");
-      this.router.navigate(loc, { trigger: true });
+      Backbone.history.navigate(loc, { trigger: true });
     },
 
     deleteNote: function () {

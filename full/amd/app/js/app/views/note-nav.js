@@ -1,4 +1,4 @@
-define(["backbone"], function (Backbone) {
+define(["underscore", "backbone"], function (_, Backbone) {
   "use strict";
 
   // Note Navigation Bar View
@@ -28,7 +28,7 @@ define(["backbone"], function (Backbone) {
       this.$("li").removeClass("active");
 
       // Update the navbar UI for view/edit (not delete).
-      this.on({
+      this.listenTo(this, {
         "nav:update:view": this.updateView,
         "nav:update:edit": this.updateEdit
       });
@@ -58,6 +58,11 @@ define(["backbone"], function (Backbone) {
       return false;
     }
 
+  });
+
+  // Singleton.
+  NoteNavView.getInstance = _.memoize(function () {
+    return new NoteNavView();
   });
 
   return NoteNavView;

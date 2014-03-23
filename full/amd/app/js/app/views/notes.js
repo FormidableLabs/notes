@@ -1,11 +1,13 @@
 define([
   "jquery",
   "backbone",
+  "app/collections/notes",
   "app/views/notes-filter",
   "app/views/notes-item"
 ], function (
   $,
   Backbone,
+  NotesCollection,
   NotesFilterView,
   NotesItemView
 ) {
@@ -34,14 +36,12 @@ define([
       }
     },
 
-    initialize: function (attrs, opts) {
-      // Get router from options.
-      opts || (opts = {});
-      this.router = opts.router;
-      if (!this.router) { throw new Error("No router"); }
-
+    initialize: function () {
       // Cache view and just show on re-render.
       this.$input = this.$("#note-new-input");
+
+      // Set collection.
+      this.collection = NotesCollection.getInstance();
 
       // Add notes when we get data.
       //
@@ -56,9 +56,7 @@ define([
       });
 
       // Create helper filter view.
-      this.filterView = new NotesFilterView({
-        collection: this.collection
-      });
+      this.filterView = new NotesFilterView();
 
       // Need the collection to be fetched to kick off adding notes.
       // This is currently done in "app.js"
@@ -75,8 +73,6 @@ define([
     addNote: function (model) {
       var view = new NotesItemView({
         model: model
-      }, {
-        router: this.router
       });
 
       this.$("#notes-list tr")
