@@ -3,12 +3,14 @@ define([
   "underscore",
   "backbone",
   "app/views/note-view",
+  "app/views/note-nav",
   "app/templates/templates"
 ], function (
   $,
   _,
   Backbone,
   NoteViewView,
+  NoteNavView,
   templates
 ) {
   "use strict";
@@ -37,13 +39,14 @@ define([
       opts || (opts = {});
 
       // Add member objects.
-      this.nav = opts.nav;
       this.router = opts.router;
 
       // Verification.
       // -- Line Omitted in Book. --
-      if (!this.nav) { throw new Error("No nav"); }
       if (!this.router) { throw new Error("No router"); }
+
+      // Views.
+      this.nav = NoteNavView.getInstance();
 
       // Add our custom listeners.
       this._addListeners();

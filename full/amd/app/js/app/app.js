@@ -2,8 +2,6 @@ define([
   "jquery",
   "backbone",
   "app/collections/notes",
-  "app/views/notes",
-  "app/views/note-nav",
   "app/routers/router",
 
   // Polyfill JSON for old browsers.
@@ -12,8 +10,6 @@ define([
   $,
   Backbone,
   NotesCollection,
-  NotesView,
-  NoteNavView,
   Router
 ) {
   "use strict";

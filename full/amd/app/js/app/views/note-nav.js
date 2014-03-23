@@ -60,5 +60,10 @@ define(["backbone"], function (Backbone) {
 
   });
 
+  // Singleton.
+  NoteNavView.getInstance = _.memoize(function () {
+    return new NoteNavView();
+  });
+
   return NoteNavView;
 });
