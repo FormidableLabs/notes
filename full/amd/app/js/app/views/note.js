@@ -35,6 +35,8 @@ define([
     },
 
     initialize: function (attrs, opts) {
+      opts || (opts = {});
+
       // Views.
       this.nav = NoteNavView.getInstance();
 
@@ -69,7 +71,7 @@ define([
       });
 
       // Respond to update events from router.
-      this.on({
+      this.listenTo(this, {
         "update:view": function () { this.render().viewNote(); },
         "update:edit": function () { this.render().editNote(); }
       });
