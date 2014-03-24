@@ -38,7 +38,7 @@ define([
       opts || (opts = {});
 
       // Views.
-      this.nav = NoteNavView.getInstance();
+      this.nav = new NoteNavView();
 
       // Add our custom listeners.
       this._addListeners();
