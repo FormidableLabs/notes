@@ -1,4 +1,4 @@
-define(["underscore", "backbone"], function (_, Backbone) {
+define(["backbone"], function (Backbone) {
   "use strict";
 
   // Note Navigation Bar View
@@ -58,11 +58,6 @@ define(["underscore", "backbone"], function (_, Backbone) {
       return false;
     }
 
-  });
-
-  // Singleton.
-  NoteNavView.getInstance = _.memoize(function () {
-    return new NoteNavView();
   });
 
   return NoteNavView;
