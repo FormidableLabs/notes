@@ -12,23 +12,13 @@
     <!-- JavaScript Test Libraries. -->
     <script type="text/javascript" src="../../app/js/vendor/jasmine/jasmine.js"></script>
     <script type="text/javascript" src="../../app/js/vendor/jasmine/jasmine-html.js"></script>
-    <script type="text/javascript" src="../../app/js/vendor/jasmine/boot.js"></script>
 
     <!-- JavaScript Test Spec. -->
     <script src="../../app/js/vendor/require.js"></script>
     <script>
-      // Load RequireJS app and test configurations.
+      // Load RequireJS app and start up tests.
       require(["../../app/js/config.js"], function () {
-        require(["./js/config-test.js"], function () {
-          console.log("TODO HERE", window);
-          console.log("TODO HERE", window.jasmine);
-          require([
-            "spec/collections/notes.spec"
-          ], function () {
-            // jasmine.getEnv().addReporter(new jasmine.HtmlReporter());
-            // jasmine.getEnv().execute();
-          });
-        });
+        require(["./js/main-test.js"]);
       })
     </script>
 
