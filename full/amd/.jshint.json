@@ -23,6 +23,13 @@
       "require",
       "define",
 
+      // Jasmine,
+      "describe",
+      "beforeEach",
+      "afterEach",
+      "it",
+      "expect",
+
       // Sinon.JS
       "sinon"
   ],

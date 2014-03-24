@@ -11,6 +11,8 @@ Tasks
 * **Karma**: Drive it all.
 * **Skeleton**: Translate everything over there.
 
+* Remove Jasmine `boot.js` from vendor copied sources.
+
 ## Infrastructure
 
 * `package.json`: Add other relevant fields: `repository`, `homepage`,

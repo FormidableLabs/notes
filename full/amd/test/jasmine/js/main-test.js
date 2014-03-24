@@ -20,10 +20,11 @@
   // Modified from http://jasmine.github.io/2.0/boot.html to work with AMD.
 
   // Start with Jasmine.
-  var jasmine = jasmineRequire.core(jasmineRequire);
+  var jasReq = window.jasmineRequire;
+  var jasmine = jasReq.core(jasReq);
 
   // Add in HTML stuff.
-  jasmineRequire.html(jasmine);
+  jasReq.html(jasmine);
 
   // Create the Jasmine environment.
   var env = jasmine.getEnv();
@@ -69,6 +70,5 @@
     // Start tests.
     htmlReporter.initialize();
     env.execute();
-    console.log("TODO HERE DONE", spec);
   });
 }());

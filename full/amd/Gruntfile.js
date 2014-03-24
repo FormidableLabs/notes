@@ -32,7 +32,8 @@ module.exports = function (grunt) {
         files: {
           src: [
             "app/js/*.js",
-            "app/js/app/**/*.js"
+            "app/js/app/**/*.js",
+            "test/*/js/**/*.js"
           ]
         }
       }
