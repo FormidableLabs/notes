@@ -109,8 +109,7 @@ module.exports = function (grunt) {
             src: [
               "lib/jasmine-core/jasmine.css",
               "lib/jasmine-core/jasmine.js",
-              "lib/jasmine-core/jasmine-html.js",
-              "lib/jasmine-core/boot.js"
+              "lib/jasmine-core/jasmine-html.js"
             ]
           }
         ]
