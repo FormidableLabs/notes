@@ -16,3 +16,4 @@ Tasks
 ## Meta Infrastructure
 
 * JsHint the gruntfiles in projects.
+* Docs build for `gh-pages`.
