@@ -8,4 +8,4 @@ node_modules
 npm-debug\.log
 
 # Keep vendor libraries out of source.
-app/js/vendor
+# (gh-pages) app/js/vendor
