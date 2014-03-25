@@ -19,5 +19,8 @@
     "karma-safari-launcher": "0.1.1",
     "karma-spec-reporter": "0.0.12",
     "requirejs": "2.1.11"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/.bin/bower install"
   }
 }
