@@ -3,13 +3,15 @@ Tasks
 
 ## AMD App
 
-* **CI**: Hook up to Travis (make public?).
+* **Skeleton**: Translate everything over there.
 * **Build**: Add the bundle build.
+
 * **Bower Misc**: Figure out if keeping assets under source or not.
-* **Handlebars**: Switch to HBS.
+
 * **Jasmine Tests**: Do these.
 * **Jasmine Plugins**: Sinon, jQuery?
-* **Skeleton**: Translate everything over there.
+
+* **Handlebars**: Switch to HBS.
 
 ## Meta Infrastructure
 
