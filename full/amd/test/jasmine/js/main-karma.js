@@ -1,5 +1,7 @@
 /**
  * RequireJS Jasmine Test configuration
+ *
+ * See: http://karma-runner.github.io/0.8/plus/RequireJS.html
  */
 (function () {
   var root = this,

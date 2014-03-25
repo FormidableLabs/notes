@@ -125,21 +125,17 @@ module.exports = function (grunt) {
       options: {
         frameworks: ["jasmine", "requirejs"],
         runnerPort: 9999,
+        reporter: ["progress"],
         files: [
+          // Adapters, config and test wrapper.
+          // "test/jasmine/js/jasmine-adapter.js",
+          "app/js/config.js",
+          "test/jasmine/js/main-karma.js",
 
           // Includes.
           { pattern: "app/js/**/*.js",                included: false },
-          { pattern: "test/jasmine/js/spec/**/*.js",  included: false },
-
-          // Adapters, config and test wrapper.
-          "test/jasmine/js/jasmine-adapter.js",
-          "app/js/config.js",
-          "test/jasmine/js/main-karma.js"
-        ],
-        exclude: [
-        ],
-        client: {
-        }
+          { pattern: "test/jasmine/js/spec/**/*.js",  included: false }
+        ]
       },
       fast: {
         singleRun: true,

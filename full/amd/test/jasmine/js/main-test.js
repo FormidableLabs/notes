@@ -5,20 +5,13 @@
   var root = this;
 
   // --------------------------------------------------------------------------
-  // RequireJS configuration.
+  // Jasmine configuration.
   // --------------------------------------------------------------------------
-  require.config({
-    baseUrl: "../../app/js/vendor",
-    paths: {
-      spec: "../../../test/jasmine/js/spec"
-    }
-  });
-
-  // --------------------------------------------------------------------------
-  // Jasmine HTML Reporter
-  // --------------------------------------------------------------------------
-  var jasReq = root.jasmineRequire;
-  var env = root.jasmine.getEnv();
+  // Modified from http://jasmine.github.io/2.0/boot.html to work with AMD.
+  // Start with Jasmine.
+  var jasReq = jasmineRequire;
+  var jasmine = jasReq.core(jasReq);
+  var env = jasmine.getEnv();
 
   // Simple function proxy and binding.
   var _proxy = function (obj, name) {
@@ -27,19 +20,38 @@
     };
   };
 
+  // Patch global (`window`) with BDD interface.
+  root.describe   = _proxy(env, "describe");
+  root.xdescribe  = _proxy(env, "xdescribe");
+  root.it         = _proxy(env, "it");
+  root.xit        = _proxy(env, "xit");
+  root.beforeEach = _proxy(env, "beforeEach");
+  root.afterEach  = _proxy(env, "afterEach");
+  root.expect     = _proxy(env, "expect");
+
   // Reporter: HTML
-  jasReq.html(root.jasmine);
+  jasReq.html(jasmine);
 
   // Set up the HTML reporter.
-  var htmlReporter = new root.jasmine.HtmlReporter({
+  var htmlReporter = new jasmine.HtmlReporter({
     env:            env,
     getContainer:   function () { return document.body; },
     createElement:  _proxy(document, "createElement"),
     createTextNode: _proxy(document, "createTextNode"),
-    timer:          new root.jasmine.Timer()
+    timer:          new jasmine.Timer()
   });
 
   env.addReporter(htmlReporter);
+
+  // --------------------------------------------------------------------------
+  // RequireJS configuration.
+  // --------------------------------------------------------------------------
+  require.config({
+    baseUrl: "../../app/js/vendor",
+    paths: {
+      spec: "../../../test/jasmine/js/spec"
+    }
+  });
 
   // --------------------------------------------------------------------------
   // Test Includes
