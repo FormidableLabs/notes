@@ -125,10 +125,9 @@ module.exports = function (grunt) {
       options: {
         frameworks: ["jasmine", "requirejs"],
         runnerPort: 9999,
-        reporter: ["progress"],
+        reporters: ["spec"],
         files: [
           // Adapters, config and test wrapper.
-          // "test/jasmine/js/jasmine-adapter.js",
           "app/js/config.js",
           "test/jasmine/js/main-karma.js",
 
@@ -150,8 +149,8 @@ module.exports = function (grunt) {
         browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
       },
       dev: {
-        // Invoke with `karma run` in another terminal.
-        browsers: ["Chrome"]
+        // Runs tests automatically on changes in ongoing terminal.
+        browsers: ["Chrome", "Chrome", "Firefox", "Safari"]
       }
     }
 
@@ -178,7 +177,14 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: QA
   // --------------------------------------------------------------------------
-  grunt.registerTask("test",  ["karma:fast"]);
-  grunt.registerTask("check", ["jshint"]);
+  grunt.registerTask("test",      ["karma:fast"]);
 
+  grunt.registerTask("check",     ["jshint", "test"]);
+  grunt.registerTask("check:ci",  ["jshint", "karma:ci"]);
+  grunt.registerTask("check:all", ["jshint", "karma:all"]);
+
+  // --------------------------------------------------------------------------
+  // Tasks: Default
+  // --------------------------------------------------------------------------
+  grunt.registerTask("default",   ["build", "check"]);
 };

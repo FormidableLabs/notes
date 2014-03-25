@@ -9,7 +9,7 @@
   // --------------------------------------------------------------------------
   // Modified from http://jasmine.github.io/2.0/boot.html to work with AMD.
   // Start with Jasmine.
-  var jasReq = jasmineRequire;
+  var jasReq = root.jasmineRequire;
   var jasmine = jasReq.core(jasReq);
   var env = jasmine.getEnv();
 
