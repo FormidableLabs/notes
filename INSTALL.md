@@ -1,11 +1,10 @@
-Installation
-============
+Installation - Notes Project
+============================
 
 The Notes project is driven by the following tools, technologies, and services:
 
 * Git
 * Node.js
-* GitHub
 
 ## Development
 
