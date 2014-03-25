@@ -123,18 +123,18 @@ module.exports = function (grunt) {
     // See: https://github.com/kjbekkelund/karma-requirejs
     karma: {
       options: {
-        frameworks: ["jasmine"],
+        frameworks: ["jasmine", "requirejs"],
         runnerPort: 9999,
         files: [
-          // Libraries.
-          "app/js/vendor/require.js",
 
-          // Configuration.
+          // Includes.
+          { pattern: "app/js/**/*.js",                included: false },
+          { pattern: "test/jasmine/js/spec/**/*.js",  included: false },
+
+          // Adapters, config and test wrapper.
+          "test/jasmine/js/jasmine-adapter.js",
           "app/js/config.js",
-          "test/jasmine/js/main-test.js",
-
-          // Tests.
-          "test/jasmine/js/spec/**/*.js"
+          "test/jasmine/js/main-karma.js"
         ],
         exclude: [
         ],
@@ -155,7 +155,7 @@ module.exports = function (grunt) {
       },
       dev: {
         // Invoke with `karma run` in another terminal.
-        browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
+        browsers: ["Chrome"]
       }
     }
 

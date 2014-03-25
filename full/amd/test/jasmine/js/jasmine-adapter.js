@@ -13,9 +13,8 @@
 
   // Start with Jasmine.
   var jasReq = root.jasmineRequire;
-  var jasmine = jasReq.core(jasReq);
-  root.jEnv = jasmine.getEnv();
-  root.jHtmlReporter = null;
+  root.jasmine = jasReq.core(jasReq);
+  var env = root.jasmine.getEnv();
 
   // Simple function proxy and binding.
   var _proxy = function (obj, name) {
@@ -25,32 +24,16 @@
   };
 
   // Patch global (`window`) with BDD interface.
-  root.describe   = _proxy(root.jEnv, "describe");
-  root.xdescribe  = _proxy(root.jEnv, "xdescribe");
-  root.it         = _proxy(root.jEnv, "it");
-  root.xit        = _proxy(root.jEnv, "xit");
-  root.beforeEach = _proxy(root.jEnv, "beforeEach");
-  root.afterEach  = _proxy(root.jEnv, "afterEach");
-  root.expect     = _proxy(root.jEnv, "expect");
-
-  // Reporter: HTML
-  if (jasReq.html) {
-    jasReq.html(jasmine);
-
-    // Set up the HTML reporter.
-    root.jHtmlReporter = new jasmine.HtmlReporter({
-      env:            root.jEnv,
-      getContainer:   function () { return document.body; },
-      createElement:  _proxy(document, "createElement"),
-      createTextNode: _proxy(document, "createTextNode"),
-      timer:          new jasmine.Timer()
-    });
-
-    root.jEnv.addReporter(root.jHtmlReporter);
-  }
+  root.describe   = _proxy(env, "describe");
+  root.xdescribe  = _proxy(env, "xdescribe");
+  root.it         = _proxy(env, "it");
+  root.xit        = _proxy(env, "xit");
+  root.beforeEach = _proxy(env, "beforeEach");
+  root.afterEach  = _proxy(env, "afterEach");
+  root.expect     = _proxy(env, "expect");
 
   // API reporter for other tool integration.
-  root.jEnv.addReporter(new jasmine.JsApiReporter({
-    timer: new jasmine.Timer()
+  env.addReporter(new root.jasmine.JsApiReporter({
+    timer: new root.jasmine.Timer()
   }));
 }());
