@@ -24,21 +24,6 @@ module.exports = function (grunt) {
     vendorPath: "app/js/vendor",
 
     // ------------------------------------------------------------------------
-    // JsHint style checks.
-    // ------------------------------------------------------------------------
-    jshint: {
-      client: {
-        options: _readJsonCfg(".jshint.json"),
-        files: {
-          src: [
-            "app/js/*.js",
-            "app/js/app/**/*.js"
-          ]
-        }
-      }
-    },
-
-    // ------------------------------------------------------------------------
     // Clean tasks.
     // ------------------------------------------------------------------------
     clean: {
@@ -98,16 +83,84 @@ module.exports = function (grunt) {
               "fonts/**",
               "js/**"
             ]
+          },
+          // Copy select Jasmine files.
+          {
+            cwd: "<%= bowerPath %>/jasmine",
+            dest: "<%= vendorPath %>/jasmine",
+            expand: true,
+            flatten: true,
+            src: [
+              "lib/jasmine-core/jasmine.css",
+              "lib/jasmine-core/jasmine.js",
+              "lib/jasmine-core/jasmine-html.js"
+            ]
           }
         ]
       }
+    },
+
+    // ------------------------------------------------------------------------
+    // JsHint style checks.
+    // ------------------------------------------------------------------------
+    jshint: {
+      client: {
+        options: _readJsonCfg(".jshint.json"),
+        files: {
+          src: [
+            "app/js/*.js",
+            "app/js/app/**/*.js",
+            "test/*/js/**/*.js"
+          ]
+        }
+      }
+    },
+
+    // ------------------------------------------------------------------------
+    // Karma test driver.
+    // ------------------------------------------------------------------------
+    // See: http://karma-runner.github.io/0.8/plus/RequireJS.html
+    // See: https://github.com/kjbekkelund/karma-requirejs
+    karma: {
+      options: {
+        frameworks: ["jasmine", "requirejs"],
+        runnerPort: 9999,
+        reporters: ["spec"],
+        files: [
+          // Adapters, config and test wrapper.
+          "app/js/config.js",
+          "test/jasmine/js/main-karma.js",
+
+          // Includes.
+          { pattern: "app/js/**/*.js",                included: false },
+          { pattern: "test/jasmine/js/spec/**/*.js",  included: false }
+        ]
+      },
+      fast: {
+        singleRun: true,
+        browsers: ["PhantomJS"]
+      },
+      ci: {
+        singleRun: true,
+        browsers: ["PhantomJS", "Firefox"]
+      },
+      all: {
+        singleRun: true,
+        browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
+      },
+      dev: {
+        // Runs tests automatically on changes in ongoing terminal.
+        browsers: ["Chrome", "Chrome", "Firefox", "Safari"]
+      }
     }
+
   });
 
   // Load dependencies.
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-contrib-copy");
+  grunt.loadNpmTasks("grunt-karma");
 
   // --------------------------------------------------------------------------
   // Tasks: Build
@@ -122,8 +175,16 @@ module.exports = function (grunt) {
   ]);
 
   // --------------------------------------------------------------------------
-  // Tasks: Build
+  // Tasks: QA
   // --------------------------------------------------------------------------
-  grunt.registerTask("check", ["jshint"]);
+  grunt.registerTask("test",      ["karma:fast"]);
 
+  grunt.registerTask("check",     ["jshint", "test"]);
+  grunt.registerTask("check:ci",  ["jshint", "karma:ci"]);
+  grunt.registerTask("check:all", ["jshint", "karma:all"]);
+
+  // --------------------------------------------------------------------------
+  // Tasks: Default
+  // --------------------------------------------------------------------------
+  grunt.registerTask("default",   ["build", "check"]);
 };
