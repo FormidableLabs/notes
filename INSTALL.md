@@ -1,10 +1,13 @@
 Installation - Notes Project
 ============================
 
-The Notes project is driven by the following tools, technologies, and services:
+The Notes project needs a basic Git and Node.js installation on a modern
+Windows, Linux or Mac OS X machine.
 
-* Git
-* Node.js
+Once you tackle the base installation here, you can look to further package
+specific installations including:
+
+* [`full/amd/INSTALL.md`](full/amd/INSTALL.md): AMD full implementation.
 
 ## Development
 
@@ -47,6 +50,31 @@ Verify installation with:
 ```
 $ node --version
 $ npm --version
+```
+
+## Extras
+
+### Shell Enhancements
+
+To avoid typing long paths like:
+
+```
+$ node_modules/.bin/grunt
+$ node_modules/.bin/bower
+```
+
+We also recommend adding the following path snippet (in Bash):
+
+```
+export PATH=${PATH}:./node_modules/.bin
+```
+
+and in Windows
+"Advanced System Settings > Environment Variables > User Variables > Path"
+append the following:
+
+```
+;node_modules\.bin
 ```
 
 ## Recommended Other Tools
