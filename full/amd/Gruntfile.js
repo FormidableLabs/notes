@@ -150,7 +150,7 @@ module.exports = function (grunt) {
       },
       dev: {
         // Runs tests automatically on changes in ongoing terminal.
-        browsers: ["Chrome", "Chrome", "Firefox", "Safari"]
+        browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
       }
     }
 
