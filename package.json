@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "description": "Notes application and frontend infrastructure",
   "devDependencies": {
+    "gulp": "3.5.6",
+    "gulp-grunt": "0.4.1",
+    "gulp-exec": "1.0.4"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/FormidableLabs/notes"
