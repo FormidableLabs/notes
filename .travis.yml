@@ -5,11 +5,13 @@ node_js:
 
 before_install:
   # GUI for real browsers.
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
 
 install:
-  - "cd full/amd && npm install"
+  - cd full/amd
+  - npm install
 
 script:
-  - "cd full/amd && ./node_modules/.bin/grunt check:ci"
+  - cd full/amd
+  - ./node_modules/.bin/grunt check:ci

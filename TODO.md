@@ -11,8 +11,6 @@ Tasks
 * **Jasmine Tests**: Do these.
 * **Jasmine Plugins**: Sinon, jQuery?
 
-* **Handlebars**: Switch to HBS.
-
 ## Meta Infrastructure
 
 * JsHint the gruntfiles in projects.
