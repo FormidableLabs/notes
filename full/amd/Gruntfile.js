@@ -22,6 +22,8 @@ module.exports = function (grunt) {
     bowerPath: "bower_components",
     // Application serving path for where vendor libraries should end up.
     vendorPath: "app/js/vendor",
+    // Application bundle path.
+    bundlePath: "app/js-dist",
 
     // ------------------------------------------------------------------------
     // Clean tasks.
@@ -111,6 +113,21 @@ module.exports = function (grunt) {
     },
 
     // ------------------------------------------------------------------------
+    // Bundle tasks.
+    // ------------------------------------------------------------------------
+    requirejs: {
+      app: {
+        options: {
+          name: "app/app",
+          baseUrl: "app/js/vendor",
+          mainConfigFile: "app/js/config.js",
+          out: "<%= bundlePath %>/app.js",
+          optimize: "uglify2"
+        }
+      }
+    },
+
+    // ------------------------------------------------------------------------
     // JsHint style checks.
     // ------------------------------------------------------------------------
     jshint: {
@@ -181,9 +198,10 @@ module.exports = function (grunt) {
   });
 
   // Load dependencies.
-  grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-contrib-copy");
+  grunt.loadNpmTasks("grunt-contrib-requirejs");
+  grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-karma");
   grunt.loadNpmTasks("grunt-contrib-connect");
 

@@ -7,5 +7,6 @@ bower_components
 node_modules
 npm-debug\.log
 
-# Keep vendor libraries out of source.
+# Keep vendor and build libraries out of source.
 app/js/vendor
+app/js-dist
