@@ -12,7 +12,9 @@ install:
   - cd full/amd
   - npm install
   - ./node_modules/.bin/grunt build
+  - cd ../..
 
 script:
   - cd full/amd
   - ./node_modules/.bin/grunt check:ci
+  - cd ../..
