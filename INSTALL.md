@@ -4,14 +4,21 @@ Installation - Notes Project
 The Notes project needs a basic Git and Node.js installation on a modern
 Windows, Linux or Mac OS X machine.
 
+
+## Project Installations
+
 Once you tackle the base installation here, you can look to further package
 specific installations including:
 
-* [`full/amd/INSTALL.md`](full/amd/INSTALL.md): AMD full implementation.
+* [`full/amd/README.md`](full/amd/README.md): Notes (AMD) implementation.
+
 
 ## Development
 
-To get the basic tools on your development machine:
+You will need the following basic tools on your development machine:
+
+* Git
+* Node.js/NPM
 
 ### Git
 
