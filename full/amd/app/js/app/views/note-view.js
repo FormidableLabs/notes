@@ -2,12 +2,12 @@ define([
   "underscore",
   "backbone",
   "showdown",
-  "app/templates/templates"
+  "hbs!app/templates/note-view"
 ], function (
   _,
   Backbone,
   Showdown,
-  templates
+  tmpl
 ) {
   "use strict";
 
@@ -16,7 +16,7 @@ define([
   // Render a single note pane for viewing.
   var NoteViewView = Backbone.View.extend({
 
-    template: _.template(templates["template-note-view"]),
+    template: tmpl,
 
     converter: new Showdown.converter(),
 
