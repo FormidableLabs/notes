@@ -136,7 +136,7 @@ module.exports = function (grunt) {
           name: "app/app",
           baseUrl: "app/js/vendor",
           mainConfigFile: "app/js/config.js",
-          out: "<%= distPath %>/app.js",
+          out: "<%= distPath %>/bundle.js",
           optimize: "uglify2"
         }
       }

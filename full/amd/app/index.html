@@ -92,11 +92,19 @@
     <!-- JavaScript -->
     <script src="js-dist/require.js"></script>
     <script>
-      // Load RequireJS configuration.
-      require(["./js/config.js"], function () {
-        // Then, bootstrap and start application.
-        require(["app/app"]);
-      })
+      // Look at query string to decide whether to use production bundle.
+      // Entering "?_dist=0" will disable bundle and use raw JS sources.
+      if (window.location.search.substr(1).indexOf("_dist=0") > -1) {
+        // Load RequireJS configuration, then bootstrap app.
+        require(["./js/config.js"], function () {
+          require(["app/app"]);
+        });
+      } else {
+        // We're bundled.
+        require(["./js-dist/bundle.js"], function () {
+          require(["app/app"]);
+        });
+      }
     </script>
   </body>
 </html>
