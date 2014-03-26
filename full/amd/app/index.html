@@ -90,13 +90,22 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="js/vendor/require.js"></script>
+    <script src="js-dist/require.js"></script>
     <script>
-      // Load RequireJS configuration.
-      require(["./js/config.js"], function () {
-        // Then, bootstrap and start application.
-        require(["app/app"]);
-      })
+      (function (){
+        // Look at query string to decide whether to use production bundle.
+        // Entering "?_dist=0" will disable bundle and use raw JS sources.
+        var useBundle = window.location.search.substr(1).indexOf("_dist=0") === -1;
+
+        // If bundled, require the `bundle.js` for single JS file.
+        // Otherwise, bootstrap off raw `config.js` for individual JS files.
+        var loadFile = useBundle ? "js-dist/bundle.js" : "js/config.js";
+
+        // Load base file (bundle or config), and invoke the app.
+        require([loadFile], function () {
+          require(["app/app"]);
+        });
+      }());
     </script>
   </body>
 </html>

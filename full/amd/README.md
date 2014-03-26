@@ -15,9 +15,11 @@ and available as source in the directory:
 
 ```
 full/amd/
-  app/
+  app/                // Application directory.
+    js/               // JS sources (not served in prod)
+    js-dist/          // Production bundle
   test/
-    jasmine/
+    jasmine/          // Jasmine test directory
 ```
 
 ## Development
@@ -51,7 +53,14 @@ $ grunt server
 ```
 
 and from there you can view the application at:
-[http://127.0.0.1:9874/app/](http://127.0.0.1:9874/app/).
+
+* [http://127.0.0.1:9874/app/](http://127.0.0.1:9874/app/): Full production
+  bundle as a single file. (Have to run `grunt build:dist` to pick up new
+  changes.)
+* [http://127.0.0.1:9874/app/?_dist=0](http://127.0.0.1:9874/app/?_dist=0):
+  Development-only version that uses raw, indivudal JS sources, downloading
+  each individually.
+
 Note that the application **needs** to be served and not accessed via
 `file://` in order for all parts to properly work. You will want to leave
 the server running during development and refresh your browser to see changes.

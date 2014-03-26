@@ -9,6 +9,7 @@
     "grunt-contrib-clean": "0.5.0",
     "grunt-contrib-copy": "0.5.0",
     "grunt-contrib-jshint": "0.9.2",
+    "grunt-contrib-requirejs": "0.4.3",
     "grunt-karma": "0.8.2",
     "karma": "0.12.1",
     "karma-chrome-launcher": "0.1.2",

@@ -22,12 +22,15 @@ module.exports = function (grunt) {
     bowerPath: "bower_components",
     // Application serving path for where vendor libraries should end up.
     vendorPath: "app/js/vendor",
+    // Application production (bundled) distribution path.
+    distPath: "app/js-dist",
 
     // ------------------------------------------------------------------------
     // Clean tasks.
     // ------------------------------------------------------------------------
     clean: {
-      vendor: "<%= vendorPath %>"
+      vendor: "<%= vendorPath %>",
+      dist: "<%= distPath %>"
     },
 
     // ------------------------------------------------------------------------
@@ -50,17 +53,14 @@ module.exports = function (grunt) {
           //     bower_components/FULL/PATH/TO/LIBRARY.js ->
           //     app/js/vendor/LIBRARY.js
           //
-          //     bower_components/blanket/dist/qunit/blanket.js ->
-          //     app/js/vendor/blanket.js
+          //     bower_components/jquery/dist/jquery.js ->
+          //     app/js/vendor/jquery.js
           {
             cwd: "<%= bowerPath %>",
             dest: "<%= vendorPath %>",
             expand: true,
             flatten: true,
             src: [
-              // Infrastructure.
-              "requirejs/require.js",
-
               // App libraries.
               "jquery/dist/jquery.js",
               "lodash/dist/lodash.underscore.js",
@@ -107,6 +107,38 @@ module.exports = function (grunt) {
             ]
           }
         ]
+      },
+
+      // Copy over specific distribution dependencies from bower.
+      dist: {
+        files: [
+          // Copy to production "distribution" directory.
+          {
+            cwd: "<%= bowerPath %>",
+            dest: "<%= distPath %>",
+            expand: true,
+            flatten: true,
+            src: [
+              // Infrastructure.
+              "requirejs/require.js"
+            ]
+          }
+        ]
+      }
+    },
+
+    // ------------------------------------------------------------------------
+    // Bundle tasks.
+    // ------------------------------------------------------------------------
+    requirejs: {
+      app: {
+        options: {
+          name: "app/app",
+          baseUrl: "app/js/vendor",
+          mainConfigFile: "app/js/config.js",
+          out: "<%= distPath %>/bundle.js",
+          optimize: "uglify2"
+        }
       }
     },
 
@@ -181,9 +213,10 @@ module.exports = function (grunt) {
   });
 
   // Load dependencies.
-  grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-contrib-copy");
+  grunt.loadNpmTasks("grunt-contrib-requirejs");
+  grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-karma");
   grunt.loadNpmTasks("grunt-contrib-connect");
 
@@ -194,9 +227,14 @@ module.exports = function (grunt) {
     "clean:vendor",
     "copy:vendor"
   ]);
+  grunt.registerTask("build:dist", [
+    "clean:dist",
+    "copy:dist",
+    "requirejs"
+  ]);
   grunt.registerTask("build", [
     "build:vendor",
-    "copy:vendor"
+    "build:dist"
   ]);
 
   // --------------------------------------------------------------------------
