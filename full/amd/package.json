@@ -24,6 +24,7 @@
     "grunt-contrib-connect": "0.7.1"
   },
   "scripts": {
-    "postinstall": "./node_modules/.bin/bower install"
+    "postinstall": "./node_modules/.bin/bower install",
+    "test": "./node_modules/.bin/grunt"
   }
 }
