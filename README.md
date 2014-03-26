@@ -33,6 +33,18 @@ the further instructions there.
 * [`full/amd/README.md`](full/amd/README.md): Full AMD application, available
   in source at: [`full/amd/`](full/amd/).
 
+
+## Build
+
+We test all changes with [Travis CI][trav]. Here's our current
+[build status][trav_site]:
+
+[![Build Status][trav_img]][trav_site]
+
+
 [notes_demo]: ./full/amd/app/index.html
 [packt]: http://www.packtpub.com/backbonejs-testing/book
 [backbone]: http://backbonejs.org/
+[trav]: https://travis-ci.org/
+[trav_img]: https://api.travis-ci.org/FormidableLabs/notes.png
+[trav_site]: https://travis-ci.org/FormidableLabs/notes

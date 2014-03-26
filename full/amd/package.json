@@ -9,6 +9,7 @@
     "grunt-contrib-clean": "0.5.0",
     "grunt-contrib-copy": "0.5.0",
     "grunt-contrib-jshint": "0.9.2",
+    "grunt-contrib-requirejs": "0.4.3",
     "grunt-karma": "0.8.2",
     "karma": "0.12.1",
     "karma-chrome-launcher": "0.1.2",
@@ -19,7 +20,8 @@
     "karma-requirejs": "0.2.1",
     "karma-safari-launcher": "0.1.1",
     "karma-spec-reporter": "0.0.12",
-    "requirejs": "2.1.11"
+    "requirejs": "2.1.11",
+    "grunt-contrib-connect": "0.7.1"
   },
   "scripts": {
     "postinstall": "./node_modules/.bin/bower install"

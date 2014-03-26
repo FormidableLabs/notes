@@ -24,12 +24,18 @@
       }
     },
 
+    // Maps: Specify aliases and specific libraries for plugins.
+    //
+    // See: http://requirejs.org/docs/api.html#config-map
+    map: {},
+
     // Paths: Prefixes / full paths to find libraries.
     //
     // See: http://requirejs.org/docs/api.html#config-paths
     paths: {
       // Vendor libraries.
       "underscore": "lodash.underscore",
+      "hbs": "hbs/hbs",
 
       // Application libraries.
       // Set up "app/" as base application prefix.

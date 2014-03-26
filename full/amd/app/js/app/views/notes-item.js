@@ -1,11 +1,11 @@
 define([
   "underscore",
   "backbone",
-  "app/templates/templates"
+  "hbs!app/templates/notes-item"
 ], function (
   _,
   Backbone,
-  templates
+  tmpl
 ) {
   "use strict";
 
@@ -21,7 +21,7 @@ define([
 
     className: "notes-item",
 
-    template: _.template(templates["template-notes-item"]),
+    template: tmpl,
 
     events: {
       "click .note-view":   function () { this.viewNote(); },
