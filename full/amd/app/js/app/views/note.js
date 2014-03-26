@@ -4,14 +4,14 @@ define([
   "backbone",
   "app/views/note-view",
   "app/views/note-nav",
-  "app/templates/templates"
+  "hbs!app/templates/note"
 ], function (
   $,
   _,
   Backbone,
   NoteViewView,
   NoteNavView,
-  templates
+  tmpl
 ) {
   "use strict";
 
@@ -27,7 +27,7 @@ define([
 
     id: "note-panes",
 
-    template: _.template(templates["template-note"]),
+    template: tmpl,
 
     events: {
       "blur   #note-form-edit": "saveNote",

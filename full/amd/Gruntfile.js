@@ -73,6 +73,16 @@ module.exports = function (grunt) {
               "sinonjs/sinon.js"
             ]
           },
+          // Copy HBS lib and dependencies.
+          {
+            cwd: "<%= bowerPath %>/hbs",
+            dest: "<%= vendorPath %>/hbs",
+            expand: true,
+            src: [
+              "hbs/**",
+              "hbs.js"
+            ]
+          },
           // Copy css/fonts/js of bootstrap's distribution.
           {
             cwd: "<%= bowerPath %>/bootstrap/dist",
@@ -156,8 +166,18 @@ module.exports = function (grunt) {
         // Runs tests automatically on changes in ongoing terminal.
         browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
       }
-    }
+    },
 
+    connect: {
+      // Run examples server at: http://127.0.0.1:9874
+      app: {
+        options: {
+          port: 9874,
+          base: ".",
+          keepalive: true
+        }
+      }
+    }
   });
 
   // Load dependencies.
@@ -165,6 +185,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-karma");
+  grunt.loadNpmTasks("grunt-contrib-connect");
 
   // --------------------------------------------------------------------------
   // Tasks: Build
@@ -190,5 +211,6 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: Default
   // --------------------------------------------------------------------------
+  grunt.registerTask("server",    ["connect:app"]);
   grunt.registerTask("default",   ["build", "check"]);
 };
