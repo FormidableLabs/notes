@@ -9,7 +9,10 @@ var fs = require("fs"),
   path = require("path"),
   gulp = require("gulp"),
   jshint = require("gulp-jshint"),
-  exec = require("gulp-exec");
+  exec = require("gulp-exec"),
+
+  // Oh, gulp, you disappoint me.
+  runSeq = require("run-sequence");
 
 // ----------------------------------------------------------------------------
 // Helpers
@@ -64,7 +67,7 @@ gulp.task("jshint", ["jshint:frontend", "jshint:backend"]);
 // ----------------------------------------------------------------------------
 // Generally speaking, `full` implementations control `skeleton`
 // implementations. These tasks bring the skeletons into sync with the fulls.
-gulp.task("sync:amd", function () {
+gulp.task("sync:amd", function (cb) {
   gulp
     .src([
       "full/amd/{.,}*",
@@ -76,24 +79,36 @@ gulp.task("sync:amd", function () {
       "full/amd/test/*/*.html",
       "full/amd/test/*/js/*.js",
 
+      "!full/amd/bower_components/{.,}**/{.,}*",
+      "!full/amd/node_modules/{.,}**/{.,}*"
+
     ], { base: "full/amd" })
-    .pipe(gulp.dest("skeleton/amd"));
+    .pipe(gulp.dest("skeleton/amd"))
+    .on("end", cb);
 });
 
-gulp.task("install:amd", function () {
+gulp.task("install:amd", function (cb) {
   gulp
     .src("*/amd/Gruntfile.js")
-    .pipe(_execTask("npm", "install"));
+    .pipe(_execTask("npm", "install"))
+    .on("end", cb);
 });
 
 // ----------------------------------------------------------------------------
 // Aggregated Tasks
 // ----------------------------------------------------------------------------
+// No dependencies
 gulp.task("check:dev",  ["jshint"]);
 gulp.task("check",      ["check:dev"]);
 
-gulp.task("sync",       ["sync:amd"]);
 gulp.task("install",    ["install:amd"]);
+gulp.task("sync",       ["sync:amd"]);
 
-// TODO HERE: Need enforced order.
-gulp.task("default",    ["sync", "install", "check"]);
+gulp.task("default", function (cb) {
+  // Need tasks **completely** done to get **new** files to run tasks on.
+  runSeq(["sync"], function () {
+    runSeq(["install"], function () {
+      runSeq(["check"], cb);
+    });
+  });
+});
