@@ -1,6 +1,11 @@
 Tasks
 =====
 
+## Tests
+
+* **Spec Deps**: Have a separate "dependencies file" for skeleton
+* test in karma and browser.
+
 ## AMD App
 
 * **Skeleton**: Translate everything over there.
