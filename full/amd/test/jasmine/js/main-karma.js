@@ -5,20 +5,28 @@
  */
 (function () {
   var root = this,
-    karma = root.__karma__,
-    specs = [];
+    karma = root.__karma__;
 
   // --------------------------------------------------------------------------
   // Test Includes
   // --------------------------------------------------------------------------
-  // Infer from Karma itself (need to already be loaded).
-  for (var file in karma.files) {
-    if (karma.files.hasOwnProperty(file)) {
-      if (/\.spec\.js$/.test(file)) {
-        specs.push(file);
-      }
-    }
-  }
+  // NOTE: Alternate way of getting test specs is to **automatically** infer
+  // them from the file system. You can uncomment the code below...
+  //
+  // // Infer from Karma itself (need to already be loaded).
+  // var specs = [];
+  // for (var file in karma.files) {
+  //   if (karma.files.hasOwnProperty(file)) {
+  //     if (/\.spec\.js$/.test(file)) {
+  //       specs.push(file);
+  //     }
+  //   }
+  // }
+  //
+  // ... and then switch to `deps: specs,` in `require.config()` below.
+  //
+  // We currently **don't** do this because the browser tests need an already
+  // defined list, so we share that with the automated tests.
 
   // --------------------------------------------------------------------------
   // RequireJS configuration.
@@ -29,7 +37,7 @@
       spec: "../../../test/jasmine/js/spec"
     },
     // Add specs as straight dependencies.
-    deps: specs,
+    deps: ["spec/deps"],
     callback: karma.start
   });
 }());

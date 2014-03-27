@@ -56,9 +56,8 @@
   // --------------------------------------------------------------------------
   // Test Includes
   // --------------------------------------------------------------------------
-  require([
-    "spec/collections/notes.spec"
-  ], function (spec) {
+  // The file `spec/deps.js` specifies all test dependencies we should run.
+  require(["spec/deps"], function () {
     // Start tests.
     htmlReporter.initialize();
     env.execute();
