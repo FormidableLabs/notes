@@ -1,14 +1,9 @@
 /**
- * A simple "hello world" test file (with no app dependencies yet).
+ * Test dependencies.
+ *
+ * This file lists out all of the individual spec (test) files so that they
+ * are run by our infrastructure.
  */
-define([], function () {
-  describe("My Test Suite", function () {
-    it("should be true", function () {
-      expect(true).toBeTruthy();
-    });
-
-    it("should be false", function () {
-      expect(false).toBeFalsy();
-    });
-  });
-});
+define([
+  "spec/hello.spec"
+]);
