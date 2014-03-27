@@ -1,0 +1,30 @@
+{
+  "name": "notes",
+  "version": "0.0.1",
+  "description": "Notes application and frontend infrastructure",
+  "devDependencies": {
+    "gulp": "3.5.6",
+    "gulp-exec": "1.0.4",
+    "gulp-jshint": "1.5.1",
+    "run-sequence": "0.3.6"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FormidableLabs/notes"
+  },
+  "keywords": [
+    "backbone",
+    "frontend",
+    "requirejs",
+    "bower",
+    "grunt",
+    "test",
+    "jasmine"
+  ],
+  "author": "Ryan Roemer <ryan.roemer@formidablelabs.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FormidableLabs/notes/issues"
+  }
+}
