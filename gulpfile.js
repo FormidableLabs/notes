@@ -40,6 +40,14 @@ var _gruntTask = function (name) {
   return _execTask("./node_modules/.bin/grunt", name);
 };
 
+// Make sequential and start fresh.
+// Wrap with a `reduceRight` and then execute the outer wrapper.
+var _seq = function (names, cb) {
+  return names.reduceRight(function (memo, name) {
+    return function () { runSeq([name], memo); };
+  }, cb);
+};
+
 // ----------------------------------------------------------------------------
 // JsHint
 // ----------------------------------------------------------------------------
@@ -117,12 +125,10 @@ gulp.task("check",      ["jshint"]);
 gulp.task("default", function (cb) {
   // Need tasks **completely** done to get **new** files to run tasks on.
   // Wrap with a `reduceRight` and then execute the outer wrapper.
-  [
+  _seq([
     "sync",
     "install",
     "build",
     "check"
-  ].reduceRight(function (memo, name) {
-    return function () { runSeq([name], memo); };
-  }, cb)();
+  ], cb)();
 });
