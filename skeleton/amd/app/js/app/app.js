@@ -10,6 +10,8 @@ define([
   "use strict";
 
   $(function () {
-    $("body").prepend("<h1>HELLO WORLD!</h1>");
+    $("<h1>HELLO WORLD!</h1>")
+      .css("text-align", "center")
+      .appendTo($("body"));
   });
 });
