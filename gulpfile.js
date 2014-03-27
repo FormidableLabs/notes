@@ -106,9 +106,12 @@ gulp.task("sync",       ["sync:amd"]);
 
 gulp.task("default", function (cb) {
   // Need tasks **completely** done to get **new** files to run tasks on.
-  runSeq(["sync"], function () {
-    runSeq(["install"], function () {
-      runSeq(["check"], cb);
-    });
-  });
+  // Wrap with a `reduceRight` and then execute the outer wrapper.
+  [
+    "sync",
+    "install",
+    "check"
+  ].reduceRight(function (memo, name) {
+    return function () { runSeq([name], memo); };
+  }, cb)();
 });
