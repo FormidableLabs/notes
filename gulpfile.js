@@ -95,4 +95,5 @@ gulp.task("check",      ["check:dev"]);
 gulp.task("sync",       ["sync:amd"]);
 gulp.task("install",    ["install:amd"]);
 
+// TODO HERE: Need enforced order.
 gulp.task("default",    ["sync", "install", "check"]);
