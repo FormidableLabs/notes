@@ -1,4 +1,13 @@
 // SKELETON
+/**
+ * Application.
+ *
+ * This file is usually the "binding" of all of the individual Backbone.js
+ * components into a unified whole. It is also typically *not* unit tested
+ * because it has side effects from just running it. So, here is the expected
+ * place to also do things like start Backbone.js History, do `$()` DOM
+ * manipulation, etc.
+ */
 define([
   "jquery",
   "backbone",
