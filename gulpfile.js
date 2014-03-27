@@ -23,6 +23,8 @@ var _jsonCfg = function (name) {
 // Wrapper for gulp-exec to bridge easily to grunt tasks.
 var _gruntTask = function (name) {
   return exec(
+    "echo \"Running '<%= options.name %>' in " +
+    "'<%= options.dirname(file.path) %>'\" && " +
     "cd \"<%= options.dirname(file.path) %>\" && " +
     "./node_modules/.bin/grunt <%= options.name %>", {
       dirname: path.dirname,
@@ -43,8 +45,7 @@ gulp.task("jshint:backend", function () {
   gulp
     .src([
       "*.js",
-      "tasks/**/*.js",
-      "test/js/adapters/node.js"
+      "*/*/Gruntfile.js"
     ])
     .pipe(jshint(_jsonCfg("./_dev/.jshintrc-backend.json")))
     .pipe(jshint.reporter("default"))
@@ -62,11 +63,11 @@ gulp.task("jshint", ["jshint:frontend", "jshint:backend"]);
 gulp.task("sync:amd", function () {
   gulp
     .src([
-      "full/amd/\.*",
+      "full/amd/.*",
       "full/amd/*",
       "!full/amd/README.md"
     ], { base: "full/amd" })
-    .pipe(gulp.dest("skeleton/amd"))
+    .pipe(gulp.dest("skeleton/amd"));
 });
 
 
@@ -77,6 +78,6 @@ gulp.task("sync:amd", function () {
 gulp.task("check:dev",  ["jshint"]);
 gulp.task("check",      ["check:dev"]);
 
-gulp.task("build",      []);
+gulp.task("sync",       ["sync:amd"]);
 
-gulp.task("default",    ["check", "build"]);
+gulp.task("default",    ["sync", "check"]);
