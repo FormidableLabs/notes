@@ -54,7 +54,6 @@ gulp.task("jshint:backend", function () {
 
 gulp.task("jshint", ["jshint:frontend", "jshint:backend"]);
 
-
 // ----------------------------------------------------------------------------
 // Builders
 // ----------------------------------------------------------------------------
@@ -66,13 +65,15 @@ gulp.task("sync:amd", function () {
       "full/amd/{.,}*",
       "!full/amd/README.md",
 
-      //"full/amd/app.*",
+      "full/amd/app/*.html",
+      "full/amd/app/js/*.js",
+      "full/amd/app/css/**",
+      "full/amd/test/*/*.html",
+      "full/amd/test/*/js/*.js",
 
     ], { base: "full/amd" })
     .pipe(gulp.dest("skeleton/amd"));
 });
-
-
 
 // ----------------------------------------------------------------------------
 // Aggregated Tasks
