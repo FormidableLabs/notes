@@ -67,7 +67,7 @@ gulp.task("jshint", ["jshint:frontend", "jshint:backend"]);
 // ----------------------------------------------------------------------------
 // Generally speaking, `full` implementations control `skeleton`
 // implementations. These tasks bring the skeletons into sync with the fulls.
-gulp.task("sync:amd", function (cb) {
+gulp.task("sync:amd", function () {
   gulp
     .src([
       "full/amd/{.,}*",
@@ -83,15 +83,13 @@ gulp.task("sync:amd", function (cb) {
       "!full/amd/node_modules/{.,}**/{.,}*"
 
     ], { base: "full/amd" })
-    .pipe(gulp.dest("skeleton/amd"))
-    .on("end", cb);
+    .pipe(gulp.dest("skeleton/amd"));
 });
 
-gulp.task("install:amd", function (cb) {
+gulp.task("install:amd", function () {
   gulp
     .src("*/amd/Gruntfile.js")
-    .pipe(_execTask("npm", "install"))
-    .on("end", cb);
+    .pipe(_execTask("npm", "install"));
 });
 
 // ----------------------------------------------------------------------------
