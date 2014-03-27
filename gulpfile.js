@@ -63,9 +63,11 @@ gulp.task("jshint", ["jshint:frontend", "jshint:backend"]);
 gulp.task("sync:amd", function () {
   gulp
     .src([
-      "full/amd/.*",
-      "full/amd/*",
-      "!full/amd/README.md"
+      "full/amd/{.,}*",
+      "!full/amd/README.md",
+
+      //"full/amd/app.*",
+
     ], { base: "full/amd" })
     .pipe(gulp.dest("skeleton/amd"));
 });
