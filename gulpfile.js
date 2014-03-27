@@ -92,15 +92,19 @@ gulp.task("install:amd", function () {
     .pipe(_execTask("npm", "install"));
 });
 
+gulp.task("build:amd", function () {
+  gulp
+    .src("*/amd/Gruntfile.js")
+    .pipe(_gruntTask("build"));
+});
+
 // ----------------------------------------------------------------------------
 // Aggregated Tasks
 // ----------------------------------------------------------------------------
-// No dependencies
-gulp.task("check:dev",  ["jshint"]);
-gulp.task("check",      ["check:dev"]);
-
-gulp.task("install",    ["install:amd"]);
 gulp.task("sync",       ["sync:amd"]);
+gulp.task("install",    ["install:amd"]);
+gulp.task("build",      ["build:amd"]);
+gulp.task("check",      ["jshint"]);
 
 gulp.task("default", function (cb) {
   // Need tasks **completely** done to get **new** files to run tasks on.
@@ -108,6 +112,7 @@ gulp.task("default", function (cb) {
   [
     "sync",
     "install",
+    "build",
     "check"
   ].reduceRight(function (memo, name) {
     return function () { runSeq([name], memo); };
