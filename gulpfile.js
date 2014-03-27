@@ -65,11 +65,11 @@ gulp.task("jshint", ["jshint:frontend", "jshint:backend"]);
 // ----------------------------------------------------------------------------
 // Builders
 // ----------------------------------------------------------------------------
-// Generally speaking, `full` implementations control `skeleton`
-// implementations. These tasks bring the skeletons into sync with the fulls.
-gulp.task("sync:amd", function () {
-  gulp
-    .src([
+// File globs.
+var FILES = {
+  AMD: {
+    GRUNT: "*/amd/Gruntfile.js",
+    SOURCES: [
       "full/amd/{.,}*",
       "!full/amd/README.md",
 
@@ -82,19 +82,27 @@ gulp.task("sync:amd", function () {
       "!full/amd/bower_components/{.,}**/{.,}*",
       "!full/amd/node_modules/{.,}**/{.,}*"
 
-    ], { base: "full/amd" })
+    ]
+  }
+};
+
+// Generally speaking, `full` implementations control `skeleton`
+// implementations. These tasks bring the skeletons into sync with the fulls.
+gulp.task("sync:amd", function () {
+  gulp
+    .src(FILES.AMD.SOURCES, { base: "full/amd" })
     .pipe(gulp.dest("skeleton/amd"));
 });
 
 gulp.task("install:amd", function () {
   gulp
-    .src("*/amd/Gruntfile.js")
+    .src(FILES.AMD.GRUNT)
     .pipe(_execTask("npm", "install"));
 });
 
 gulp.task("build:amd", function () {
   gulp
-    .src("*/amd/Gruntfile.js")
+    .src(FILES.AMD.GRUNT)
     .pipe(_gruntTask("build"));
 });
 
