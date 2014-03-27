@@ -1,11 +1,17 @@
 // SKELETON
 define([
   "jquery",
+  "backbone",
+
+  // Import and compile a HBS template.
+  "hbs!app/templates/hello",
 
   // Polyfill JSON for old browsers.
   "json2"
 ], function (
-  $
+  $,
+  Backbone,
+  helloTmpl
 ) {
   "use strict";
 
@@ -20,7 +26,7 @@ define([
     // in `index.html`.
     $(".notes-html").hide();
 
-    $("<h1>HELLO WORLD!</h1>")
+    $(helloTmpl({ message: "Hello World!" }))
       .css("text-align", "center")
       .appendTo($("body"));
   });
