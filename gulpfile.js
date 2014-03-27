@@ -80,6 +80,12 @@ gulp.task("sync:amd", function () {
     .pipe(gulp.dest("skeleton/amd"));
 });
 
+gulp.task("install:amd", function () {
+  gulp
+    .src("*/amd/Gruntfile.js")
+    .pipe(_execTask("npm", "install"));
+});
+
 // ----------------------------------------------------------------------------
 // Aggregated Tasks
 // ----------------------------------------------------------------------------
@@ -87,5 +93,6 @@ gulp.task("check:dev",  ["jshint"]);
 gulp.task("check",      ["check:dev"]);
 
 gulp.task("sync",       ["sync:amd"]);
+gulp.task("install",    ["install:amd"]);
 
-gulp.task("default",    ["sync", "check"]);
+gulp.task("default",    ["sync", "install", "check"]);
