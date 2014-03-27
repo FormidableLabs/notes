@@ -128,6 +128,18 @@ gulp.task("build:amd", function () {
     .pipe(_gruntTask("build"));
 });
 
+gulp.task("check:amd", function () {
+  gulp
+    .src(FILES.AMD.GRUNT)
+    .pipe(_gruntTask("check"));
+});
+
+gulp.task("check:all:amd", function () {
+  gulp
+    .src(FILES.AMD.GRUNT)
+    .pipe(_gruntTask("check:all"));
+});
+
 gulp.task("watch:amd", function () {
   gulp.watch(FILES.AMD.SOURCES, ["sync:amd"]);
 });
@@ -143,6 +155,8 @@ gulp.task("watch",      ["watch:amd"]);
 
 gulp.task("check",      ["jshint"]);
 gulp.task("check:ci",   ["jshint:backend"]);
+gulp.task("check:fast", ["jshint:backend", "check:amd"]);
+gulp.task("check:all",  ["jshint:backend", "check:all:amd"]);
 
 gulp.task("setup", function (cb) {
   _seq([
