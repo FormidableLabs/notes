@@ -142,6 +142,7 @@ gulp.task("build",      ["build:amd"]);
 gulp.task("watch",      ["watch:amd"]);
 
 gulp.task("check",      ["jshint"]);
+gulp.task("check:ci",   ["jshint:backend"]);
 
 gulp.task("setup", function (cb) {
   _seq([
