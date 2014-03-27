@@ -9,7 +9,6 @@ define([
 ) {
   "use strict";
 
-
   // Actually wire up and kick everything off!
   //
   // **Note**: The `app.js` file is usually just comprised of **imports**

@@ -4,6 +4,20 @@
  * appropriate for contributors to the project as a whole, and **not**
  * developers looking to use the `skeleton` or `full` implementations of
  * the examples.
+ *
+ * To run **everything** (install, build, copy to skeleton, check):
+ *
+ * ```
+ * $ gulp
+ * ```
+ *
+ * For a dev-friendly workflow, the do a `setup` then `watch` for full
+ * files to copy over to `skeleton`.
+ *
+ * ```
+ * $ gulp setup
+ * $ gulp watch
+ * ```
  */
 var fs = require("fs"),
   path = require("path"),
@@ -114,21 +128,32 @@ gulp.task("build:amd", function () {
     .pipe(_gruntTask("build"));
 });
 
+gulp.task("watch:amd", function () {
+  gulp.watch(FILES.AMD.SOURCES, ["sync:amd"]);
+});
+
 // ----------------------------------------------------------------------------
 // Aggregated Tasks
 // ----------------------------------------------------------------------------
 gulp.task("sync",       ["sync:amd"]);
 gulp.task("install",    ["install:amd"]);
 gulp.task("build",      ["build:amd"]);
+
+gulp.task("watch",      ["watch:amd"]);
+
 gulp.task("check",      ["jshint"]);
 
-gulp.task("default", function (cb) {
-  // Need tasks **completely** done to get **new** files to run tasks on.
-  // Wrap with a `reduceRight` and then execute the outer wrapper.
+gulp.task("setup", function (cb) {
   _seq([
     "sync",
     "install",
     "build",
+  ], cb)();
+});
+
+gulp.task("default", function (cb) {
+  _seq([
+    "setup",
     "check"
   ], cb)();
 });
