@@ -21,15 +21,20 @@ var _jsonCfg = function (name) {
 };
 
 // Wrapper for gulp-exec to bridge easily to grunt tasks.
-var _gruntTask = function (name) {
+var _execTask = function (cmd, args) {
   return exec(
-    "echo \"Running '<%= options.name %>' in " +
+    "echo \"Running '<%= options.cmd %> <%= options.args %>' in " +
     "'<%= options.dirname(file.path) %>'\" && " +
     "cd \"<%= options.dirname(file.path) %>\" && " +
-    "./node_modules/.bin/grunt <%= options.name %>", {
+    "<%= options.cmd %> <%= options.args %>", {
       dirname: path.dirname,
-      name: name
+      args: args,
+      cmd: cmd
     });
+};
+
+var _gruntTask = function (name) {
+  return _execTask("./node_modules/.bin/grunt", name);
 };
 
 // ----------------------------------------------------------------------------
