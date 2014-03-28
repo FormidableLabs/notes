@@ -5,5 +5,6 @@
  * are run by our infrastructure.
  */
 define([
-  "spec/collections/notes.spec"
+  "spec/collections/notes.spec",
+  "spec/models/note.spec"
 ]);
