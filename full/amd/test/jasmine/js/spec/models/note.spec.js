@@ -21,3 +21,11 @@ define(["app/models/note"], function (NoteModel) {
     });
   });
 });
+
+/* Backbone Testing References
+ *
+ * **See**
+ * http://backbone-testing.com/chapters/02/test/test.html
+ * http://backbone-testing.com/notes/test/js/spec/models/note.spec.js
+ * http://backbone-testing.com/notes/test/test.html?grep=App.Models.Note
+ */
