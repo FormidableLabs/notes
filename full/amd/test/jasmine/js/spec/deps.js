@@ -7,5 +7,6 @@
 define([
   "spec/collections/notes.spec",
   "spec/models/note.spec",
+  "spec/views/note-nav.spec",
   "spec/views/note-view.spec"
 ]);
