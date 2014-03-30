@@ -59,15 +59,15 @@ define([
     _addListeners: function () {
       // Model controls view rendering and existence.
       this.listenTo(this.model, {
-        "destroy": function () { this.remove(); },
+        "destroy": this.remove,
         "change":  function () { this.render().model.save(); }
       });
 
       // Navbar controls/responds to panes.
       this.listenTo(this.nav, {
-        "nav:view":   function () { this.viewNote(); },
-        "nav:edit":   function () { this.editNote(); },
-        "nav:delete": function () { this.deleteNote(); }
+        "nav:view":   this.viewNote,
+        "nav:edit":   this.editNote,
+        "nav:delete": this.deleteNote
       });
 
       // Respond to update events from router.
