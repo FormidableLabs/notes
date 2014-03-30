@@ -28,12 +28,8 @@ define([
     el: "#notes",
 
     events: {
-      "click    #note-create": function () {
-        this.createNote();
-      },
-      "keypress #note-new-input": function (ev) {
-        this.enterNote(ev);
-      }
+      "click    #note-create":    "createNote",
+      "keypress #note-new-input": "enterNote"
     },
 
     initialize: function () {
@@ -69,7 +65,7 @@ define([
       return this;
     },
 
-    // Add single child note view to front of notes list.
+    // Add single child note view to end of notes list.
     addNote: function (model) {
       var view = new NotesItemView({
         model: model
