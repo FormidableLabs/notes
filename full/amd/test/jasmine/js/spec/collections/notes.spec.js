@@ -58,15 +58,14 @@ define(["app/collections/notes"], function (NotesCollection) {
       });
 
       it("has a single note", function (done) {
-        var notes = this.notes,
-          note;
+        var notes = this.notes;
 
         // After fetch.
         notes.once("reset", function () {
           expect(notes.length).toBe(1);
 
           // Check model attributes.
-          note = notes.at(0);
+          var note = notes.at(0);
           expect(notes).toBeTruthy();
           expect(note.get("title")).toContain("#1");
           expect(note.get("text")).toContain("pre-existing");
@@ -77,40 +76,43 @@ define(["app/collections/notes"], function (NotesCollection) {
         notes.fetch({ reset: true });
       });
 
-      xit("can delete a note", function (done) {
-        var notes = this.notes,
-          note;
+      it("can delete a note", function (done) {
+        var notes = this.notes;
 
         // After shift.
-        notes.once("remove", function () {
+        notes.once("remove", function (note) {
+          expect(note).toBeTruthy();
+          expect(note.get("title")).toContain("#1");
+
           expect(notes.length).toBe(0);
+
           done();
         });
 
         // Remove and return first model.
-        note = notes.shift();
-        expect(notes).toBeTruthy();
+        notes.shift();
       });
 
       // -- Omitted in Book. --
       it("can create a second note", function (done) {
-        var notes = this.notes,
-          note = notes.create({
-            title: "Test note #2",
-            text: "A new note, created in the test."
-          });
+        var notes = this.notes;
 
         // After fetch.
         notes.once("reset", function () {
           expect(notes.length).toBe(2);
 
           // Check model attributes.
-          note = notes.at(1);
+          var note = notes.at(1);
           expect(notes).toBeTruthy();
           expect(note.get("title")).toContain("#2");
           expect(note.get("text")).toContain("new note");
 
           done();
+        });
+
+        notes.create({
+          title: "Test note #2",
+          text: "A new note, created in the test."
         });
 
         notes.fetch({ reset: true });
