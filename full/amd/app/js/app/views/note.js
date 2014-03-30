@@ -122,7 +122,7 @@ define([
     // Delete model (causes view removal) and navigate to
     // "all notes" list page.
     deleteNote: function () {
-      if (confirm("Delete note?")) {
+      if (window.confirm("Delete note?")) {
         this.model.destroy();
         Backbone.history.navigate("", { trigger: true, replace: true });
       }

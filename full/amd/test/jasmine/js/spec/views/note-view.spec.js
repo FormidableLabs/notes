@@ -1,5 +1,6 @@
-define(["app/views/note"], function (NoteView) {
+define(["jquery", "app/views/note"], function ($, NoteView) {
   describe("app/views/note", function () {
+    console.log("TODO HERE FIXTURES", $("#fixtures").length);
   });
 });
 
