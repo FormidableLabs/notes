@@ -51,8 +51,8 @@ define([
       // demonstration.
       //
       this.listenTo(this.collection, {
-        "reset":     function ()  { this.addNotes(); },
-        "notes:add": function (m) { this.addNote(m); }
+        "reset":     this.addNotes,
+        "notes:add": this.addNote
       });
 
       // Create helper filter view.
