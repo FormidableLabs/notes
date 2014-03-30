@@ -58,7 +58,8 @@ define(["app/collections/notes"], function (NotesCollection) {
       });
 
       it("has a single note", function (done) {
-        var notes = this.notes, note;
+        var notes = this.notes,
+          note;
 
         // After fetch.
         notes.once("reset", function () {
@@ -92,7 +93,7 @@ define(["app/collections/notes"], function (NotesCollection) {
       });
 
       // -- Omitted in Book. --
-      xit("can create a second note", function (done) {
+      it("can create a second note", function (done) {
         var notes = this.notes,
           note = notes.create({
             title: "Test note #2",
