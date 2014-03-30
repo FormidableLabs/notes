@@ -46,6 +46,11 @@
   // --------------------------------------------------------------------------
   // RequireJS configuration.
   // --------------------------------------------------------------------------
+  // Test-only configuration.
+  define("app/config", {
+    storeName: "notes-amd-browser"
+  });
+
   require.config({
     baseUrl: "../../app/js/vendor",
     paths: {

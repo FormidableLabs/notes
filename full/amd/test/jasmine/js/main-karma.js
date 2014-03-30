@@ -31,6 +31,11 @@
   // --------------------------------------------------------------------------
   // RequireJS configuration.
   // --------------------------------------------------------------------------
+  // Test-only configuration.
+  define("app/config", {
+    storeName: "notes-amd-karma"
+  });
+
   require.config({
     baseUrl: "/base/app/js/vendor",
     paths: {
