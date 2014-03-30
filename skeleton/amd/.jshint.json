@@ -36,7 +36,7 @@
 
   // Development.
   "debug"         : false,  // Allow debugger statements.
-  "devel"         : true,   // Allow dev. statements e.g. `console.log();`.
+  "devel"         : false,  // Allow dev. statements e.g. `console.log();`.
 
   // ECMAScript 5.
   "strict"        : false,  // Require `use strict` pragma  in every file.

@@ -46,6 +46,11 @@
   // --------------------------------------------------------------------------
   // RequireJS configuration.
   // --------------------------------------------------------------------------
+  // Test-only configuration.
+  define("app/config", {
+    storeName: "notes-amd-browser"
+  });
+
   require.config({
     baseUrl: "../../app/js/vendor",
     paths: {
@@ -54,12 +59,19 @@
   });
 
   // --------------------------------------------------------------------------
-  // Test Includes
+  // Test Bootstrap / Includes
   // --------------------------------------------------------------------------
-  // The file `spec/deps.js` specifies all test dependencies we should run.
-  require(["spec/deps"], function () {
-    // Start tests.
-    htmlReporter.initialize();
-    env.execute();
+  require(["jquery"], function ($) {
+    // Add DOM fixture.
+    $("<div id='fixtures' />")
+      .css({ display: "none", visibility: "hidden" })
+      .prependTo($("body"));
+
+    // The file `spec/deps.js` specifies all test dependencies.
+    require(["spec/deps"], function () {
+      // Start tests.
+      htmlReporter.initialize();
+      env.execute();
+    });
   });
 }());

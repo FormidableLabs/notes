@@ -175,6 +175,7 @@ module.exports = function (grunt) {
 
           // Includes.
           { pattern: "app/js/**/*.js",                included: false },
+          { pattern: "app/js/**/*.hbs",               included: false },
           { pattern: "test/jasmine/js/spec/**/*.js",  included: false }
         ]
       },

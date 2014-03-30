@@ -31,13 +31,25 @@
   // --------------------------------------------------------------------------
   // RequireJS configuration.
   // --------------------------------------------------------------------------
+  // Test-only configuration.
+  define("app/config", {
+    storeName: "notes-amd-karma"
+  });
+
   require.config({
     baseUrl: "/base/app/js/vendor",
     paths: {
       spec: "../../../test/jasmine/js/spec"
-    },
-    // Add specs as straight dependencies.
-    deps: ["spec/deps"],
-    callback: karma.start
+    }
+  });
+
+  require(["jquery"], function ($) {
+    // Add DOM fixture.
+    $("<div id='fixtures' />")
+      .css({ display: "none", visibility: "hidden" })
+      .prependTo($("body"));
+
+    // Load `spec/deps.js` dependencies, then start Karma.
+    require(["spec/deps"], karma.start);
   });
 }());
