@@ -11,5 +11,7 @@ define([
   "spec/views/note.spec",
   "spec/views/note-nav.spec",
   "spec/views/note-view.spec",
+  "spec/views/notes.spec",
+  "spec/views/notes-filter.spec",
   "spec/views/notes-item.spec"
 ]);
