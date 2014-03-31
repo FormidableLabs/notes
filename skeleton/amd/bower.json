@@ -1,0 +1,20 @@
+{
+  "name": "notes-amd",
+  "version": "0.0.1",
+  "description": "Notes application (AMD)",
+  "dependencies": {
+    "jquery": "2.1.0",
+    "lodash": "2.4.1",
+    "json2": "3d7767b6b1f3da363c625ff54e63bbf20e9e83ac",
+    "backbone": "1.1.2",
+    "backbone.localStorage": "1.1.7",
+    "showdown": "0.3.1",
+    "bootstrap": "3.1.1",
+    "requirejs": "2.1.11",
+    "hbs": "0.8.0"
+  },
+  "devDependencies": {
+    "sinonjs": "1.9.0",
+    "jasmine": "2.0.0"
+  }
+}

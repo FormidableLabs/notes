@@ -24,15 +24,15 @@ define([
     template: tmpl,
 
     events: {
-      "click .note-view":   function () { this.viewNote(); },
-      "click .note-edit":   function () { this.editNote(); },
-      "click .note-delete": function () { this.deleteNote(); }
+      "click .note-view":   "viewNote",
+      "click .note-edit":   "editNote",
+      "click .note-delete": "deleteNote"
     },
 
     initialize: function () {
       this.listenTo(this.model, {
-        "change":   function () { this.render(); },
-        "destroy":  function () { this.remove(); }
+        "change":   this.render,
+        "destroy":  this.remove
       });
     },
 

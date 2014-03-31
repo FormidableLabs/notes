@@ -22,7 +22,7 @@ define([
 
     initialize: function () {
       this.listenTo(this.model, {
-        "change": this.render,
+        "change":  this.render,
         "destroy": this.remove
       });
       this.render();
@@ -36,6 +36,7 @@ define([
       }));
       return this;
     }
+
   });
 
   return NoteViewView;
