@@ -32,13 +32,13 @@ the further instructions there.
 
 * [`skeleton/amd/README.md`](skeleton/amd/README.md): Skeleton AMD application,
   available in source at: [`skeleton/amd/`](skeleton/amd/).
-    * [Backbone.js Application](skeleton/amd/app/index.html)
-    * [Jasmine Tests](skeleton/amd/test/jasmine/test.html)
+    * [Backbone.js Application](http://formidablelabs.github.io/notes/skeleton/amd/app/index.html)
+    * [Jasmine Tests](http://formidablelabs.github.io/notes/skeleton/amd/test/jasmine/test.html)
 
 * [`full/amd/README.md`](full/amd/README.md): Full AMD application, available
   in source at: [`full/amd/`](full/amd/).
-    * [Backbone.js Application](full/amd/app/index.html)
-    * [Jasmine Tests](full/amd/test/jasmine/test.html)
+    * [Backbone.js Application](http://formidablelabs.github.io/notes/full/amd/app/index.html)
+    * [Jasmine Tests](http://formidablelabs.github.io/notes/full/amd/test/jasmine/test.html)
 
 
 ## Build
