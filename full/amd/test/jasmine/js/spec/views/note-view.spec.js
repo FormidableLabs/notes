@@ -4,7 +4,7 @@ define([
   "app/models/note"
 ], function ($, NoteViewView, NoteModel) {
 
-  describe("app/views/note", function () {
+  describe("app/views/note-view", function () {
     beforeEach(function () {
       // Create test fixture.
       this.$fixture = $("<div id='note-view-fixture'></div>");

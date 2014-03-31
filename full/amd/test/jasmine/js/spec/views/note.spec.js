@@ -1,8 +1,10 @@
 define([
   "jquery",
+  "backbone",
   "app/views/note",
+  "app/views/note-view",
   "app/models/note"
-], function ($, NoteView, NoteModel) {
+], function ($, Backbone, NoteView, NoteViewView, NoteModel) {
 
   describe("app/views/note", function () {
 
@@ -28,6 +30,11 @@ define([
       // Same for backbone history.
       sinon.stub(Backbone.history, "navigate");
 
+      // Spy bound methods of `NoteView` here to allow introspection
+      // after instantiated and bound to events, etc.
+      sinon.spy(NoteView.prototype, "remove");
+      sinon.spy(NoteViewView.prototype, "remove");
+
       // Creation calls `render()`, so in tests we have an
       // *already rendered* view.
       this.view = new NoteView({
@@ -41,8 +48,11 @@ define([
       if (this.view) { this.view.model.destroy(); }
 
       $("#fixtures").empty();
+
       NoteModel.prototype.save.restore();
       Backbone.history.navigate.restore();
+      NoteView.prototype.remove.restore();
+      NoteViewView.prototype.remove.restore();
     });
 
     describe("view modes and actions", function () {
@@ -79,7 +89,7 @@ define([
       }));
     });
 
-    xdescribe("model interaction", function () {
+    describe("model interaction", function () {
       afterEach(function () {
         // Wipe out to prevent any further use.
         this.view = null;
@@ -88,18 +98,15 @@ define([
       // It is a good habit to check that views are actually
       // disposed of when expected. Here, we bind view removal to
       // the destruction of a model.
-      it("is removed on destroyed model", sinon.test(function () {
-        this.spy(this.view, "remove");
-        this.spy(this.view.noteView, "remove");
-
+      it("is removed on destroyed model", function () {
         this.view.model.trigger("destroy");
 
-        expect(this.view.remove).to.be.calledOnce;
-        expect(this.view.noteView.remove).to.be.calledOnce;
-      }));
+        expect(NoteView.prototype.remove.callCount).toBe(1);
+        expect(NoteViewView.prototype.remove.callCount).not.toBeLessThan(1);
+      });
     });
 
-    xdescribe("note rendering", function () {
+    describe("note rendering", function () {
 
       it("can render a note", function () {
         // Don't explicitly call `render()` because
@@ -119,7 +126,7 @@ define([
 
         // Default to empty title in `h2` tag.
         expect($title.text()).toBe("");
-        expect($title.prop("tagName")).to.match(/h2/i);
+        expect($title.prop("tagName")).toMatch(/h2/i);
 
         // Have simple default message.
         expect($text.text()).toBe("Edit your note!");
@@ -133,9 +140,8 @@ define([
 
         this.view.model.trigger("change");
 
-        expect(this.view.render)
-          .to.be.calledOnce.and
-          .to.have.returned(this.view);
+        expect(this.view.render.callCount).toBe(1);
+        expect(this.view.render.returned(this.view)).toBe(true);
       }));
 
       it("calls render on changed data", sinon.test(function () {
@@ -146,13 +152,12 @@ define([
         $("#note-form-edit").blur();
 
         // `Note` view should have rendered.
-        expect(this.view.render)
-          .to.be.calledOnce.and
-          .to.have.returned(this.view);
+        expect(this.view.render.callCount).toBe(1);
+        expect(this.view.render.returned(this.view)).toBe(true);
 
         // Check the `NoteView` view rendered the new markdown.
         expect($("#pane-text").html())
-          .to.match(/<h1 id=".*?">A Heading!<\/h1>/);
+          .toMatch(/<h1 id=".*?">A Heading!<\/h1>/);
       }));
     });
   });

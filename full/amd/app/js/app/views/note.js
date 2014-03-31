@@ -49,6 +49,7 @@ define([
       this.render();
 
       // Add in viewer child view (which auto-renders).
+      // Removed on *view* remove or *model* destroy events.
       this.noteView = new NoteViewView({
         el: this.$("#note-pane-view-content"),
         model: this.model

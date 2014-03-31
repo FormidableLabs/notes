@@ -36,6 +36,7 @@ define([
       }));
       return this;
     }
+
   });
 
   return NoteViewView;
