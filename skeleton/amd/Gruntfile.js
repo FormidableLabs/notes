@@ -169,6 +169,9 @@ module.exports = function (grunt) {
         runnerPort: 9999,
         reporters: ["spec"],
         files: [
+          // Test libraries.
+          "app/js/vendor/sinon.js",
+
           // Adapters, config and test wrapper.
           "app/js/config.js",
           "test/jasmine/js/main-karma.js",
