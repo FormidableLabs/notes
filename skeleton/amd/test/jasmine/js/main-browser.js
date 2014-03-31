@@ -32,9 +32,23 @@
   // Reporter: HTML
   jasReq.html(jasmine);
 
+  // Add support for custom filtering.
+  // E.g., /test/jasmine/test.html?spec=app%2Fmodels%2Fnote
+  // in the browser.
+  var queryString = new jasmine.QueryString({
+    getWindowLocation: function () { return root.location; }
+  });
+  var specFilter = new jasmine.HtmlSpecFilter({
+    filterString: function () { return queryString.getParam("spec"); }
+  });
+  env.specFilter = function (spec) {
+    return specFilter.matches(spec.getFullName());
+  };
+
   // Set up the HTML reporter.
   var htmlReporter = new jasmine.HtmlReporter({
     env:            env,
+    queryString:    queryString,
     getContainer:   function () { return document.body; },
     createElement:  _proxy(document, "createElement"),
     createTextNode: _proxy(document, "createTextNode"),
