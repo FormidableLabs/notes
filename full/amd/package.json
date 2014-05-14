@@ -21,7 +21,9 @@
     "karma-safari-launcher": "0.1.1",
     "karma-spec-reporter": "0.0.12",
     "requirejs": "2.1.11",
-    "grunt-contrib-connect": "0.7.1"
+    "grunt-express-server": "*",
+    "sqlite3": "2.2.3",
+    "express": "4.2.0"
   },
   "scripts": {
     "postinstall": "./node_modules/.bin/bower install",

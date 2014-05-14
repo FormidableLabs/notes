@@ -14,7 +14,24 @@ module.exports = function (grunt) {
 
   // Configuration.
   grunt.initConfig({
+    express: {
+      dev: {
+        options: {
+          script: './server/index.js'
+        }
+      }
+    },
 
+    watch: {
+      express: {
+        files:  [ '**/*.js' ],
+        tasks:  [ 'express:dev' ],
+        options: {
+          spawn: false 
+        }
+      }
+    },
+  
     // ------------------------------------------------------------------------
     // Helper variables and paths.
     // ------------------------------------------------------------------------
@@ -204,25 +221,15 @@ module.exports = function (grunt) {
       }
     },
 
-    connect: {
-      // Run examples server at: http://127.0.0.1:9874
-      app: {
-        options: {
-          port: 9874,
-          base: ".",
-          keepalive: true
-        }
-      }
-    }
   });
 
   // Load dependencies.
   grunt.loadNpmTasks("grunt-contrib-clean");
+  grunt.loadNpmTasks("grunt-express-server");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-requirejs");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-karma");
-  grunt.loadNpmTasks("grunt-contrib-connect");
 
   // --------------------------------------------------------------------------
   // Tasks: Build
@@ -253,6 +260,6 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: Default
   // --------------------------------------------------------------------------
-  grunt.registerTask("server",    ["connect:app"]);
+  grunt.registerTask("server",    "express:dev");
   grunt.registerTask("default",   ["build", "check"]);
 };
