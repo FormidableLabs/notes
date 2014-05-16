@@ -4,7 +4,13 @@ define(["backbone"], function (Backbone) {
   // Note Model
   // ----------
   var NoteModel = Backbone.Model.extend({
-    url: "/task"
+    defaults: function () {
+      return {
+        title: "",
+        text: "*Edit your note!*",
+        createdAt: new Date()
+      };
+    }
   });
 
   return NoteModel;

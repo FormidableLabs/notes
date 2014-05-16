@@ -4,9 +4,7 @@ define(["app/collections/notes"], function (NotesCollection) {
     beforeEach(function () {
       // Create a reference for all internal suites/specs.
       this.notes = new NotesCollection();
-
-      // Use internal method to clear out existing data.
-      this.notes.localStorage._clear();
+      this.notes.reset();
     });
 
     afterEach(function () {
@@ -53,7 +51,6 @@ define(["app/collections/notes"], function (NotesCollection) {
 
       afterEach(function () {
         // Wipe internal data and reset collection.
-        this.notes.localStorage._clear();
         this.notes.reset();
       });
 

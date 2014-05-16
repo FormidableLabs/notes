@@ -22,13 +22,13 @@ module.exports = function (grunt) {
       }
     },
 
-    watch: {
-      express: {
-        files:  [ '**/*.js' ],
-        tasks:  [ 'express:dev' ],
-        options: {
-          spawn: false 
-        }
+    concurrent: {
+      test: [
+        "server",
+        "karma:fast"
+      ],
+      options: {
+        logConcurrentOutput: true
       }
     },
   
@@ -230,6 +230,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-requirejs");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-karma");
+  grunt.loadNpmTasks('grunt-concurrent');
 
   // --------------------------------------------------------------------------
   // Tasks: Build
@@ -251,7 +252,7 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: QA
   // --------------------------------------------------------------------------
-  grunt.registerTask("test",      ["karma:fast"]);
+  grunt.registerTask("test",      ["concurrent:test"]);
 
   grunt.registerTask("check",     ["jshint", "test"]);
   grunt.registerTask("check:ci",  ["jshint", "karma:ci"]);
