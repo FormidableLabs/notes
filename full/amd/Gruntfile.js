@@ -222,7 +222,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-requirejs");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-karma");
-  grunt.loadNpmTasks('grunt-concurrent');
 
   // --------------------------------------------------------------------------
   // Tasks: Build
@@ -244,7 +243,7 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: QA
   // --------------------------------------------------------------------------
-  grunt.registerTask("test",      ["concurrent:test"]);
+  grunt.registerTask("test",      ["karma:fast"]);
 
   grunt.registerTask("check",     ["jshint", "test"]);
   grunt.registerTask("check:ci",  ["jshint", "karma:ci"]);
