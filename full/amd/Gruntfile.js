@@ -14,24 +14,16 @@ module.exports = function (grunt) {
 
   // Configuration.
   grunt.initConfig({
-    express: {
-      dev: {
-        options: {
-          script: './server/index.js'
-        }
-      }
-    },
 
-    concurrent: {
-      test: [
-        "server",
-        "karma:fast"
-      ],
+    nodemon: {
+      dev: {
+        script: 'server/index.js'
+      },
       options: {
-        logConcurrentOutput: true
+        watch: ['server']
       }
     },
-  
+ 
     // ------------------------------------------------------------------------
     // Helper variables and paths.
     // ------------------------------------------------------------------------
@@ -225,7 +217,7 @@ module.exports = function (grunt) {
 
   // Load dependencies.
   grunt.loadNpmTasks("grunt-contrib-clean");
-  grunt.loadNpmTasks("grunt-express-server");
+  grunt.loadNpmTasks("grunt-nodemon");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-requirejs");
   grunt.loadNpmTasks("grunt-contrib-jshint");
@@ -261,6 +253,6 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: Default
   // --------------------------------------------------------------------------
-  grunt.registerTask("server",    "express:dev");
+  grunt.registerTask("server",    "nodemon:dev");
   grunt.registerTask("default",   ["build", "check"]);
 };
