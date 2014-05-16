@@ -1,7 +1,37 @@
 define(["app/collections/notes"], function (NotesCollection) {
+
+  beforeEach(function () {
+    // stub for express server
+    this.stubServer = sinon.fakeServer.create();
+    this.stubServer.autoRespond = true;
+
+    var savedNotes = []; // stub db table
+
+    this.stubServer.respondWith("GET", "/tasks", function (xhr) {
+      xhr.respond(200,
+        { "Content-Type": "application/json" },
+        JSON.stringify(savedNotes)
+      );
+    });
+
+    this.stubServer.respondWith("POST", "/tasks", function (xhr) {
+      var params = JSON.parse(xhr.requestBody);
+      savedNotes.push({ title: params.title, text: params.text });
+      xhr.respond(200,
+        { "Content-Type": "application/json" },
+        JSON.stringify(savedNotes[-1])
+      );
+    });
+  });
+
+  afterEach(function () {
+    this.stubServer.restore();
+  });
+
   describe("app/collections/notes", function () {
 
     beforeEach(function () {
+
       // Create a reference for all internal suites/specs.
       this.notes = new NotesCollection();
       this.notes.reset();
@@ -21,6 +51,7 @@ define(["app/collections/notes"], function (NotesCollection) {
 
       // -- Omitted in Book. --
       it("should be empty on fetch", function (done) {
+
         // Stash reference to save context.
         var notes = this.notes;
 
@@ -47,6 +78,7 @@ define(["app/collections/notes"], function (NotesCollection) {
           title: "Test note #1",
           text: "A pre-existing note from beforeEach."
         });
+
       });
 
       afterEach(function () {
@@ -116,6 +148,7 @@ define(["app/collections/notes"], function (NotesCollection) {
       });
     });
   });
+
 });
 
 
