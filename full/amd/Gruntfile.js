@@ -70,7 +70,11 @@ module.exports = function (grunt) {
               "showdown/src/showdown.js",
 
               // Test libraries.
-              "sinonjs/sinon.js"
+              "mocha/mocha.js",
+              "mocha/mocha.css",
+              "chai/chai.js",
+              "sinonjs/sinon.js",
+              "sinon-chai/lib/sinon-chai.js"
             ]
           },
           // Copy HBS lib and dependencies.
