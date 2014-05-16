@@ -23,7 +23,9 @@
     "requirejs": "2.1.11",
     "grunt-express-server": "*",
     "sqlite3": "2.2.3",
-    "express": "4.2.0"
+    "express": "4.2.0",
+    "express-json": "1.0.0",
+    "express-form2": "1.4.4"
   },
   "scripts": {
     "postinstall": "./node_modules/.bin/bower install",
