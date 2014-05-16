@@ -12,6 +12,24 @@ module.exports = function (grunt) {
     return JSON.parse(grunt.file.read(name).replace(/\/\/.*\n/g, ""));
   };
 
+  // Declarations:
+  var KARMA_JASMINE_OPTIONS = {
+    frameworks: ["jasmine", "requirejs"],
+    files: [
+      // Test libraries.
+      "app/js/vendor/sinon.js",
+
+      // Adapters, config and test wrapper.
+      "app/js/config.js",
+      "test/jasmine/js/main-karma.js",
+
+      // Includes.
+      { pattern: "app/js/**/*.js",                included: false },
+      { pattern: "app/js/**/*.hbs",               included: false },
+      { pattern: "test/jasmine/js/spec/**/*.js",  included: false }
+    ]
+  };
+
   // Configuration.
   grunt.initConfig({
 
@@ -169,41 +187,32 @@ module.exports = function (grunt) {
     // See: https://github.com/kjbekkelund/karma-requirejs
     karma: {
       options: {
-        frameworks: ["jasmine", "requirejs"],
         runnerPort: 9999,
-        reporters: ["spec"],
-        files: [
-          // Test libraries.
-          "app/js/vendor/sinon.js",
-
-          // Adapters, config and test wrapper.
-          "app/js/config.js",
-          "test/jasmine/js/main-karma.js",
-
-          // Includes.
-          { pattern: "app/js/**/*.js",                included: false },
-          { pattern: "app/js/**/*.hbs",               included: false },
-          { pattern: "test/jasmine/js/spec/**/*.js",  included: false }
-        ]
+        reporters: ["spec"]
       },
-      fast: {
+      "jasmine-fast": {
+        options: KARMA_JASMINE_OPTIONS,
         singleRun: true,
         browsers: ["PhantomJS"]
       },
-      windows: {
+      "jasmine-windows": {
+        options: KARMA_JASMINE_OPTIONS,
         singleRun: true,
         browsers: ["PhantomJS", "IE", "Chrome"]
       },
-      ci: {
+      "jasmine-ci": {
+        options: KARMA_JASMINE_OPTIONS,
         singleRun: true,
         browsers: ["PhantomJS", "Firefox"]
       },
-      all: {
+      "jasmine-all": {
+        options: KARMA_JASMINE_OPTIONS,
         singleRun: true,
         browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
       },
-      dev: {
+      "jasmine-dev": {
         // Runs tests automatically on changes in ongoing terminal.
+        options: KARMA_JASMINE_OPTIONS,
         browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
       }
     },
@@ -248,11 +257,15 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: QA
   // --------------------------------------------------------------------------
-  grunt.registerTask("test",      ["karma:fast"]);
+  grunt.registerTask("karma:fast",  ["karma:jasmine-fast"]);
+  grunt.registerTask("karma:ci",    ["karma:jasmine-ci"]);
+  grunt.registerTask("karma:all",   ["karma:jasmine-all"]);
 
-  grunt.registerTask("check",     ["jshint", "test"]);
-  grunt.registerTask("check:ci",  ["jshint", "karma:ci"]);
-  grunt.registerTask("check:all", ["jshint", "karma:all"]);
+  grunt.registerTask("test",        ["karma:fast"]);
+
+  grunt.registerTask("check",       ["jshint", "test"]);
+  grunt.registerTask("check:ci",    ["jshint", "karma:ci"]);
+  grunt.registerTask("check:all",   ["jshint", "karma:all"]);
 
   // --------------------------------------------------------------------------
   // Tasks: Default
