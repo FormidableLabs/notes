@@ -7,14 +7,14 @@ define(["app/collections/notes"], function (NotesCollection) {
 
     var savedNotes = []; // stub db table
 
-    this.stubServer.respondWith("GET", "/tasks", function (xhr) {
+    this.stubServer.respondWith("GET", "/notes", function (xhr) {
       xhr.respond(200,
         { "Content-Type": "application/json" },
         JSON.stringify(savedNotes)
       );
     });
 
-    this.stubServer.respondWith("POST", "/tasks", function (xhr) {
+    this.stubServer.respondWith("POST", "/notes", function (xhr) {
       var params = JSON.parse(xhr.requestBody);
       savedNotes.push({ title: params.title, text: params.text });
       xhr.respond(200,

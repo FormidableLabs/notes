@@ -11,7 +11,7 @@ function serverSetup () {
   app.use("/", express.static("app"));
   app.use(bodyParser());
 
-  app.get("/tasks", function (req, res) {
+  app.get("/notes", function (req, res) {
     db.prepare("select * from notes")
       .all(function (err, rows) {
         res.json(rows);
@@ -19,7 +19,7 @@ function serverSetup () {
   });
 
   // TODO: sanitize input
-  app.post("/tasks", function (req, res) {
+  app.post("/notes", function (req, res) {
     var title = req.body.title || "",
       text = req.body.text || "";
     db.run("insert into notes (title, text) values(?,?)", title, text)
@@ -30,7 +30,7 @@ function serverSetup () {
   });
 
   // TODO: sanitize input
-  app.put("/tasks/:id", function (req, res) {
+  app.put("/notes/:id", function (req, res) {
     var title = req.body.title,
       text = req.body.text,
       id = req.params.id;
@@ -42,7 +42,7 @@ function serverSetup () {
   });
 
   // TODO: sanitize input
-  app.delete("/tasks/:id", function (req, res, id) {
+  app.delete("/notes/:id", function (req, res, id) {
     db.run("delete from notes where id=?", req.params.id, function () {
       res.json({});
     });

@@ -11,7 +11,7 @@ define([
   // ----------------
   // Uses HTML `localStorage`.
   var NotesCollection = Backbone.Collection.extend({
-    url: "/tasks"
+    url: "/notes"
   });
 
   // Singleton.
