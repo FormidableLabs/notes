@@ -4,12 +4,11 @@ define([
   "app/models/note"
 ], function (Backbone, NotesItemView, NoteModel) {
 
-  // TODO: IMPLEMENT!!!!
-  describe.skip("app/views/notes-item", function () {
+  describe("app/views/notes-item", function () {
     // Don't need to specify fixtures, as rendering creates an
     // unattached element that the app manually appends, and we
     // directly check here.
-    beforeEach(function () {
+    before(function () {
       sinon.stub(NotesItemView.prototype, "remove");
       this.navigate = sinon.stub(Backbone.history, "navigate");
 
@@ -19,6 +18,10 @@ define([
     });
 
     afterEach(function () {
+      this.navigate.reset();
+    });
+
+    after(function () {
       NotesItemView.prototype.remove.restore();
       this.navigate.restore();
       this.view.remove();
@@ -27,7 +30,7 @@ define([
     describe("remove", function () {
       it("is removed on model destroy", function () {
         this.view.model.trigger("destroy");
-        expect(this.view.remove.callCount).toBe(1);
+        expect(this.view.remove).to.be.calledOnce;
       });
     });
 
@@ -39,7 +42,7 @@ define([
         this.view.initialize();
 
         this.view.model.trigger("change");
-        expect(this.view.render.callCount).toBe(1);
+        expect(this.view.render).to.have.been.calledOnce;
       }));
 
       // Here is another way to do the same check with a mock.
@@ -59,32 +62,34 @@ define([
         var $item = this.view.render().$el;
 
         // Should set `id` on DOM element and title.
-        expect($item.attr("id")).toBe(this.view.model.id);
-        expect($item.find(".note-title").text()).toBe("title");
+        expect($item.attr("id")).to.equal(this.view.model.id);
+        expect($item.find(".note-title").text()).to.equal("title");
       });
     });
 
     describe("actions", function () {
       it("views on click", function () {
-        this.view.render().$(".note-view").click();
+        this.view.$(".note-view").click();
 
-        expect(this.navigate.callCount).toBe(1);
-        expect(this.navigate.calledWith("note/0/view")).toBe(true);
+        expect(this.navigate)
+          .to.be.calledOnce.and
+          .to.be.calledWith("note/0/view");
       });
 
       it("edits on click", function () {
-        this.view.render().$(".note-edit").click();
+        this.view.$(".note-edit").click();
 
-        expect(this.navigate.callCount).toBe(1);
-        expect(this.navigate.calledWith("note/0/edit")).toBe(true);
+        expect(this.navigate)
+          .to.be.calledOnce.and
+          .to.be.calledWith("note/0/edit");
       });
 
       it("deletes on click", sinon.test(function () {
         // Empty stub for model destroy to prevent side effects.
         this.stub(this.view.model, "destroy");
-        this.view.render().$(".note-delete").click();
+        this.view.$(".note-delete").click();
 
-        expect(this.view.model.destroy.callCount).toBe(1);
+        expect(this.view.model.destroy).to.be.calledOnce;
       }));
     });
   });
