@@ -6,7 +6,7 @@
  */
 define([
   //"spec/collections/notes.spec",
-  "spec/models/note.spec",
+  "spec/models/note.spec"
   // "spec/routers/router.spec",
   // "spec/views/note.spec",
   // "spec/views/note-nav.spec",

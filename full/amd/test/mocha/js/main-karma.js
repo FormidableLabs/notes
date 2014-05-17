@@ -43,7 +43,11 @@
     }
   });
 
-  require(["jquery"], function ($) {
+  require(["jquery", "chai", "sinon-chai"], function ($, chai, sinonChai) {
+    // Chai Setup.
+    chai.use(sinonChai);
+    root.expect = chai.expect;
+
     // Add DOM fixture.
     $("<div id='fixtures' />")
       .css({ display: "none", visibility: "hidden" })

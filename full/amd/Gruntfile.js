@@ -14,6 +14,8 @@ module.exports = function (grunt) {
 
   // Declarations:
   var KARMA_JASMINE_OPTIONS = {
+    runnerPort: 9999,
+    reporters: ["spec"],
     frameworks: ["jasmine", "requirejs"],
     files: [
       // Test libraries.
@@ -28,6 +30,36 @@ module.exports = function (grunt) {
       { pattern: "app/js/**/*.hbs",               included: false },
       { pattern: "test/jasmine/js/spec/**/*.js",  included: false }
     ]
+  };
+  var KARMA_MOCHA_OPTIONS = {
+    runnerPort: 9999,
+    reporters: ["mocha"],
+    frameworks: ["mocha", "requirejs"],
+    files: [
+      // Test libraries.
+      "app/js/vendor/sinon.js",
+      // Chai / Sinon-Chai need async load.
+      { pattern: "app/js/vendor/chai.js",         included: false },
+      { pattern: "app/js/vendor/sinon-chai.js",   included: false },
+
+      // Adapters, config and test wrapper.
+      "app/js/config.js",
+      "test/mocha/js/main-karma.js",
+
+      // Includes.
+      { pattern: "app/js/**/*.js",                included: false },
+      { pattern: "app/js/**/*.hbs",               included: false },
+      //{ pattern: "test/mocha/js/spec/**/*.js",  included: false }
+
+      // TODO REMOVE when all tests work!!!
+      { pattern: "test/mocha/js/spec/deps.js",    included: false },
+      { pattern: "test/mocha/js/spec/models/note.spec.js",  included: false }
+    ],
+    client: {
+      mocha: {
+        ui: "bdd"
+      }
+    }
   };
 
   // Configuration.
@@ -186,9 +218,10 @@ module.exports = function (grunt) {
     // See: http://karma-runner.github.io/0.8/plus/RequireJS.html
     // See: https://github.com/kjbekkelund/karma-requirejs
     karma: {
-      options: {
-        runnerPort: 9999,
-        reporters: ["spec"]
+      "mocha-fast": {
+        options: KARMA_MOCHA_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS"]
       },
       "jasmine-fast": {
         options: KARMA_JASMINE_OPTIONS,
@@ -214,6 +247,11 @@ module.exports = function (grunt) {
         // Runs tests automatically on changes in ongoing terminal.
         options: KARMA_JASMINE_OPTIONS,
         browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
+      },
+      "mocha-dev": {
+        // Runs tests automatically on changes in ongoing terminal.
+        options: KARMA_MOCHA_OPTIONS,
+        browsers: ["Chrome"] //["PhantomJS", "Chrome", "Firefox", "Safari"]
       }
     },
 
