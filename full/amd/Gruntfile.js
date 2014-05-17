@@ -224,15 +224,30 @@ module.exports = function (grunt) {
         singleRun: true,
         browsers: ["PhantomJS"]
       },
+      "mocha-windows": {
+        options: KARMA_MOCHA_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "IE", "Chrome"]
+      },
       "jasmine-windows": {
         options: KARMA_JASMINE_OPTIONS,
         singleRun: true,
         browsers: ["PhantomJS", "IE", "Chrome"]
       },
+      "mocha-ci": {
+        options: KARMA_MOCHA_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "Firefox"]
+      },
       "jasmine-ci": {
         options: KARMA_JASMINE_OPTIONS,
         singleRun: true,
         browsers: ["PhantomJS", "Firefox"]
+      },
+      "mocha-all": {
+        options: KARMA_MOCHA_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
       },
       "jasmine-all": {
         options: KARMA_JASMINE_OPTIONS,
@@ -247,7 +262,7 @@ module.exports = function (grunt) {
       "mocha-dev": {
         // Runs tests automatically on changes in ongoing terminal.
         options: KARMA_MOCHA_OPTIONS,
-        browsers: ["Chrome"] //["PhantomJS", "Chrome", "Firefox", "Safari"]
+        browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
       }
     },
 
@@ -291,9 +306,9 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: QA
   // --------------------------------------------------------------------------
-  grunt.registerTask("karma:fast",  ["karma:jasmine-fast"]);
-  grunt.registerTask("karma:ci",    ["karma:jasmine-ci"]);
-  grunt.registerTask("karma:all",   ["karma:jasmine-all"]);
+  grunt.registerTask("karma:fast",  ["karma:mocha-fast", "karma:jasmine-fast"]);
+  grunt.registerTask("karma:ci",    ["karma:mocha-ci", "karma:jasmine-ci"]);
+  grunt.registerTask("karma:all",   ["karma:mocha-all", "karma:jasmine-all"]);
 
   grunt.registerTask("test",        ["karma:fast"]);
 
