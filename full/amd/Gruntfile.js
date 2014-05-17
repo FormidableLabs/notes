@@ -17,13 +17,13 @@ module.exports = function (grunt) {
 
     nodemon: {
       dev: {
-        script: 'server/index.js'
+        script: "server/index.js"
       },
       options: {
-        watch: ['server']
+        watch: ["server"]
       }
     },
- 
+
     // ------------------------------------------------------------------------
     // Helper variables and paths.
     // ------------------------------------------------------------------------
