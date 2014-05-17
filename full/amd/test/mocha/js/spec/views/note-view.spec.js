@@ -4,12 +4,14 @@ define([
   "app/models/note"
 ], function ($, NoteViewView, NoteModel) {
 
-  // TODO: IMPLEMENT!!!!
-  describe.skip("app/views/note-view", function () {
-    beforeEach(function () {
+  describe("app/views/note-view", function () {
+
+    before(function () {
       // Create test fixture.
       this.$fixture = $("<div id='note-view-fixture'></div>");
+    });
 
+    beforeEach(function () {
       // Empty out and rebind the fixture for each run.
       this.$fixture.empty().appendTo($("#fixtures"));
 
@@ -26,7 +28,9 @@ define([
     afterEach(function () {
       // Destroying the model also destroys the view.
       this.view.model.destroy();
+    });
 
+    after(function () {
       // Remove all sub-fixtures after test suite finishes.
       $("#fixtures").empty();
     });
@@ -36,12 +40,12 @@ define([
         $text = $("#pane-text");
 
       // Default to empty title in `h2` tag.
-      expect($title.text()).toBe("");
-      expect($title.prop("tagName")).toMatch(/h2/i);
+      expect($title.text()).to.equal("");
+      expect($title.prop("tagName")).to.match(/h2/i);
 
       // Have simple default message.
-      expect($text.text()).toBe("Edit your note!");
-      expect($text.html()).toBe("<p><em>Edit your note!</em></p>");
+      expect($text.text()).to.equal("Edit your note!");
+      expect($text.html()).to.equal("<p><em>Edit your note!</em></p>");
     });
 
     it("can render more complicated markdown", function (done) {
@@ -62,17 +66,17 @@ define([
           $text = $("#pane-text");
 
         // Our new (changed) title.
-        expect($title.text()).toBe("My Title");
+        expect($title.text()).to.equal("My Title");
 
         // Rendered Markdown with headings, list.
         //
         // **Note**: The start `<h2>` tag also has a generated `id`
         // field, so for simplicity we only assert on
         // `"My Heading</h2>"`.
-        var text = $text.html();
-        expect(text).toContain("My Heading</h2>");
-        expect(text).toContain("<ul>");
-        expect(text).toContain("<li>List item 2</li>");
+        expect($text.html())
+          .to.contain("My Heading</h2>").and
+          .to.contain("<ul>").and
+          .to.contain("<li>List item 2</li>");
 
         done();
       });
