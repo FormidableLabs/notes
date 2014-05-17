@@ -6,8 +6,7 @@ define([
   "app/models/note"
 ], function (_, $, NotesView, NotesCollection, NoteModel) {
 
-  // TODO: IMPLEMENT!!!!
-  describe.skip("app/views/notes", function () {
+  describe("app/views/notes", function () {
 
     // Common setup (after stubbing, etc.).
     // Create view and trigger collection add notes.
@@ -16,23 +15,13 @@ define([
       ctx.collection.trigger("add:notes");
     };
 
-    beforeEach(function () {
+    before(function () {
       // Create nav fixture (needed) and test fixture.
       $("#fixtures").append($(
         "<form class=\"navbar-search\">" +
           "<input type=\"text\" class=\"search-query\">" +
         "</form>"
       ));
-      this.$fixture = $(
-        "<div id='notes' class='region region-notes'>" +
-          "<table id='notes-list'>" +
-            "<tr><td>" +
-              "<input id='note-new-input'>" +
-              "<div id='note-create'></div>" +
-            "</td></tr>" +
-          "</table>" +
-        "</div>"
-      ).appendTo($("#fixtures"));
 
       // Create collection of notes data that we will sometimes
       // use to check full rendering, etc.
@@ -49,18 +38,35 @@ define([
       this.view = null;
     });
 
-    afterEach(function () {
-      NotesCollection.getInstance.restore();
+    beforeEach(function () {
+      this.$fixture = $(
+        "<div id='notes' class='region region-notes'>" +
+          "<table id='notes-list'>" +
+            "<tr><td>" +
+              "<input id='note-new-input'>" +
+              "<div id='note-create'></div>" +
+            "</td></tr>" +
+          "</table>" +
+        "</div>"
+      ).appendTo($("#fixtures"));
+    });
 
-      // Remove views and trigger model destroy to have any internal
-      // `NotesItem` views remove themselves.
+    afterEach(function () {
       if (this.view) {
         this.view.remove();
       }
+      this.$fixture.remove();
+    });
+
+    after(function () {
+      // Remove views and trigger model destroy to have any internal
+      // `NotesItem` views remove themselves.
       _.each(this.notes, function (m) { m.trigger("destroy"); });
 
       // Clean up DOM fixtures.
       $("#fixtures").empty();
+
+      NotesCollection.getInstance.restore();
     });
 
     describe("render", function () {
@@ -70,11 +76,11 @@ define([
 
         // Hide the fixture region first.
         this.$fixture.hide();
-        expect(this.$fixture.css("display")).toBe("none");
+        expect(this.$fixture.css("display")).to.equal("none");
 
         // Render and verify shown.
         this.view.render();
-        expect(this.$fixture.css("display")).not.toBe("none");
+        expect(this.$fixture.css("display")).to.not.equal("none");
       });
 
     });
@@ -88,7 +94,7 @@ define([
 
         this.collection.trigger("reset");
 
-        expect(this.view.addNotes.callCount).toBe(1);
+        expect(this.view.addNotes).to.be.calledOnce;
       }));
 
       it("does not add when empty", sinon.test(function () {
@@ -97,8 +103,8 @@ define([
 
         this.view.addNotes();
 
-        expect(this.view.addNote.callCount).toBe(0);
-        expect($("tr.notes-item").length).toBe(0);
+        expect(this.view.addNote).to.not.be.called;
+        expect($("tr.notes-item")).to.have.length(0);
       }));
 
       // Replace collection `chain()` with our data, so that we can
@@ -112,12 +118,12 @@ define([
         this.stub(this.collection, "chain", _.bind(function () {
           return _.chain(this.notes);
         }, this));
-
         _setupView(this);
+
         this.view.addNotes();
 
-        expect(this.view.addNote.callCount).toBe(4);
-        expect($("tr.notes-item").length).toBe(4);
+        expect(this.view.addNote.callCount).to.equal(4);
+        expect($("tr.notes-item")).to.have.length(4);
       }));
 
     });
@@ -132,8 +138,8 @@ define([
 
         $("#note-create").trigger("click");
 
-        expect(this.view.createNote.callCount).toBe(1);
-        expect(this.view.create.callCount).toBe(0);
+        expect(this.view.createNote).to.have.been.calledOnce;
+        expect(this.view.create).to.not.have.been.called;
       }));
 
       // Make direct call on "enter" function.
@@ -151,9 +157,9 @@ define([
           .val("New Title")
           .trigger($.Event("keypress", { which: 13 }));
 
-        expect(this.view.enterNote.callCount).toBe(1);
-        expect(this.view.createNote.callCount).toBe(1);
-        expect(this.view.create.callCount).toBe(1);
+        expect(this.view.enterNote).to.have.been.calledOnce;
+        expect(this.view.createNote).to.have.been.calledOnce;
+        expect(this.view.create).to.have.been.called;
       }));
 
       // Check creation triggers add event and updates DOM.
@@ -175,13 +181,14 @@ define([
         this.view.create("My Title");
 
         // Check spies, stubs.
-        expect(this.view.addNote.callCount).toBe(1);
-        expect(this.collection.create.callCount).toBe(1);
-        expect(addSpy.callCount).toBe(1);
-        expect(addSpy.calledWith(note)).toBe(true);
+        expect(this.view.addNote).to.have.been.calledOnce;
+        expect(this.collection.create).to.have.been.calledOnce;
+        expect(addSpy)
+          .to.have.been.calledOnce.and
+          .to.have.been.calledWith(note);
 
         // Check the note was added to the DOM.
-        expect($("tr.notes-item").length).toBe(1);
+        expect($("tr.notes-item")).to.have.length(1);
 
         // Stop listeners on collection. We want to do this here
         // because we persist the collection object across tests in
