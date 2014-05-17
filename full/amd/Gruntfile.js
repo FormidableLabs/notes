@@ -33,7 +33,7 @@ module.exports = function (grunt) {
   };
   var KARMA_MOCHA_OPTIONS = {
     runnerPort: 9999,
-    reporters: ["mocha"],
+    reporters: ["spec"],
     frameworks: ["mocha", "requirejs"],
     files: [
       // Test libraries.
