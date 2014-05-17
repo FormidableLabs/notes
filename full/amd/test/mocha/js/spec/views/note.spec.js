@@ -6,22 +6,14 @@ define([
   "app/models/note"
 ], function ($, Backbone, NoteView, NoteViewView, NoteModel) {
 
-  // TODO: IMPLEMENT!!!!
-  describe.skip("app/views/note", function () {
+  describe("app/views/note", function () {
 
-    beforeEach(function () {
+    before(function () {
       // Regions for different views.
       $("#fixtures").append($(
         "<div class='region-note' style='display: none;'></div>" +
         "<div class='region-notes' style='display: none;'></div>"
       ));
-
-      // App.Views.Note fixture.
-      this.$fixture = $(
-        "<div id='note-fixture'>" +
-          "<div id='#note-pane-view-content'></div>" +
-        "</div>"
-      ).appendTo($("#fixtures"));
 
       // Any model changes will trigger a `model.save()`, which
       // won't work in the tests, so we have to fake the method.
@@ -30,6 +22,15 @@ define([
       sinon.stub(NoteModel.prototype, "save");
       // Same for backbone history.
       sinon.stub(Backbone.history, "navigate");
+    });
+
+    beforeEach(function () {
+      // NoteView fixture.
+      this.$fixture = $(
+        "<div id='note-fixture'>" +
+          "<div id='#note-pane-view-content'></div>" +
+        "</div>"
+      ).appendTo($("#fixtures"));
 
       // Spy bound methods of `NoteView` here to allow introspection
       // after instantiated and bound to events, etc.
@@ -47,46 +48,49 @@ define([
     afterEach(function () {
       this.$fixture.empty();
       if (this.view) { this.view.model.destroy(); }
+      NoteView.prototype.remove.restore();
+      NoteViewView.prototype.remove.restore();
+    });
 
+    after(function () {
       $("#fixtures").empty();
 
       NoteModel.prototype.save.restore();
       Backbone.history.navigate.restore();
-      NoteView.prototype.remove.restore();
-      NoteViewView.prototype.remove.restore();
     });
 
     describe("view modes and actions", function () {
       // `NoteView` first goes to `#note/:id/view`
       it("navigates / displays 'view' by default", function () {
-        expect(Backbone.history.navigate.calledWithMatch(/view$/)).toBe(true);
+        expect(Backbone.history.navigate).to.be.calledWithMatch(/view$/);
 
         // Check CSS visibility directly. Not necessarily a best
         // practice as it uses internal knowledge of the DOM, but
         // gets us a quick check on what should be the visible
         // view pane.
         expect($("#note-pane-view")
-          .css("display")).not.toBe("none");
+          .css("display")).to.not.equal("none");
         expect($("#note-pane-edit")
-          .css("display")).toBe("none");
+          .css("display")).to.equal("none");
       });
 
       // Edit event triggers navigation to `#note/:id/edit`
       it("navigates / displays 'edit' on event", function () {
         this.view.trigger("update:edit");
-        expect(Backbone.history.navigate.calledWithMatch(/edit$/)).toBe(true);
+        expect(Backbone.history.navigate).to.be.calledWithMatch(/edit$/);
 
         expect($("#note-pane-edit")
-          .css("display")).not.toBe("none");
+          .css("display")).to.not.equal("none");
         expect($("#note-pane-view")
-          .css("display")).toBe("none");
+          .css("display")).to.equal("none");
       });
 
       it("confirms note on delete", sinon.test(function () {
         this.stub(window, "confirm").returns(false);
         this.view.deleteNote();
-        expect(window.confirm.callCount).toBe(1);
-        expect(window.confirm.calledWith("Delete note?")).toBe(true);
+        expect(window.confirm)
+          .to.have.been.calledOnce.and
+          .to.have.been.calledWith("Delete note?");
       }));
     });
 
@@ -102,8 +106,8 @@ define([
       it("is removed on destroyed model", function () {
         this.view.model.trigger("destroy");
 
-        expect(NoteView.prototype.remove.callCount).toBe(1);
-        expect(NoteViewView.prototype.remove.callCount).not.toBeLessThan(1);
+        expect(NoteView.prototype.remove).to.be.calledOnce;
+        expect(NoteViewView.prototype.remove.callCount).to.be.at.least(2);
       });
     });
 
@@ -113,9 +117,9 @@ define([
         // Don't explicitly call `render()` because
         // `initialize()` already called it.
         expect($(".region-note")
-          .css("display")).not.toBe("none");
+          .css("display")).to.not.equal("none");
         expect($(".region-notes")
-          .css("display")).toBe("none");
+          .css("display")).to.equal("none");
       });
 
       // Borrows a `NoteView` spec verbatim to make sure that the
@@ -126,13 +130,13 @@ define([
           $text = $("#pane-text");
 
         // Default to empty title in `h2` tag.
-        expect($title.text()).toBe("");
-        expect($title.prop("tagName")).toMatch(/h2/i);
+        expect($title.text()).to.equal("");
+        expect($title.prop("tagName")).to.match(/h2/i);
 
         // Have simple default message.
-        expect($text.text()).toBe("Edit your note!");
+        expect($text.text()).to.equal("Edit your note!");
         expect($text.html())
-          .toBe("<p><em>Edit your note!</em></p>");
+          .to.equal("<p><em>Edit your note!</em></p>");
       });
 
       it("calls render on model events", sinon.test(function () {
@@ -141,8 +145,9 @@ define([
 
         this.view.model.trigger("change");
 
-        expect(this.view.render.callCount).toBe(1);
-        expect(this.view.render.returned(this.view)).toBe(true);
+        expect(this.view.render)
+          .to.be.calledOnce.and
+          .to.have.returned(this.view);
       }));
 
       it("calls render on changed data", sinon.test(function () {
@@ -153,12 +158,13 @@ define([
         $("#note-form-edit").blur();
 
         // `Note` view should have rendered.
-        expect(this.view.render.callCount).toBe(1);
-        expect(this.view.render.returned(this.view)).toBe(true);
+        expect(this.view.render)
+          .to.be.calledOnce.and
+          .to.have.returned(this.view);
 
         // Check the `NoteView` view rendered the new markdown.
         expect($("#pane-text").html())
-          .toMatch(/<h1 id=".*?">A Heading!<\/h1>/);
+          .to.match(/<h1 id=".*?">A Heading!<\/h1>/);
       }));
     });
   });
