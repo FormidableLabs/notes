@@ -1,5 +1,5 @@
 /**
- * RequireJS Jasmine Test configuration
+ * RequireJS Mocha Test configuration
  *
  * See: http://karma-runner.github.io/0.8/plus/RequireJS.html
  */
@@ -33,17 +33,21 @@
   // --------------------------------------------------------------------------
   // Test-only configuration.
   define("app/config", {
-    storeName: "notes-amd-karma-jasmine"
+    storeName: "notes-amd-karma-mocha"
   });
 
   require.config({
     baseUrl: "/base/app/js/vendor",
     paths: {
-      spec: "../../../test/jasmine/js/spec"
+      spec: "../../../test/mocha/js/spec"
     }
   });
 
-  require(["jquery"], function ($) {
+  require(["jquery", "chai", "sinon-chai"], function ($, chai, sinonChai) {
+    // Chai Setup.
+    chai.use(sinonChai);
+    root.expect = chai.expect;
+
     // Add DOM fixture.
     $("<div id='fixtures' />")
       .css({ display: "none", visibility: "hidden" })
