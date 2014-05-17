@@ -3,9 +3,8 @@ define([
   "app/views/note-nav"
 ], function ($, NoteNavView) {
 
-  // TODO: IMPLEMENT!!!!
-  describe.skip("app/views/note-nav", function () {
-    beforeEach(function () {
+  describe("app/views/note-nav", function () {
+    before(function () {
       // Fixture.
       this.$fixture = $(
         "<ul id='note-nav'>" +
@@ -13,7 +12,12 @@ define([
           "<li class='note-edit'></li>" +
           "<li class='note-delete'></li>" +
         "</ul>"
-      ).appendTo($("#fixtures"));
+      );
+    });
+
+    beforeEach(function () {
+      // Removing also detaches fixture. Reattach here.
+      this.$fixture.appendTo($("#fixtures"));
 
       // The nav. view just wraps existing DOM elements,
       // and doesn't separately render.
@@ -24,6 +28,9 @@ define([
 
     afterEach(function () {
       this.view.remove();
+    });
+
+    after(function () {
       $("#fixtures").empty();
     });
 
@@ -42,9 +49,9 @@ define([
 
         this.$fixture.find(".note-view").click();
 
-        expect(navSpy.callCount).toBe(1);
-        expect(updateSpy.callCount).toBe(1);
-        expect(otherSpy.callCount).toBe(0);
+        expect(navSpy).to.have.been.calledOnce;
+        expect(updateSpy).to.have.been.calledOnce;
+        expect(otherSpy).to.not.have.been.called;
       });
 
     });
@@ -52,27 +59,27 @@ define([
     describe("menu bar display", function () {
       it("has no active navs by default", function () {
         // Check no list items are active.
-        expect(this.view.$("li.active").length).toBe(0);
+        expect(this.view.$("li.active")).to.have.length(0);
 
         // Another way - manually check each list nav.
         expect($(".note-view")
-          .attr("class")).not.toContain("active");
+          .attr("class")).to.not.include("active");
         expect($(".note-edit")
-          .attr("class")).not.toContain("active");
+          .attr("class")).to.not.include("active");
         expect($(".note-delete")
-          .attr("class")).not.toContain("active");
+          .attr("class")).to.not.include("active");
       });
 
       // Test the actual menu clicks.
       it("updates nav on 'edit' click", function () {
         $(".note-edit").click();
-        expect($(".note-edit").attr("class")).toContain("active");
+        expect($(".note-edit").attr("class")).to.include("active");
       });
 
       // Test event triggers (possibly from other views).
       it("updates nav on 'edit' event", function () {
         this.view.trigger("nav:update:edit");
-        expect($(".note-edit").attr("class")).toContain("active");
+        expect($(".note-edit").attr("class")).to.include("active");
       });
     });
   });
