@@ -6,7 +6,8 @@ define([
   "app/models/note"
 ], function ($, Backbone, NoteView, NoteViewView, NoteModel) {
 
-  describe("app/views/note", function () {
+  // TODO: IMPLEMENT!!!!
+  describe.skip("app/views/note", function () {
 
     beforeEach(function () {
       // Regions for different views.

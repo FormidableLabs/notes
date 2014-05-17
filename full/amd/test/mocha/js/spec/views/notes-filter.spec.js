@@ -6,7 +6,8 @@ define([
   "app/models/note"
 ], function (_, $, NotesFilterView, NotesCollection, NoteModel) {
 
-  describe("app/views/notes-filter", function () {
+  // TODO: IMPLEMENT!!!!
+  describe.skip("app/views/notes-filter", function () {
 
     beforeEach(function () {
       // Spy on filterNotes prototype **before** calling `new`.

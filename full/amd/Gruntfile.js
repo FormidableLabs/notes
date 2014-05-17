@@ -49,11 +49,7 @@ module.exports = function (grunt) {
       // Includes.
       { pattern: "app/js/**/*.js",                included: false },
       { pattern: "app/js/**/*.hbs",               included: false },
-      //{ pattern: "test/mocha/js/spec/**/*.js",  included: false }
-
-      // TODO REMOVE when all tests work!!!
-      { pattern: "test/mocha/js/spec/deps.js",    included: false },
-      { pattern: "test/mocha/js/spec/models/note.spec.js",  included: false }
+      { pattern: "test/mocha/js/spec/**/*.js",    included: false }
     ],
     client: {
       mocha: {

@@ -6,7 +6,8 @@ define([
   "app/models/note"
 ], function (_, $, NotesView, NotesCollection, NoteModel) {
 
-  describe("app/views/notes", function () {
+  // TODO: IMPLEMENT!!!!
+  describe.skip("app/views/notes", function () {
 
     // Common setup (after stubbing, etc.).
     // Create view and trigger collection add notes.

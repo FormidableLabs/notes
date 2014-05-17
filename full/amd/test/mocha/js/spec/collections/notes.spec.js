@@ -1,5 +1,8 @@
 define(["app/collections/notes"], function (NotesCollection) {
-  describe("app/collections/notes", function () {
+
+  // TODO: Switch over to server-side tests
+  // https://github.com/FormidableLabs/notes/pull/11
+  describe.skip("app/collections/notes", function () {
 
     beforeEach(function () {
       // Create a reference for all internal suites/specs.

@@ -3,7 +3,8 @@ define([
   "app/views/note-nav"
 ], function ($, NoteNavView) {
 
-  describe("app/views/note-nav", function () {
+  // TODO: IMPLEMENT!!!!
+  describe.skip("app/views/note-nav", function () {
     beforeEach(function () {
       // Fixture.
       this.$fixture = $(

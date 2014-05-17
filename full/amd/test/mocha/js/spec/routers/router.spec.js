@@ -14,7 +14,8 @@ define([
   NoteView
 ) {
 
-  describe("app/routers/router", function () {
+  // TODO: IMPLEMENT!!!!
+  describe.skip("app/routers/router", function () {
     // Default option: Trigger and replace history.
     var opts = { trigger: true, replace: true };
 

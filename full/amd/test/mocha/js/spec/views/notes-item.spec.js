@@ -4,7 +4,8 @@ define([
   "app/models/note"
 ], function (Backbone, NotesItemView, NoteModel) {
 
-  describe("app/views/notes-item", function () {
+  // TODO: IMPLEMENT!!!!
+  describe.skip("app/views/notes-item", function () {
     // Don't need to specify fixtures, as rendering creates an
     // unattached element that the app manually appends, and we
     // directly check here.
