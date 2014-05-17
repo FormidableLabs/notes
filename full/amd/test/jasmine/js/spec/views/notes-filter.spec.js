@@ -37,7 +37,7 @@ define([
       sinon.stub(NotesCollection, "getInstance").returns(this.collection);
       this.view = new NotesFilterView();
 
-      // Manually reset spy and view state.
+      // Manually reset view state.
       $(".search-query").val("");
       this.view.query("");
     });
