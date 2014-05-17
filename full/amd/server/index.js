@@ -2,7 +2,8 @@ var express = require("express"),
   app = express(),
   bodyParser = require("body-parser"),
   sql = require("sqlite3"),
-  db = new sql.Database("./server/notes.sqlite", sql.OPEN_READWRITE, function (error) {
+  dbPath = __dirname + "/notes.sqlite",
+  db = new sql.Database(dbPath, sql.OPEN_READWRITE, function (error) {
     serverSetup();
   });
 
@@ -17,7 +18,7 @@ function serverSetup () {
       });
   });
 
-  // TODO: sanitize input ???
+  // TODO: sanitize input
   app.post("/tasks", function (req, res) {
     var title = req.body.title || "",
       text = req.body.text || "";
@@ -28,7 +29,7 @@ function serverSetup () {
       });
   });
 
-  // TODO: sanitize input ???
+  // TODO: sanitize input
   app.put("/tasks/:id", function (req, res) {
     var title = req.body.title,
       text = req.body.text,
@@ -40,9 +41,11 @@ function serverSetup () {
       });
   });
 
+  // TODO: sanitize input
   app.delete("/tasks/:id", function (req, res, id) {
-    db.run("delete from notes where id=?", req.params.id);
-    // TODO: what should the response be ???
+    db.run("delete from notes where id=?", req.params.id, function () {
+      res.json({});
+    });
   });
 
   app.listen(3000);
