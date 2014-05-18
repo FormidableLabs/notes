@@ -103,7 +103,6 @@ var FILES = {
 
       "!full/amd/bower_components/{.,}**/{.,}*",
       "!full/amd/node_modules/{.,}**/{.,}*"
-
     ]
   }
 };

@@ -22,8 +22,14 @@
     "karma-requirejs": "0.2.1",
     "karma-safari-launcher": "0.1.1",
     "karma-spec-reporter": "0.0.12",
-    "mocha": "1.18.2",
-    "requirejs": "2.1.11"
+    "requirejs": "2.1.11",
+    "minimatch": "0.2.14",
+    "ps-tree": "0.0.3",
+    "grunt-nodemon": "0.2.1",
+    "sqlite3": "2.2.3",
+    "express": "4.2.0",
+    "body-parser": "1.2.0",
+    "mocha": "1.18.2"
   },
   "scripts": {
     "postinstall": "./node_modules/.bin/bower install",

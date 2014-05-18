@@ -1,16 +1,34 @@
 define(["app/collections/notes"], function (NotesCollection) {
+
   describe("app/collections/notes", function () {
 
     beforeEach(function () {
+      // stub for express server
+      this.stubServer = sinon.fakeServer.create();
+
+      var savedNotes = []; // stub db table
+      this.stubServer.respondWith("GET", "/notes", function (xhr) {
+        xhr.respond(200,
+          { "Content-Type": "application/json" },
+          JSON.stringify(savedNotes)
+        );
+      });
+
+      this.stubServer.respondWith("POST", "/notes", function (xhr) {
+        var params = JSON.parse(xhr.requestBody);
+        savedNotes.push({ title: params.title, text: params.text });
+        xhr.respond(200,
+          { "Content-Type": "application/json" },
+          JSON.stringify(savedNotes[savedNotes.length - 1])
+        );
+      });
+
       // Create a reference for all internal suites/specs.
       this.notes = new NotesCollection();
-
-      // Use internal method to clear out existing data.
-      this.notes.localStorage._clear();
     });
 
     afterEach(function () {
-      // Remove the reference.
+      this.stubServer.restore();
       this.notes = null;
     });
 
@@ -23,6 +41,7 @@ define(["app/collections/notes"], function (NotesCollection) {
 
       // -- Omitted in Book. --
       it("should be empty on fetch", function (done) {
+
         // Stash reference to save context.
         var notes = this.notes;
 
@@ -37,6 +56,7 @@ define(["app/collections/notes"], function (NotesCollection) {
         });
 
         notes.fetch({ reset: true });
+        this.stubServer.respond();
       });
 
     });
@@ -49,12 +69,6 @@ define(["app/collections/notes"], function (NotesCollection) {
           title: "Test note #1",
           text: "A pre-existing note from beforeEach."
         });
-      });
-
-      afterEach(function () {
-        // Wipe internal data and reset collection.
-        this.notes.localStorage._clear();
-        this.notes.reset();
       });
 
       it("has a single note", function (done) {
@@ -74,6 +88,7 @@ define(["app/collections/notes"], function (NotesCollection) {
         });
 
         notes.fetch({ reset: true });
+        this.stubServer.respond();
       });
 
       it("can delete a note", function (done) {
@@ -116,9 +131,11 @@ define(["app/collections/notes"], function (NotesCollection) {
         });
 
         notes.fetch({ reset: true });
+        this.stubServer.respond();
       });
     });
   });
+
 });
 
 

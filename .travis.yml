@@ -16,7 +16,8 @@ install:
   - cd ../..
   - cd skeleton/amd
   - npm install
-  -  - cd ../..  - ./node_modules/.bin/gulp build
+  - cd ../..
+  - ./node_modules/.bin/gulp build
 
 script:
   # Root level checks.
