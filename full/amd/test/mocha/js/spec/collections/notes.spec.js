@@ -1,30 +1,25 @@
 define(["app/collections/notes"], function (NotesCollection) {
 
-  // TODO: Switch over to server-side tests
-  // https://github.com/FormidableLabs/notes/pull/11
   describe("app/collections/notes", function () {
 
-    before(function () {
+    beforeEach(function () {
       // stub for express server
       this.stubServer = sinon.fakeServer.create();
-      this.stubServer.autoRespond = true;
 
-      this.savedNotes = []; // stub db table
-
-      var that = this;
+      var savedNotes = []; // stub db table
       this.stubServer.respondWith("GET", "/notes", function (xhr) {
         xhr.respond(200,
           { "Content-Type": "application/json" },
-          JSON.stringify(that.savedNotes)
+          JSON.stringify(savedNotes)
         );
       });
 
       this.stubServer.respondWith("POST", "/notes", function (xhr) {
         var params = JSON.parse(xhr.requestBody);
-        that.savedNotes.push({ title: params.title, text: params.text });
+        savedNotes.push({ title: params.title, text: params.text });
         xhr.respond(200,
           { "Content-Type": "application/json" },
-          JSON.stringify(that.savedNotes[-1])
+          JSON.stringify(savedNotes[savedNotes.length - 1])
         );
       });
 
@@ -32,14 +27,8 @@ define(["app/collections/notes"], function (NotesCollection) {
       this.notes = new NotesCollection();
     });
 
-    beforeEach(function () {
-      this.savedNotes = [];
-    });
-
-    after(function () {
+    afterEach(function () {
       this.stubServer.restore();
-      this.savedNotes = [];
-      // Remove the reference.
       this.notes = null;
     });
 
@@ -66,6 +55,7 @@ define(["app/collections/notes"], function (NotesCollection) {
         });
 
         notes.fetch({ reset: true });
+        this.stubServer.respond();
       });
 
     });
@@ -78,11 +68,6 @@ define(["app/collections/notes"], function (NotesCollection) {
           title: "Test note #1",
           text: "A pre-existing note from beforeEach."
         });
-      });
-
-      afterEach(function () {
-        // Wipe internal data and reset collection.
-        this.notes.reset();
       });
 
       it("has a single note", function (done) {
@@ -102,10 +87,12 @@ define(["app/collections/notes"], function (NotesCollection) {
         });
 
         notes.fetch({ reset: true });
+        this.stubServer.respond();
       });
 
       it("can delete a note", function (done) {
-        var notes = this.notes, note;
+        var notes = this.notes,
+          note = null;
 
         // After shift.
         notes.once("remove", function () {
@@ -140,12 +127,12 @@ define(["app/collections/notes"], function (NotesCollection) {
         });
 
         notes.fetch({ reset: true });
+        this.stubServer.respond();
       });
 
     });
   });
 });
-
 
 /* Backbone Testing References
  *

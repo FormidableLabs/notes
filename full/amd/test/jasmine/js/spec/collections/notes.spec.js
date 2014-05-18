@@ -5,10 +5,8 @@ define(["app/collections/notes"], function (NotesCollection) {
     beforeEach(function () {
       // stub for express server
       this.stubServer = sinon.fakeServer.create();
-      this.stubServer.autoRespond = true;
 
       var savedNotes = []; // stub db table
-
       this.stubServer.respondWith("GET", "/notes", function (xhr) {
         xhr.respond(200,
           { "Content-Type": "application/json" },
@@ -21,17 +19,16 @@ define(["app/collections/notes"], function (NotesCollection) {
         savedNotes.push({ title: params.title, text: params.text });
         xhr.respond(200,
           { "Content-Type": "application/json" },
-          JSON.stringify(savedNotes[-1])
+          JSON.stringify(savedNotes[savedNotes.length - 1])
         );
       });
+
       // Create a reference for all internal suites/specs.
       this.notes = new NotesCollection();
-      this.notes.reset();
     });
 
     afterEach(function () {
       this.stubServer.restore();
-      // Remove the reference.
       this.notes = null;
     });
 
@@ -59,6 +56,7 @@ define(["app/collections/notes"], function (NotesCollection) {
         });
 
         notes.fetch({ reset: true });
+        this.stubServer.respond();
       });
 
     });
@@ -71,12 +69,6 @@ define(["app/collections/notes"], function (NotesCollection) {
           title: "Test note #1",
           text: "A pre-existing note from beforeEach."
         });
-
-      });
-
-      afterEach(function () {
-        // Wipe internal data and reset collection.
-        this.notes.reset();
       });
 
       it("has a single note", function (done) {
@@ -96,6 +88,7 @@ define(["app/collections/notes"], function (NotesCollection) {
         });
 
         notes.fetch({ reset: true });
+        this.stubServer.respond();
       });
 
       it("can delete a note", function (done) {
@@ -138,6 +131,7 @@ define(["app/collections/notes"], function (NotesCollection) {
         });
 
         notes.fetch({ reset: true });
+        this.stubServer.respond();
       });
     });
   });
