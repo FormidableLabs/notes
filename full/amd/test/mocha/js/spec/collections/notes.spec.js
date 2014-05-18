@@ -1,5 +1,33 @@
 define(["app/collections/notes"], function (NotesCollection) {
 
+  beforeEach(function () {
+    // stub for express server
+    this.stubServer = sinon.fakeServer.create();
+    this.stubServer.autoRespond = true;
+
+    var savedNotes = []; // stub db table
+
+    this.stubServer.respondWith("GET", "/notes", function (xhr) {
+      xhr.respond(200,
+        { "Content-Type": "application/json" },
+        JSON.stringify(savedNotes)
+      );
+    });
+
+    this.stubServer.respondWith("POST", "/notes", function (xhr) {
+      var params = JSON.parse(xhr.requestBody);
+      savedNotes.push({ title: params.title, text: params.text });
+      xhr.respond(200,
+        { "Content-Type": "application/json" },
+        JSON.stringify(savedNotes[-1])
+      );
+    });
+  });
+
+  afterEach(function () {
+    this.stubServer.restore();
+  });
+
   // TODO: Switch over to server-side tests
   // https://github.com/FormidableLabs/notes/pull/11
   describe("app/collections/notes", function () {
@@ -7,9 +35,6 @@ define(["app/collections/notes"], function (NotesCollection) {
     before(function () {
       // Create a reference for all internal suites/specs.
       this.notes = new NotesCollection();
-
-      // Use internal method to clear out existing data.
-      this.notes.localStorage._clear();
     });
 
     after(function () {
@@ -56,7 +81,6 @@ define(["app/collections/notes"], function (NotesCollection) {
 
       afterEach(function () {
         // Wipe internal data and reset collection.
-        this.notes.localStorage._clear();
         this.notes.reset();
       });
 
