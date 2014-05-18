@@ -11,8 +11,12 @@ before_install:
 install:
   - npm install
   # Install and build all sub-projects.
-  - ./node_modules/.bin/gulp install
-  - ./node_modules/.bin/gulp build
+  - cd full/amd
+  - npm install
+  - cd ../..
+  - cd skeleton/amd
+  - npm install
+  -  - cd ../..  - ./node_modules/.bin/gulp build
 
 script:
   # Root level checks.

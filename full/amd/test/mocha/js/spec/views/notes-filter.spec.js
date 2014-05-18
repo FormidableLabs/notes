@@ -8,7 +8,7 @@ define([
 
   describe("app/views/notes-filter", function () {
 
-    beforeEach(function () {
+    before(function () {
       // Spy on filterNotes prototype **before** calling `new`.
       // This allows us to still use the string versions of an events
       // hash in our class definition.
@@ -36,13 +36,16 @@ define([
       this.collection = new NotesCollection(notes);
       sinon.stub(NotesCollection, "getInstance").returns(this.collection);
       this.view = new NotesFilterView();
+    });
 
-      // Manually reset view state.
+    beforeEach(function () {
+      // Manually reset spy and view state.
+      NotesFilterView.prototype.filterNotes.reset();
       $(".search-query").val("");
       this.view.query("");
     });
 
-    afterEach(function () {
+    after(function () {
       NotesFilterView.prototype.filterNotes.restore();
       NotesCollection.getInstance.restore();
       this.view.remove();
@@ -53,32 +56,39 @@ define([
     describe("isMatch", function () {
       // Stash a reference within suite. Could just as easily be
       // a context variable (`this.isMatch`).
-      var isMatch = NotesFilterView.prototype.isMatch;
+      var isMatch;
+
+      before(function () {
+        // Get reference to function under test, but do it in a
+        // `before()` statement to allow any other instrumentation
+        // (like code coverage) first.
+        isMatch = NotesFilterView.prototype.isMatch;
+      });
 
       it("works for identity comparisons", function () {
-        expect(isMatch()).toBe(true);
-        expect(isMatch("", "")).toBe(true);
-        expect(isMatch("a", "a")).toBe(true);
-        expect(isMatch("ab", "ab")).toBe(true);
+        expect(isMatch()).to.be.true;
+        expect(isMatch("", "")).to.be.true;
+        expect(isMatch("a", "a")).to.be.true;
+        expect(isMatch("ab", "ab")).to.be.true;
       });
 
       it("should be true on empty query", function () {
-        expect(isMatch(null, "foo")).toBe(true);
-        expect(isMatch("", "foo")).toBe(true);
+        expect(isMatch(null, "foo")).to.be.true;
+        expect(isMatch("", "foo")).to.be.true;
       });
 
       it("can find substring matches", function () {
-        expect(isMatch("o", "foo")).toBe(true);
-        expect(isMatch("oo", "foo")).toBe(true);
-        expect(isMatch("f", "foo")).toBe(true);
-        expect(isMatch("short", "a short sentence.")).toBe(true);
+        expect(isMatch("o", "foo")).to.be.true;
+        expect(isMatch("oo", "foo")).to.be.true;
+        expect(isMatch("f", "foo")).to.be.true;
+        expect(isMatch("short", "a short sentence.")).to.be.true;
       });
 
       it("should be false on misses", function () {
-        expect(isMatch("a", "foo")).toBe(false);
-        expect(isMatch("ooo", "foo")).toBe(false);
-        expect(isMatch("of", "foo")).toBe(false);
-        expect(isMatch("shot", "a short sentence.")).toBe(false);
+        expect(isMatch("a", "foo")).to.be.false;
+        expect(isMatch("ooo", "foo")).to.be.false;
+        expect(isMatch("of", "foo")).to.be.false;
+        expect(isMatch("shot", "a short sentence.")).to.be.false;
       });
     });
 
@@ -87,19 +97,19 @@ define([
       // -- Omitted in Book. --
       it("shows all notes by default", function () {
         this.view.filterNotes();
-        expect($("#0").css("display")).not.toBe("none");
-        expect($("#1").css("display")).not.toBe("none");
-        expect($("#2").css("display")).not.toBe("none");
-        expect($("#3").css("display")).not.toBe("none");
+        expect($("#0").css("display")).to.not.equal("none");
+        expect($("#1").css("display")).to.not.equal("none");
+        expect($("#2").css("display")).to.not.equal("none");
+        expect($("#3").css("display")).to.not.equal("none");
       });
 
       it("shows filtered notes", function () {
         $(".search-query").val("tle1");
         this.view.filterNotes();
-        expect($("#0").css("display")).toBe("none");
-        expect($("#1").css("display")).not.toBe("none");
-        expect($("#2").css("display")).toBe("none");
-        expect($("#3").css("display")).toBe("none");
+        expect($("#0").css("display")).to.equal("none");
+        expect($("#1").css("display")).to.not.equal("none");
+        expect($("#2").css("display")).to.equal("none");
+        expect($("#3").css("display")).to.equal("none");
       });
 
     });
@@ -109,19 +119,19 @@ define([
       it("shows note with empty filter", function () {
         // We already have an empty filter applied.
         this.view.filterNote(this.collection.at(0));
-        expect($("#0").css("display")).not.toBe("none");
+        expect($("#0").css("display")).to.not.equal("none");
       });
 
       it("shows note with matching filter", sinon.test(function () {
         this.stub(this.view, "query", function () { return "0"; });
         this.view.filterNote(this.collection.at(0));
-        expect($("#0").css("display")).not.toBe("none");
+        expect($("#0").css("display")).to.not.equal("none");
       }));
 
       it("hides note on no filter match", sinon.test(function () {
         this.stub(this.view, "query", function () { return "1"; });
         this.view.filterNote(this.collection.at(0));
-        expect($("#0").css("display")).toBe("none");
+        expect($("#0").css("display")).to.equal("none");
       }));
 
     });
@@ -149,14 +159,14 @@ define([
         this.stub(this.view, "query", function () { return "1"; });
         this.spy(this.view, "filterNote");
 
-        expect($("#5").css("display")).not.toBe("none");
+        expect($("#5").css("display")).to.not.equal("none");
 
         // Trigger a collection notes add.
         this.view.collection.trigger("notes:add", this.model5);
 
         // Should have hidden element with filterNote.
-        expect($("#5").css("display")).toBe("none");
-        expect(this.view.filterNote.callCount).toBe(1);
+        expect($("#5").css("display")).to.equal("none");
+        expect(this.view.filterNote).to.have.been.calledOnce;
       }));
 
       it("shows new matched note", sinon.test(function () {
@@ -165,8 +175,8 @@ define([
 
         this.view.collection.trigger("notes:add", this.model5);
 
-        expect($("#5").css("display")).not.toBe("none");
-        expect(this.view.filterNote.callCount).toBe(1);
+        expect($("#5").css("display")).to.not.equal("none");
+        expect(this.view.filterNote).to.have.been.calledOnce;
       }));
 
     });
@@ -190,8 +200,8 @@ define([
       it("doesn't filter by default", function () {
         // Invoke with "change" event.
         $(".search-query").trigger("change");
-        expect(this.view.filterNotes.callCount).toBe(1);
-        expect(this.collection.each.callCount).toBe(0);
+        expect(this.view.filterNotes).to.have.been.calledOnce;
+        expect(this.collection.each).to.not.have.been.called;
       });
 
       it("filters notes if changed query", function () {
@@ -201,22 +211,22 @@ define([
 
         // `filterNotes` gets called **every** time, but the
         // collection should only be iterated on **changes**.
-        expect(this.view.filterNotes.callCount).toBe(1);
-        expect(this.collection.each.callCount).toBe(1);
-        expect(this.collection.each
-          .calledWith(this.view.filterNote)).toBe(true);
+        expect(this.view.filterNotes).to.have.been.calledOnce;
+        expect(this.collection.each)
+          .to.have.been.calledOnce.and
+          .to.have.been.calledWith(this.view.filterNote);
 
         // Second time does not change.
         $(".search-query").trigger("keypress");
-        expect(this.view.filterNotes.callCount).toBe(2);
-        expect(this.collection.each.callCount).toBe(1);
+        expect(this.view.filterNotes).to.have.been.calledTwice;
+        expect(this.collection.each).to.have.been.calledOnce;
 
         // -- Omitted in Book. --
         // Change to different should call collection stub.
         $(".search-query").val("different");
         $(".search-query").trigger("keypress");
-        expect(this.view.filterNotes.callCount).toBe(3);
-        expect(this.collection.each.callCount).toBe(2);
+        expect(this.view.filterNotes).to.have.been.calledThrice;
+        expect(this.collection.each).to.have.been.calledTwice;
       });
 
       // -- Omitted in Book. --
@@ -224,18 +234,17 @@ define([
         // Invoke with "keyup" event.
         $(".search-query").val("new value");
         $(".search-query").trigger("keyup");
-        expect(this.view.filterNotes.callCount).toBe(1);
-        expect(this.collection.each.callCount).toBe(1);
+        expect(this.view.filterNotes).to.have.been.calledOnce;
+        expect(this.collection.each).to.have.been.calledOnce;
 
         // Check again with value set collection stub isn't called.
         $(".search-query").val("new value");
         $(".search-query").trigger("keyup");
-        expect(this.view.filterNotes.callCount).toBe(2);
-        expect(this.collection.each.callCount).toBe(1);
+        expect(this.view.filterNotes).to.have.been.calledTwice;
+        expect(this.collection.each).to.have.been.calledOnce;
       });
 
     });
-
   });
 });
 

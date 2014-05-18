@@ -62,7 +62,7 @@
   // --------------------------------------------------------------------------
   // Test-only configuration.
   define("app/config", {
-    storeName: "notes-amd-browser"
+    storeName: "notes-amd-browser-jasmine"
   });
 
   require.config({
