@@ -9,6 +9,8 @@ var express = require("express"),
 
 function serverSetup () {
   app.use("/", express.static("app"));
+  app.use("/app", express.static("app"));
+  app.use("/test", express.static("test"));
   app.use(bodyParser());
 
   app.get("/notes", function (req, res) {
