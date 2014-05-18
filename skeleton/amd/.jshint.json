@@ -23,9 +23,11 @@
       "require",
       "define",
 
-      // Jasmine,
+      // Jasmine / Mocha / Chai
       "describe",
+      "before",
       "beforeEach",
+      "after",
       "afterEach",
       "it",
       "expect",
