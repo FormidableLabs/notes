@@ -1,43 +1,40 @@
 define(["app/collections/notes"], function (NotesCollection) {
 
-  beforeEach(function () {
-    // stub for express server
-    this.stubServer = sinon.fakeServer.create();
-    this.stubServer.autoRespond = true;
-
-    var savedNotes = []; // stub db table
-
-    this.stubServer.respondWith("GET", "/notes", function (xhr) {
-      xhr.respond(200,
-        { "Content-Type": "application/json" },
-        JSON.stringify(savedNotes)
-      );
-    });
-
-    this.stubServer.respondWith("POST", "/notes", function (xhr) {
-      var params = JSON.parse(xhr.requestBody);
-      savedNotes.push({ title: params.title, text: params.text });
-      xhr.respond(200,
-        { "Content-Type": "application/json" },
-        JSON.stringify(savedNotes[-1])
-      );
-    });
-  });
-
-  afterEach(function () {
-    this.stubServer.restore();
-  });
-
   // TODO: Switch over to server-side tests
   // https://github.com/FormidableLabs/notes/pull/11
   describe("app/collections/notes", function () {
 
     before(function () {
+      // stub for express server
+      this.stubServer = sinon.fakeServer.create();
+      this.stubServer.autoRespond = true;
+
+      this.savedNotes = []; // stub db table
+
+      var that = this;
+      this.stubServer.respondWith("GET", "/notes", function (xhr) {
+        xhr.respond(200,
+          { "Content-Type": "application/json" },
+          JSON.stringify(that.savedNotes)
+        );
+      });
+
+      this.stubServer.respondWith("POST", "/notes", function (xhr) {
+        var params = JSON.parse(xhr.requestBody);
+        that.savedNotes.push({ title: params.title, text: params.text });
+        xhr.respond(200,
+          { "Content-Type": "application/json" },
+          JSON.stringify(that.savedNotes[-1])
+        );
+      });
+
       // Create a reference for all internal suites/specs.
       this.notes = new NotesCollection();
     });
 
     after(function () {
+      this.stubServer.restore();
+      this.savedNotes = [];
       // Remove the reference.
       this.notes = null;
     });
@@ -72,6 +69,7 @@ define(["app/collections/notes"], function (NotesCollection) {
     describe("modification", function () {
 
       beforeEach(function () {
+        this.savedNotes = [];
         // Load a pre-existing note.
         this.notes.create({
           title: "Test note #1",
