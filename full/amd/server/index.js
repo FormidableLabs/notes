@@ -5,7 +5,8 @@ var express = require("express"),
   dbPath = __dirname + "/notes.sqlite",
   db = new sql.Database(dbPath, sql.OPEN_READWRITE, function (error) {
     serverSetup();
-  });
+  }),
+  PORT = process.env.PORT || 3000;
 
 function serverSetup () {
   app.use("/", express.static("app"));
