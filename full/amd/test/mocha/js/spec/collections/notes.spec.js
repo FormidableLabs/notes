@@ -32,6 +32,10 @@ define(["app/collections/notes"], function (NotesCollection) {
       this.notes = new NotesCollection();
     });
 
+    beforeEach(function () {
+      this.savedNotes = [];
+    });
+
     after(function () {
       this.stubServer.restore();
       this.savedNotes = [];
@@ -69,7 +73,6 @@ define(["app/collections/notes"], function (NotesCollection) {
     describe("modification", function () {
 
       beforeEach(function () {
-        this.savedNotes = [];
         // Load a pre-existing note.
         this.notes.create({
           title: "Test note #1",
