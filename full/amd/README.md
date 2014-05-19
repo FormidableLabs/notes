@@ -46,6 +46,12 @@ Then copy over the vendor libraries to the application directory
 $ grunt build
 ```
 
+Initialize a database. You can rerun this later to reset the database.
+
+```
+$ node server/init-db.js
+```
+
 From there, fire up a local static development server with:
 
 ```
@@ -54,12 +60,17 @@ $ grunt server
 
 and from there you can view the application at:
 
-* [http://127.0.0.1:9874/app/](http://127.0.0.1:9874/app/): Full production
+* [http://127.0.0.1:3000](http://127.0.0.1:3000): Full production
   bundle as a single file. (Have to run `grunt build:dist` to pick up new
   changes.)
-* [http://127.0.0.1:9874/app/?_dist=0](http://127.0.0.1:9874/app/?_dist=0):
+* [http://127.0.0.1:3000?_dist=0](http://127.0.0.1:3000?_dist=0):
   Development-only version that uses raw, indivudal JS sources, downloading
   each individually.
+
+and the test results at:
+
+* [http://127.0.0.1:3000/test/jasmine/test.html](http://127.0.0.1:3000/test/jasmine/test.html)
+* [http://127.0.0.1:3000/test/mocha/test.html](http://127.0.0.1:3000/test/mocha/test.html)
 
 Note that the application **needs** to be served and not accessed via
 `file://` in order for all parts to properly work. You will want to leave
