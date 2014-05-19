@@ -52,7 +52,6 @@ Initialize a database. You can rerun this later to reset the database.
 $ node server/init-db.js
 ```
 
-
 From there, fire up a local static development server with:
 
 ```
