@@ -10,6 +10,8 @@ The relevant pages for this project are:
 * [`app/index.html`](app/index.html): Notes application.
 * [`test/jasmine/test.html`](test/jasmine/test.html):
   Jasmine test runner.
+* [`test/mocha/test.html`](test/mocha/test.html):
+  Mocha test runner.
 
 and available as source in the directory:
 
@@ -20,6 +22,7 @@ full/amd/
     js-dist/          // Production bundle
   test/
     jasmine/          // Jasmine test directory
+    mocha/            // Mocha test directory
 ```
 
 ## Development
