@@ -45,6 +45,9 @@
   "globalstrict"  : false,  // Allow global "use strict"
                             // (also enables 'strict').
 
+  // Old IE help.
+  "es3"           : true,
+
   // The Good Parts.
   "asi"           : false,  // Tolerate Automatic Semicolon Insertion.
   "laxbreak"      : false,  // Tolerate unsafe line breaks e.g.

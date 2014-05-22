@@ -20,7 +20,7 @@ define(["backbone"], function (Backbone) {
     events: {
       "click .note-view":   "clickView",
       "click .note-edit":   "clickEdit",
-      "click .note-delete": "clickDelete",
+      "click .note-delete": "clickDelete"
     },
 
     initialize: function () {

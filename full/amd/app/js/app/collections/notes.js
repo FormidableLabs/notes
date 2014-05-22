@@ -2,8 +2,7 @@ define([
   "underscore",
   "backbone",
   "app/config",
-  "app/models/note",
-
+  "app/models/note"
 ], function (_, Backbone, config, NoteModel) {
   "use strict";
 

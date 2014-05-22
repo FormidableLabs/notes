@@ -205,12 +205,21 @@ module.exports = function (grunt) {
     // JsHint style checks.
     // ------------------------------------------------------------------------
     jshint: {
+      options: _readJsonCfg(".jshint.json"),
       client: {
-        options: _readJsonCfg(".jshint.json"),
         files: {
           src: [
             "app/js/*.js",
-            "app/js/app/**/*.js",
+            "app/js/app/**/*.js"
+          ]
+        }
+      },
+      test: {
+        options: {
+          "es3": false // Allow old-IE breaking variations for `to.be.true`.
+        },
+        files: {
+          src: [
             "test/*/js/**/*.js"
           ]
         }
