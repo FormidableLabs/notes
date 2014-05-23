@@ -1,5 +1,6 @@
 \.git
 \.hg
+\.swp
 
 \.DS_Store
 \.project
