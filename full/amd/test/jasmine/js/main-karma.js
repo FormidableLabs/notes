@@ -33,7 +33,7 @@
   // --------------------------------------------------------------------------
   // Test-only configuration.
   define("app/config", {
-    storeName: "notes-amd-karma"
+    storeName: "notes-amd-karma-jasmine"
   });
 
   require.config({

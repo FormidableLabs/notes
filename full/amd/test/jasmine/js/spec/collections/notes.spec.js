@@ -1,3 +1,6 @@
+/**
+ * Tests for localStorage Notes collection.
+ */
 define(["app/collections/notes"], function (NotesCollection) {
   describe("app/collections/notes", function () {
 
@@ -120,7 +123,6 @@ define(["app/collections/notes"], function (NotesCollection) {
     });
   });
 });
-
 
 /* Backbone Testing References
  *

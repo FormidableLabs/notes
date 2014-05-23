@@ -22,7 +22,7 @@ define([
     // method names instead (like name inference, etc).
     routes: {
       "": "notes",
-      "note/:id/:action": "note",
+      "note/:id/:action": "note"
     },
 
     initialize: function () {

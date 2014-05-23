@@ -1,11 +1,8 @@
 Tasks
 =====
 
-## AMD App
-
-* **Jasmine Tests**: Do these.
-* **Jasmine Plugins**: Sinon, jQuery?
 
 ## Meta Infrastructure
 
-* Docs build for `gh-pages`.
+* Build index.html for entire site.
+* Maybe add offcanvas nav for site, projects.

@@ -23,9 +23,11 @@
       "require",
       "define",
 
-      // Jasmine,
+      // Jasmine / Mocha / Chai
       "describe",
+      "before",
       "beforeEach",
+      "after",
       "afterEach",
       "it",
       "expect",
@@ -42,6 +44,9 @@
   "strict"        : false,  // Require `use strict` pragma  in every file.
   "globalstrict"  : false,  // Allow global "use strict"
                             // (also enables 'strict').
+
+  // Old IE help.
+  "es3"           : true,
 
   // The Good Parts.
   "asi"           : false,  // Tolerate Automatic Semicolon Insertion.

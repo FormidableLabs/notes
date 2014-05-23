@@ -4,7 +4,6 @@ define(["backbone"], function (Backbone) {
   // Note Model
   // ----------
   var NoteModel = Backbone.Model.extend({
-
     defaults: function () {
       return {
         title: "",
@@ -12,7 +11,6 @@ define(["backbone"], function (Backbone) {
         createdAt: new Date()
       };
     }
-
   });
 
   return NoteModel;

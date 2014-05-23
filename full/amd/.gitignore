@@ -6,6 +6,7 @@
 bower_components
 node_modules
 npm-debug\.log
+notes.sqlite
 
 # Keep vendor and build libraries out of source.
 # (gh-pages) app/js/vendor

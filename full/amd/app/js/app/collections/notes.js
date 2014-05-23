@@ -3,22 +3,26 @@ define([
   "backbone",
   "app/config",
   "app/models/note",
-
-  // Patch Backbone. Import has side-effects, so don't use variable.
-  "backbone.localStorage"
+  "backbone.localStorage" // Patches Backbone.
 ], function (_, Backbone, config, NoteModel) {
   "use strict";
 
   // Notes Collection
   // ----------------
-  // Uses HTML `localStorage`.
-  var NotesCollection = Backbone.Collection.extend({
+  var NotesCollection;
 
-    model: NoteModel,
-
-    localStorage: new Backbone.LocalStorage(config.storeName)
-
-  });
+  // Decide whether to use localStorage or REST.
+  if (window._USE_LOCAL_STORAGE === true) {
+    // Uses HTML `localStorage`.
+    NotesCollection = Backbone.Collection.extend({
+      localStorage: new Backbone.LocalStorage(config.storeName)
+    });
+  } else {
+    // Uses real REST backend.
+    NotesCollection = Backbone.Collection.extend({
+      url: "/notes"
+    });
+  }
 
   // Singleton.
   NotesCollection.getInstance = _.memoize(function () {
