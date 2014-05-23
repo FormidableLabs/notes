@@ -30,7 +30,7 @@ $ git clone https://github.com/FormidableLabs/notes.git
 From there, you can find a sub-project (skeleton or full example) and follow
 the further instructions there.
 
-* [`skeleton/amd/README.md`](skeleton/amd/README.md): Skeleton AMD application,
+* [`skeleton/amd`](skeleton/amd): Skeleton AMD application,
   available in source at: [`skeleton/amd/`](skeleton/amd/).
     * [Backbone.js Application](http://formidablelabs.github.io/notes/skeleton/amd/app/index.html)
     * [Jasmine Tests](http://formidablelabs.github.io/notes/skeleton/amd/test/jasmine/test.html)
