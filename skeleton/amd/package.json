@@ -1,6 +1,6 @@
 {
   "name": "notes-amd",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Notes application (AMD)",
   "devDependencies": {
     "body-parser": "1.2.0",

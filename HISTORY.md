@@ -1,6 +1,9 @@
 History
 =======
 
+## v0.0.3
+
+* Enable `localStorage` build option. ([@ryan-roemer][@ryan-roemer])
 
 ## v0.0.2
 
