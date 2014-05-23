@@ -1,3 +1,6 @@
+// Decide `localStorage` vs. REST backend.
+window._USE_LOCAL_STORAGE = false;
+
 define([
   "jquery",
   "backbone",

@@ -24,6 +24,7 @@ var fs = require("fs"),
   gulp = require("gulp"),
   jshint = require("gulp-jshint"),
   exec = require("gulp-exec"),
+  replace = require("gulp-replace"),
 
   // Oh, gulp, you disappoint me.
   runSeq = require("run-sequence");
@@ -141,6 +142,26 @@ gulp.task("check:all:amd", function () {
 
 gulp.task("watch:amd", function () {
   gulp.watch(FILES.AMD.SOURCES, ["sync:amd"]);
+});
+
+// Switch between `localStorage` and REST backends.
+//
+// **Note**: We keep `gh-pages` branch with `useLs = true` to allow static
+// serving and localStorage demos...
+var useLs = false; // true, false -- Use LocalStorage?
+var oldBack = useLs ? "false" : "true";
+var newBack = useLs ? "true" : "false";
+gulp.task("replace:backend", function () {
+  gulp
+    .src([
+      "full/amd/app/*.html",
+      "full/amd/app/js/app/**/*.js",
+      "full/amd/test/*/*.html",
+      "full/amd/test/*/js/**/*.js"
+    ], { base: "full/amd/" })
+    .pipe(replace("window._USE_LOCAL_STORAGE = " + oldBack + ";",
+                  "window._USE_LOCAL_STORAGE = " + newBack + ";"))
+    .pipe(gulp.dest("full/amd/"));
 });
 
 // ----------------------------------------------------------------------------

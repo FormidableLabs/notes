@@ -1,3 +1,6 @@
+// Decide `localStorage` vs. REST backend.
+window._USE_LOCAL_STORAGE = false;
+
 /**
  * Test dependencies.
  *
@@ -5,7 +8,9 @@
  * are run by our infrastructure.
  */
 define([
-  "spec/collections/notes.spec",
+  window._USE_LOCAL_STORAGE === true ?
+    "spec/collections/notes.spec" :
+    "spec/collections/notes-rest.spec",
   "spec/models/note.spec",
   "spec/routers/router.spec",
   "spec/views/note.spec",
