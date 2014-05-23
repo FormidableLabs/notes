@@ -1,27 +1,45 @@
 /**
- * Tests for localStorage Notes collection.
+ * Tests for REST Notes collection.
  */
 define(["app/collections/notes"], function (NotesCollection) {
+
   describe("app/collections/notes", function () {
 
     beforeEach(function () {
+      // stub for express server
+      this.stubServer = sinon.fakeServer.create();
+
+      var savedNotes = []; // stub db table
+      this.stubServer.respondWith("GET", "/notes", function (xhr) {
+        xhr.respond(200,
+          { "Content-Type": "application/json" },
+          JSON.stringify(savedNotes)
+        );
+      });
+
+      this.stubServer.respondWith("POST", "/notes", function (xhr) {
+        var params = JSON.parse(xhr.requestBody);
+        savedNotes.push({ title: params.title, text: params.text });
+        xhr.respond(200,
+          { "Content-Type": "application/json" },
+          JSON.stringify(savedNotes[savedNotes.length - 1])
+        );
+      });
+
       // Create a reference for all internal suites/specs.
       this.notes = new NotesCollection();
-
-      // Use internal method to clear out existing data.
-      this.notes.localStorage._clear();
     });
 
     afterEach(function () {
-      // Remove the reference.
+      this.stubServer.restore();
       this.notes = null;
     });
 
     describe("creation", function () {
 
       it("has default values", function () {
-        expect(this.notes).toBeTruthy();
-        expect(this.notes.length).toBe(0);
+        expect(this.notes).to.be.ok;
+        expect(this.notes).to.have.length(0);
       });
 
       // -- Omitted in Book. --
@@ -30,16 +48,17 @@ define(["app/collections/notes"], function (NotesCollection) {
         var notes = this.notes;
 
         // Before fetch.
-        expect(notes).toBeTruthy();
-        expect(notes.length).toBe(0);
+        expect(notes).to.be.ok;
+        expect(notes).to.have.length(0);
 
         // After fetch.
         notes.once("reset", function () {
-          expect(notes.length).toBe(0);
+          expect(notes).to.have.length(0);
           done();
         });
 
         notes.fetch({ reset: true });
+        this.stubServer.respond();
       });
 
     });
@@ -54,72 +73,66 @@ define(["app/collections/notes"], function (NotesCollection) {
         });
       });
 
-      afterEach(function () {
-        // Wipe internal data and reset collection.
-        this.notes.localStorage._clear();
-        this.notes.reset();
-      });
-
       it("has a single note", function (done) {
-        var notes = this.notes;
+        var notes = this.notes, note;
 
         // After fetch.
         notes.once("reset", function () {
-          expect(notes.length).toBe(1);
+          expect(notes).to.have.length(1);
 
           // Check model attributes.
-          var note = notes.at(0);
-          expect(notes).toBeTruthy();
-          expect(note.get("title")).toContain("#1");
-          expect(note.get("text")).toContain("pre-existing");
+          note = notes.at(0);
+          expect(note).to.be.ok;
+          expect(note.get("title")).to.contain("#1");
+          expect(note.get("text")).to.contain("pre-existing");
 
           done();
         });
 
         notes.fetch({ reset: true });
+        this.stubServer.respond();
       });
 
       it("can delete a note", function (done) {
-        var notes = this.notes;
+        var notes = this.notes,
+          note = null;
 
         // After shift.
-        notes.once("remove", function (note) {
-          expect(note).toBeTruthy();
-          expect(note.get("title")).toContain("#1");
-
-          expect(notes.length).toBe(0);
-
+        notes.once("remove", function () {
+          expect(notes).to.have.length(0);
           done();
         });
 
         // Remove and return first model.
-        notes.shift();
+        note = notes.shift();
+        expect(note).to.be.ok;
       });
 
       // -- Omitted in Book. --
       it("can create a second note", function (done) {
-        var notes = this.notes;
+        var notes = this.notes,
+          note = notes.create({
+            title: "Test note #2",
+            text: "A new note, created in the test."
+          });
 
         // After fetch.
         notes.once("reset", function () {
-          expect(notes.length).toBe(2);
+          expect(notes).to.have.length(2);
 
           // Check model attributes.
-          var note = notes.at(1);
-          expect(notes).toBeTruthy();
-          expect(note.get("title")).toContain("#2");
-          expect(note.get("text")).toContain("new note");
+          note = notes.at(1);
+          expect(note).to.be.ok;
+          expect(note.get("title")).to.contain("#2");
+          expect(note.get("text")).to.contain("new note");
 
           done();
         });
 
-        notes.create({
-          title: "Test note #2",
-          text: "A new note, created in the test."
-        });
-
         notes.fetch({ reset: true });
+        this.stubServer.respond();
       });
+
     });
   });
 });
