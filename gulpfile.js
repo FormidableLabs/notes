@@ -145,7 +145,7 @@ gulp.task("watch:amd", function () {
 });
 
 // Switch between `localStorage` and REST backends.
-var useLs = true; // true, false -- Use LocalStorage?
+var useLs = false; // true, false -- Use LocalStorage?
 var oldBack = useLs ? "false" : "true";
 var newBack = useLs ? "true" : "false";
 gulp.task("replace:backend", function () {
@@ -153,6 +153,7 @@ gulp.task("replace:backend", function () {
     .src([
       "full/amd/app/*.html",
       "full/amd/app/js/app/**/*.js",
+      "full/amd/test/*/*.html",
       "full/amd/test/*/js/**/*.js"
     ], { base: "full/amd/" })
     .pipe(replace("window._USE_LOCAL_STORAGE = " + oldBack + ";",

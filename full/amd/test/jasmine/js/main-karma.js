@@ -32,7 +32,7 @@
   // RequireJS configuration.
   // --------------------------------------------------------------------------
   // Decide `localStorage` vs. REST backend.
-  window._USE_LOCAL_STORAGE = true;
+  window._USE_LOCAL_STORAGE = false;
 
   // Test-only configuration.
   define("app/config", {
