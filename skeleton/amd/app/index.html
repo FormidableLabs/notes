@@ -95,9 +95,6 @@
     <script src="js-dist/require.js"></script>
     <script>
       (function (){
-        // Decide `localStorage` vs. REST backend.
-        window._USE_LOCAL_STORAGE = true;
-
         // Look at query string to decide whether to use production bundle.
         // Entering "?_dist=0" will disable bundle and use raw JS sources.
         var useBundle = window.location.search.substr(1).indexOf("_dist=0") === -1;

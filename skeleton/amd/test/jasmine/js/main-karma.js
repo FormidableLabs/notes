@@ -31,9 +31,6 @@
   // --------------------------------------------------------------------------
   // RequireJS configuration.
   // --------------------------------------------------------------------------
-  // Decide `localStorage` vs. REST backend.
-  window._USE_LOCAL_STORAGE = true;
-
   // Test-only configuration.
   define("app/config", {
     storeName: "notes-amd-karma-jasmine"

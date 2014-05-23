@@ -60,9 +60,6 @@
   // --------------------------------------------------------------------------
   // RequireJS configuration.
   // --------------------------------------------------------------------------
-  // Decide `localStorage` vs. REST backend.
-  window._USE_LOCAL_STORAGE = false;
-
   // Test-only configuration.
   define("app/config", {
     storeName: "notes-amd-browser-jasmine"
