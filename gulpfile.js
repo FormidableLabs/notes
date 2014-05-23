@@ -145,6 +145,9 @@ gulp.task("watch:amd", function () {
 });
 
 // Switch between `localStorage` and REST backends.
+//
+// **Note**: We keep `gh-pages` branch with `useLs = true` to allow static
+// serving and localStorage demos...
 var useLs = false; // true, false -- Use LocalStorage?
 var oldBack = useLs ? "false" : "true";
 var newBack = useLs ? "true" : "false";
