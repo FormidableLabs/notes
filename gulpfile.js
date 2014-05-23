@@ -148,7 +148,7 @@ gulp.task("watch:amd", function () {
 //
 // **Note**: We keep `gh-pages` branch with `useLs = true` to allow static
 // serving and localStorage demos...
-var useLs = false; // true, false -- Use LocalStorage?
+var useLs = true; // true, false -- Use LocalStorage?
 var oldBack = useLs ? "false" : "true";
 var newBack = useLs ? "true" : "false";
 gulp.task("replace:backend", function () {
