@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <title>Notes</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="js/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="js/vendor/bootstrap/css/bootstrap-theme.css">
+  </head>
+  <body>
+    <div class="notes-html">
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-target">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="nav-target">
+          <!-- Nav's for single note view -->
+          <ul id="note-nav" class="nav navbar-nav region region-note" style="display: none;">
+            <li class="note-view active">
+              <a href="#">
+                <span class="glyphicon glyphicon-file"></span>
+                <span class="hidden-phone-portrait">View</span>
+              </a>
+            </li>
+            <li class="note-edit">
+              <a href="#">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <span class="hidden-phone-portrait">Edit</span>
+              </a>
+            </li>
+            <li class="note-delete">
+              <a href="#">
+                <span class="glyphicon glyphicon-trash"></span>
+                <span class="hidden-phone-portrait">Delete</span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- Nav's for notes filter view -->
+          <form class="nav navbar-nav navbar-right navbar-form-nonresp navbar-search region region-notes"
+                role="search" style="display: none;">
+            <div class="form-group">
+              <input type="text" class="search-query form-control"
+                     placeholder="Filter">
+            </div>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <!-- Content -->
+      <div class="container">
+        <!-- Content: Notes -->
+        <div id="notes" class="region region-notes" style="display: none;">
+          <table id="notes-list" class="table table-curved table-hover">
+            <tbody>
+              <tr class="notes-new">
+                <td class="note-name">
+                  <input id="note-new-input"
+                         class="form-control"
+                         placeholder="Write a new note." autofocus>
+                </td>
+                <td class="note-action">
+                  <button id="note-create"
+                          type="button"
+                          class="btn btn-default btn-sm pull-right">
+                    <span class="glyphicon glyphicon-plus"></span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Content: Single Note -->
+        <div id="note" class="region region-note" style="display: none;"></div>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js-dist/require.js"></script>
+    <script>
+      (function (){
+        // Look at query string to decide whether to use production bundle.
+        // Entering "?_dist=0" will disable bundle and use raw JS sources.
+        var useBundle = window.location.search.substr(1).indexOf("_dist=0") === -1;
+
+        // If bundled, require the `bundle.js` for single JS file.
+        // Otherwise, bootstrap off raw `config.js` for individual JS files.
+        var loadFile = useBundle ? "js-dist/bundle.js" : "js/config.js";
+
+        // Load base file (bundle or config), and invoke the app.
+        require([loadFile], function () {
+          require(["app/app"]);
+        });
+      }());
+    </script>
+  </body>
+</html>
