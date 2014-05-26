@@ -6,6 +6,8 @@ Tasks
 * **BUG**: Collection doesn't have model...
     * `bug-collection-model-binding`
 
+* Grunt: New `watch`, etc. tasks
+* README: Add dev. workflow, etc.
 * LS vs. REST: Check build switch and test more.
     * Maybe move **entirely** to `config.js` for everything...
 * Backbone can't get jQuery. Need an expose or a dependency or something.
