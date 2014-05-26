@@ -1,5 +1,3 @@
-"use strict";
-
 // Notes Collection
 var _ = require("lodash/dist/lodash.underscore");
 var Backbone = require("backbone");

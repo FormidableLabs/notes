@@ -1,5 +1,3 @@
-"use strict";
-
 var _ = require("lodash/dist/lodash.underscore");
 var Backbone = require("backbone");
 var Showdown = require("showdown");
@@ -25,8 +23,6 @@ var NoteViewView = Backbone.View.extend({
 
   // Convert note data into Markdown.
   render: function () {
-    console.log("TODO HERE", this.model.attributes);
-
     this.$el.html(this.template({
       title: this.model.get("title"),
       text: this.converter.makeHtml(this.model.get("text"))

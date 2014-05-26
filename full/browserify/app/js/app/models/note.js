@@ -1,5 +1,3 @@
-"use strict";
-
 var Backbone = require("backbone");
 
 // Notes Model

@@ -1,5 +1,3 @@
-"use strict";
-
 var $ = require("jquery");
 var _ = require("lodash/dist/lodash.underscore");
 var Backbone = require("backbone");

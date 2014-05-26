@@ -1,7 +1,3 @@
-"use strict";
-
-"use strict";
-
 var Backbone = require("backbone");
 
 // Note Navigation Bar View

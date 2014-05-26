@@ -21,7 +21,7 @@
   "predef"        : [
       // App
       "require",
-      "define",
+      "module",
 
       // Jasmine / Mocha / Chai
       "describe",

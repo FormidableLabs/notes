@@ -1,8 +1,6 @@
 /**
  * Application bootstrap.
  */
-"use strict";
-
 var $ = require("jquery"),
   Backbone = require("backbone");
 
