@@ -104,6 +104,9 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     browserify: {
       dist: {
+        options: {
+          transform: ["hbsfy"]
+        },
         src: [
           "./app/js/app/app.js"
         ],
@@ -112,7 +115,8 @@ module.exports = function (grunt) {
       watch: {
         options: {
           watch: true,
-          keepAlive: true
+          keepAlive: true,
+          transform: ["hbsfy"]
         },
         src: [
           "./app/js/app/app.js"

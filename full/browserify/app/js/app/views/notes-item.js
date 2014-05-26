@@ -4,7 +4,7 @@ var $ = require("jquery");
 var _ = require("lodash/dist/lodash.underscore");
 var Backbone = require("backbone");
 
-var tmpl = function () { return "TODO"; }; // "hbs!app/templates/notes-item"
+var tmpl = require("../templates/notes-item.hbs");
 
 // Notes Item View
 // ---------------
