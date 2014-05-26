@@ -1,17 +1,18 @@
-define(["backbone"], function (Backbone) {
-  "use strict";
+/**
+ * Note Model
+ */
+"use strict";
 
-  // Note Model
-  // ----------
-  var NoteModel = Backbone.Model.extend({
-    defaults: function () {
-      return {
-        title: "",
-        text: "*Edit your note!*",
-        createdAt: new Date()
-      };
-    }
-  });
+var Backbone = require("backbone");
 
-  return NoteModel;
+var NoteModel = Backbone.Model.extend({
+  defaults: function () {
+    return {
+      title: "",
+      text: "*Edit your note!*",
+      createdAt: new Date()
+    };
+  }
 });
+
+module.exports = NoteModel;

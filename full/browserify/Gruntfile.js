@@ -108,6 +108,16 @@ module.exports = function (grunt) {
           "./app/js/app/app.js"
         ],
         dest: "<%= distPath %>/bundle.js"
+      },
+      watch: {
+        options: {
+          watch: true,
+          keepAlive: true
+        },
+        src: [
+          "./app/js/app/app.js"
+        ],
+        dest: "<%= distPath %>/bundle.js"
       }
     },
 

@@ -4,6 +4,7 @@ Tasks
 ## Browserify
 
 * Bootstrap is not available. (Maybe still need `bower` for this?).
+    * `npm install bootstrap` is **wrong** ;)
 * Minification: `uglifyify` or `minifyify`
 * Optional Libs: `grunt-watchify`, `browserify-shim`.
 

@@ -1,10 +1,13 @@
-// Decide `localStorage` vs. REST backend.
-window._USE_LOCAL_STORAGE = false;
+/**
+ * Application bootstrap.
+ */
+"use strict";
 
-var $ = require("jquery");
+var $ = require("jquery"),
+  NotesCollection = require("./collections/notes");
 
 $(function () {
-  console.log("HELLO READY TODO")
+  console.log("NotesCollection", NotesCollection.getInstance());
 });
 
 // define([
