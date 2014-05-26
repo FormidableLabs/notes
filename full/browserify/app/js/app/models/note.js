@@ -1,10 +1,8 @@
-/**
- * Note Model
- */
 "use strict";
 
 var Backbone = require("backbone");
 
+// Notes Model
 var NoteModel = Backbone.Model.extend({
   defaults: function () {
     return {

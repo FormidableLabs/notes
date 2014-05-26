@@ -1,13 +1,12 @@
-/**
- * Notes Collection
- */
 "use strict";
 
-var _ = require("lodash/dist/lodash.underscore"),
-  Backbone = require("backbone"),
-  config = require("../config"),
-  NoteModel = require("../models/note"),
-  NotesCollection;
+// Notes Collection
+var _ = require("lodash/dist/lodash.underscore");
+var Backbone = require("backbone");
+
+var config = require("../config");
+var NoteModel = require("../models/note");
+var NotesCollection;
 
 // Imports for side effects.
 require("backbone.localStorage");

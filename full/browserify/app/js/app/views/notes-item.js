@@ -1,62 +1,58 @@
-define([
-  "underscore",
-  "backbone",
-  "hbs!app/templates/notes-item"
-], function (
-  _,
-  Backbone,
-  tmpl
-) {
-  "use strict";
+"use strict";
 
-  // Notes Item View
-  // ---------------
-  // A single note within a list of notes.
-  var NotesItemView = Backbone.View.extend({
+var $ = require("jquery");
+var _ = require("lodash/dist/lodash.underscore");
+var Backbone = require("backbone");
 
-    // Set rendered DOM element `id` property to the model's id.
-    id: function () { return this.model.id; },
+var tmpl = function () { return "TODO"; }; // "hbs!app/templates/notes-item"
 
-    tagName: "tr",
+// Notes Item View
+// ---------------
+// A single note within a list of notes.
+var NotesItemView = Backbone.View.extend({
 
-    className: "notes-item",
+  // Set rendered DOM element `id` property to the model's id.
+  id: function () { return this.model.id; },
 
-    template: tmpl,
+  tagName: "tr",
 
-    events: {
-      "click .note-view":   "viewNote",
-      "click .note-edit":   "editNote",
-      "click .note-delete": "deleteNote"
-    },
+  className: "notes-item",
 
-    initialize: function () {
-      this.listenTo(this.model, {
-        "change":   this.render,
-        "destroy":  this.remove
-      });
-    },
+  template: tmpl,
 
-    render: function () {
-      this.$el.html(this.template(this.model.toJSON()));
-      return this;
-    },
+  events: {
+    "click .note-view":   "viewNote",
+    "click .note-edit":   "editNote",
+    "click .note-delete": "deleteNote"
+  },
 
-    viewNote: function () {
-      var loc = ["note", this.model.id, "view"].join("/");
-      Backbone.history.navigate(loc, { trigger: true });
-    },
+  initialize: function () {
+    this.listenTo(this.model, {
+      "change":   this.render,
+      "destroy":  this.remove
+    });
+  },
 
-    editNote: function () {
-      var loc = ["note", this.model.id, "edit"].join("/");
-      Backbone.history.navigate(loc, { trigger: true });
-    },
+  render: function () {
+    this.$el.html(this.template(this.model.toJSON()));
+    return this;
+  },
 
-    deleteNote: function () {
-      // Destroying model triggers view cleanup.
-      this.model.destroy();
-    }
+  viewNote: function () {
+    var loc = ["note", this.model.id, "view"].join("/");
+    Backbone.history.navigate(loc, { trigger: true });
+  },
 
-  });
+  editNote: function () {
+    var loc = ["note", this.model.id, "edit"].join("/");
+    Backbone.history.navigate(loc, { trigger: true });
+  },
 
-  return NotesItemView;
+  deleteNote: function () {
+    // Destroying model triggers view cleanup.
+    this.model.destroy();
+  }
+
 });
+
+module.exports = NotesItemView;

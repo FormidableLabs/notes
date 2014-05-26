@@ -1,15 +1,14 @@
-/**
- * Router
- * ------
- * The router translates routes in to views.
- */
 "use strict";
 
-var $ = require("jquery"),
-  Backbone = require("backbone"),
-  NotesView = Backbone.View.extend({}), // = require("../views/notes"),
-  NoteView = Backbone.View.extend({}); // = require("../views/note");
+var $ = require("jquery");
+var Backbone = require("backbone");
 
+var NotesView = require("../views/notes");
+var NoteView = Backbone.View.extend({}); // = require("../views/note");
+
+// Router
+// ------
+// The router translates routes in to views.
 var Router = Backbone.Router.extend({
 
   // **Note**: Could wrap this up in functions to allow easier
