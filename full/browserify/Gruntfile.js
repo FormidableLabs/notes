@@ -16,7 +16,7 @@ module.exports = function (grunt) {
   var KARMA_JASMINE_OPTIONS = {
     runnerPort: 9999,
     reporters: ["spec"],
-    frameworks: ["jasmine", "requirejs"],
+    frameworks: ["jasmine", "TODO_BROWSERIFY"],
     files: [
       // Test libraries.
       "app/js/vendor/sinon.js", // TODO[BROWSERIFY]
@@ -34,7 +34,7 @@ module.exports = function (grunt) {
   var KARMA_MOCHA_OPTIONS = {
     runnerPort: 9999,
     reporters: ["spec"],
-    frameworks: ["mocha", "requirejs"],
+    frameworks: ["mocha", "TODO_BROWSERIFY"],
     files: [
       // Test libraries.
       "app/js/vendor/sinon.js", // TODO[BROWSERIFY]
@@ -102,8 +102,6 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     // Karma test driver.
     // ------------------------------------------------------------------------
-    // See: http://karma-runner.github.io/0.8/plus/RequireJS.html
-    // See: https://github.com/kjbekkelund/karma-requirejs
     karma: {
       "mocha-fast": {
         options: KARMA_MOCHA_OPTIONS,
@@ -189,7 +187,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-nodemon");
   grunt.loadNpmTasks("grunt-contrib-connect");
   grunt.loadNpmTasks("grunt-contrib-copy");
-  grunt.loadNpmTasks("grunt-contrib-requirejs");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-karma");
 
