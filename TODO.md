@@ -3,6 +3,8 @@ Tasks
 
 ## Browserify
 
+* Backbone can't get jQuery. Need an expose or a dependency or something.
+    * `browserify-shim`? Package.json deps?
 * Bootstrap is not available. (Maybe still need `bower` for this?).
     * `npm install bootstrap` is **wrong** ;)
 * Minification: `uglifyify` or `minifyify`
