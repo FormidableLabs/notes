@@ -19,7 +19,7 @@ module.exports = function (grunt) {
     frameworks: ["jasmine", "requirejs"],
     files: [
       // Test libraries.
-      "app/js/vendor/sinon.js",
+      "app/js/vendor/sinon.js", // TODO[BROWSERIFY]
 
       // Adapters, config and test wrapper.
       "app/js/config.js",
@@ -37,8 +37,8 @@ module.exports = function (grunt) {
     frameworks: ["mocha", "requirejs"],
     files: [
       // Test libraries.
-      "app/js/vendor/sinon.js",
-      // Chai / Sinon-Chai need async load.
+      "app/js/vendor/sinon.js", // TODO[BROWSERIFY]
+      // Chai / Sinon-Chai need async load. // TODO[BROWSERIFY]
       { pattern: "app/js/vendor/chai.js",         included: false },
       { pattern: "app/js/vendor/sinon-chai.js",   included: false },
 
@@ -64,10 +64,6 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     // Helper variables and paths.
     // ------------------------------------------------------------------------
-    // Path to bower installation.
-    bowerPath: "bower_components",
-    // Application serving path for where vendor libraries should end up.
-    vendorPath: "app/js/vendor",
     // Application production (bundled) distribution path.
     distPath: "app/js-dist",
 
@@ -75,121 +71,7 @@ module.exports = function (grunt) {
     // Clean tasks.
     // ------------------------------------------------------------------------
     clean: {
-      vendor: "<%= vendorPath %>",
       dist: "<%= distPath %>"
-    },
-
-    // ------------------------------------------------------------------------
-    // Copy tasks.
-    // ------------------------------------------------------------------------
-    copy: {
-      // Copy over specific vendor dependencies from bower.
-      //
-      // **Note**: This task should be run periodically to update sources
-      // otherwise stored in source.
-      vendor: {
-        files: [
-          // Copy over libraries, remove intermediate paths, and keep same name.
-          //
-          // This area is appropriate for libraries that you want to copy as
-          // one-off files and *don't* need to rename.
-          //
-          // E.g.:
-          //
-          //     bower_components/FULL/PATH/TO/LIBRARY.js ->
-          //     app/js/vendor/LIBRARY.js
-          //
-          //     bower_components/jquery/dist/jquery.js ->
-          //     app/js/vendor/jquery.js
-          {
-            cwd: "<%= bowerPath %>",
-            dest: "<%= vendorPath %>",
-            expand: true,
-            flatten: true,
-            src: [
-              // App libraries.
-              "jquery/dist/jquery.js",
-              "lodash/dist/lodash.underscore.js",
-              "json2/json2.js",
-              "backbone/backbone.js",
-              "backbone.localStorage/backbone.localStorage.js",
-              "showdown/src/showdown.js",
-
-              // Test libraries.
-              "mocha/mocha.js",
-              "mocha/mocha.css",
-              "chai/chai.js",
-              "sinonjs/sinon.js",
-              "sinon-chai/lib/sinon-chai.js"
-            ]
-          },
-          // Copy HBS lib and dependencies.
-          {
-            cwd: "<%= bowerPath %>/hbs",
-            dest: "<%= vendorPath %>/hbs",
-            expand: true,
-            src: [
-              "hbs/**",
-              "hbs.js"
-            ]
-          },
-          // Copy css/fonts/js of bootstrap's distribution.
-          {
-            cwd: "<%= bowerPath %>/bootstrap/dist",
-            dest: "<%= vendorPath %>/bootstrap",
-            expand: true,
-            src: [
-              "css/**",
-              "fonts/**",
-              "js/**"
-            ]
-          },
-          // Copy select Jasmine files.
-          {
-            cwd: "<%= bowerPath %>/jasmine",
-            dest: "<%= vendorPath %>/jasmine",
-            expand: true,
-            flatten: true,
-            src: [
-              "lib/jasmine-core/jasmine.css",
-              "lib/jasmine-core/jasmine.js",
-              "lib/jasmine-core/jasmine-html.js"
-            ]
-          }
-        ]
-      },
-
-      // Copy over specific distribution dependencies from bower.
-      dist: {
-        files: [
-          // Copy to production "distribution" directory.
-          {
-            cwd: "<%= bowerPath %>",
-            dest: "<%= distPath %>",
-            expand: true,
-            flatten: true,
-            src: [
-              // Infrastructure.
-              "requirejs/require.js"
-            ]
-          }
-        ]
-      }
-    },
-
-    // ------------------------------------------------------------------------
-    // Bundle tasks.
-    // ------------------------------------------------------------------------
-    requirejs: {
-      app: {
-        options: {
-          name: "app/app",
-          baseUrl: "app/js/vendor",
-          mainConfigFile: "app/js/config.js",
-          out: "<%= distPath %>/bundle.js",
-          optimize: "uglify2"
-        }
-      }
     },
 
     // ------------------------------------------------------------------------
@@ -314,18 +196,10 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: Build
   // --------------------------------------------------------------------------
-  grunt.registerTask("build:vendor", [
-    "clean:vendor",
-    "copy:vendor"
-  ]);
-  grunt.registerTask("build:dist", [
-    "clean:dist",
-    "copy:dist",
-    "requirejs"
-  ]);
   grunt.registerTask("build", [
-    "build:vendor",
-    "build:dist"
+    "clean:dist",
+    "copy:dist"
+    // TODO[BROWSERIFY]
   ]);
 
   // --------------------------------------------------------------------------
