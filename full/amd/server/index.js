@@ -3,15 +3,13 @@ var express = require("express"),
   bodyParser = require("body-parser"),
   sql = require("sqlite3"),
   dbPath = __dirname + "/notes.sqlite",
-  db = new sql.Database(dbPath, sql.OPEN_READWRITE, function (error) {
-    serverSetup();
-  }),
+  db = null,
   PORT = process.env.PORT || 3000;
 
-function serverSetup () {
-  app.use("/", express.static("app"));
-  app.use("/app", express.static("app"));
-  app.use("/test", express.static("test"));
+function serverSetup() {
+  app.use("/", express["static"]("app"));
+  app.use("/app", express["static"]("app"));
+  app.use("/test", express["static"]("test"));
   app.use(bodyParser());
 
   app.get("/notes", function (req, res) {
@@ -45,7 +43,7 @@ function serverSetup () {
   });
 
   // TODO: sanitize input
-  app.delete("/notes/:id", function (req, res, id) {
+  app["delete"]("/notes/:id", function (req, res, id) {
     db.run("delete from notes where id=?", req.params.id, function () {
       res.json({});
     });
@@ -53,3 +51,5 @@ function serverSetup () {
 
   app.listen(3000);
 }
+
+db = new sql.Database(dbPath, sql.OPEN_READWRITE, serverSetup);
