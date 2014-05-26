@@ -100,6 +100,18 @@ module.exports = function (grunt) {
     },
 
     // ------------------------------------------------------------------------
+    // Bundle.
+    // ------------------------------------------------------------------------
+    browserify: {
+      dist: {
+        src: [
+          "./app/js/app/app.js"
+        ],
+        dest: "<%= distPath %>/bundle.js"
+      }
+    },
+
+    // ------------------------------------------------------------------------
     // Karma test driver.
     // ------------------------------------------------------------------------
     karma: {
@@ -184,9 +196,9 @@ module.exports = function (grunt) {
 
   // Load dependencies.
   grunt.loadNpmTasks("grunt-contrib-clean");
+  grunt.loadNpmTasks("grunt-browserify");
   grunt.loadNpmTasks("grunt-nodemon");
   grunt.loadNpmTasks("grunt-contrib-connect");
-  grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-karma");
 

@@ -1,6 +1,12 @@
 Tasks
 =====
 
+## Browserify
+
+* Bootstrap is not available. (Maybe still need `bower` for this?).
+* Minification: `uglifyify` or `minifyify`
+* Optional Libs: `grunt-watchify`, `browserify-shim`.
+
 ## Skeleton
 
 * Remove `notes` app HTML setup and make clean.
@@ -8,7 +14,6 @@ Tasks
 ## Full
 
 * Prune all extra bower and npm dependencies (probably lots!)
-
 
 ## Meta Infrastructure
 
