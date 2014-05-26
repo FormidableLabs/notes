@@ -1,43 +1,39 @@
-define([
-  "underscore",
-  "backbone",
-  "showdown",
-  "hbs!app/templates/note-view"
-], function (
-  _,
-  Backbone,
-  Showdown,
-  tmpl
-) {
-  "use strict";
+"use strict";
 
-  // Note View Pane
-  // --------------
-  // Render a single note pane for viewing.
-  var NoteViewView = Backbone.View.extend({
+var _ = require("lodash/dist/lodash.underscore");
+var Backbone = require("backbone");
+var Showdown = require("showdown");
 
-    template: tmpl,
+var tmpl = require("../templates/note-view.hbs");
 
-    converter: new Showdown.converter(),
+// Note View Pane
+// --------------
+// Render a single note pane for viewing.
+var NoteViewView = Backbone.View.extend({
 
-    initialize: function () {
-      this.listenTo(this.model, {
-        "change":  this.render,
-        "destroy": this.remove
-      });
-      this.render();
-    },
+  template: tmpl,
 
-    // Convert note data into Markdown.
-    render: function () {
-      this.$el.html(this.template({
-        title: this.model.get("title"),
-        text: this.converter.makeHtml(this.model.get("text"))
-      }));
-      return this;
-    }
+  converter: new Showdown.converter(),
 
-  });
+  initialize: function () {
+    this.listenTo(this.model, {
+      "change":  this.render,
+      "destroy": this.remove
+    });
+    this.render();
+  },
 
-  return NoteViewView;
+  // Convert note data into Markdown.
+  render: function () {
+    console.log("TODO HERE", this.model.attributes);
+
+    this.$el.html(this.template({
+      title: this.model.get("title"),
+      text: this.converter.makeHtml(this.model.get("text"))
+    }));
+    return this;
+  }
+
 });
+
+module.exports = NoteViewView;

@@ -1,64 +1,66 @@
-define(["backbone"], function (Backbone) {
-  "use strict";
+"use strict";
 
-  // Note Navigation Bar View
-  // ------------------------
-  // Controls note nav bar and emits navigation events.
-  //
-  // Listens to: events that trigger menu DOM updates.
-  // * `nav:update:view`
-  // * `nav:update:edit`
-  //
-  // Emits: events on menu clicks.
-  // * `nav:view`
-  // * `nav:edit`
-  // * `nav:delete`
-  var NoteNavView = Backbone.View.extend({
+"use strict";
 
-    el: "#note-nav",
+var Backbone = require("backbone");
 
-    events: {
-      "click .note-view":   "clickView",
-      "click .note-edit":   "clickEdit",
-      "click .note-delete": "clickDelete"
-    },
+// Note Navigation Bar View
+// ------------------------
+// Controls note nav bar and emits navigation events.
+//
+// Listens to: events that trigger menu DOM updates.
+// * `nav:update:view`
+// * `nav:update:edit`
+//
+// Emits: events on menu clicks.
+// * `nav:view`
+// * `nav:edit`
+// * `nav:delete`
+var NoteNavView = Backbone.View.extend({
 
-    initialize: function () {
-      // Defaults for nav.
-      this.$("li").removeClass("active");
+  el: "#note-nav",
 
-      // Update the navbar UI for view/edit (not delete).
-      this.listenTo(this, {
-        "nav:update:view": this.updateView,
-        "nav:update:edit": this.updateEdit
-      });
-    },
+  events: {
+    "click .note-view":   "clickView",
+    "click .note-edit":   "clickEdit",
+    "click .note-delete": "clickDelete"
+  },
 
-    // Handlers for updating nav bar UI.
-    updateView: function () {
-      this.$("li").not(".note-view").removeClass("active");
-      this.$(".note-view").addClass("active");
-    },
-    updateEdit: function () {
-      this.$("li").not(".note-edit").removeClass("active");
-      this.$(".note-edit").addClass("active");
-    },
+  initialize: function () {
+    // Defaults for nav.
+    this.$("li").removeClass("active");
 
-    // Handlers for emitting nav events.
-    clickView: function () {
-      this.trigger("nav:update:view nav:view");
-      return false;
-    },
-    clickEdit: function () {
-      this.trigger("nav:update:edit nav:edit");
-      return false;
-    },
-    clickDelete: function () {
-      this.trigger("nav:update:delete nav:delete");
-      return false;
-    }
+    // Update the navbar UI for view/edit (not delete).
+    this.listenTo(this, {
+      "nav:update:view": this.updateView,
+      "nav:update:edit": this.updateEdit
+    });
+  },
 
-  });
+  // Handlers for updating nav bar UI.
+  updateView: function () {
+    this.$("li").not(".note-view").removeClass("active");
+    this.$(".note-view").addClass("active");
+  },
+  updateEdit: function () {
+    this.$("li").not(".note-edit").removeClass("active");
+    this.$(".note-edit").addClass("active");
+  },
 
-  return NoteNavView;
+  // Handlers for emitting nav events.
+  clickView: function () {
+    this.trigger("nav:update:view nav:view");
+    return false;
+  },
+  clickEdit: function () {
+    this.trigger("nav:update:edit nav:edit");
+    return false;
+  },
+  clickDelete: function () {
+    this.trigger("nav:update:delete nav:delete");
+    return false;
+  }
+
 });
+
+module.exports = NoteNavView;

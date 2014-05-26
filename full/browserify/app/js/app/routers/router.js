@@ -4,7 +4,7 @@ var $ = require("jquery");
 var Backbone = require("backbone");
 
 var NotesView = require("../views/notes");
-var NoteView = Backbone.View.extend({}); // = require("../views/note");
+var NoteView = require("../views/note");
 
 // Router
 // ------

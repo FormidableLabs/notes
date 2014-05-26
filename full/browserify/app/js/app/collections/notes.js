@@ -15,12 +15,14 @@ require("backbone.localStorage");
 if (config.useLocalStorage === true) {
   // Uses HTML `localStorage`.
   NotesCollection = Backbone.Collection.extend({
-    localStorage: new Backbone.LocalStorage(config.storeName)
+    localStorage: new Backbone.LocalStorage(config.storeName),
+    model: NoteModel
   });
 } else {
   // Uses real REST backend.
   NotesCollection = Backbone.Collection.extend({
-    url: "/notes"
+    url: "/notes",
+    model: NoteModel
   });
 }
 
