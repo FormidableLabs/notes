@@ -41,6 +41,7 @@
     "mocha": "1.19.0",
     "ps-tree": "0.0.3",
     "showdown": "0.3.1",
+    "markdown": "0.5.0",
     "sinon": "1.10.0",
     "sinon-chai": "2.5.0",
     "sqlite3": "2.2.3",

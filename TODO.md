@@ -3,6 +3,11 @@ Tasks
 
 ## Browserify
 
+* Switch to `markdown` in AMD/Skeleton/Browserify.
+* *Error - Showdown Lib*: Actually **in** the library (ugh). `undefind`
+  `if (typeof module !== 'undefind' && typeof exports !== 'undefined' && typeof require !== 'undefind') {`
+
+
 * **BUG**: Collection doesn't have model...
     * `bug-collection-model-binding`
 
@@ -16,9 +21,6 @@ Tasks
     * `npm install bootstrap` is **wrong** ;)
 * Minification: `uglifyify` or `minifyify`
 * Optional Libs: `grunt-watchify`, `browserify-shim`.
-
-* *Error - Showdown Lib*: Actually **in** the library (ugh). `undefind`
-  `if (typeof module !== 'undefind' && typeof exports !== 'undefined' && typeof require !== 'undefind') {`
 
 ## Skeleton
 
