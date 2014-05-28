@@ -1,12 +1,12 @@
 define([
   "underscore",
   "backbone",
-  "showdown",
+  "markdown",
   "hbs!app/templates/note-view"
 ], function (
   _,
   Backbone,
-  Showdown,
+  markdown,
   tmpl
 ) {
   "use strict";
@@ -17,8 +17,6 @@ define([
   var NoteViewView = Backbone.View.extend({
 
     template: tmpl,
-
-    converter: new Showdown.converter(),
 
     initialize: function () {
       this.listenTo(this.model, {
@@ -32,7 +30,7 @@ define([
     render: function () {
       this.$el.html(this.template({
         title: this.model.get("title"),
-        text: this.converter.makeHtml(this.model.get("text"))
+        text: markdown.toHTML(this.model.get("text"))
       }));
       return this;
     }
