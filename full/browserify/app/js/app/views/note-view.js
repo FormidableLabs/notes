@@ -1,6 +1,6 @@
 var _ = require("lodash/dist/lodash.underscore");
 var Backbone = require("backbone");
-var Showdown = require("showdown");
+var markdown = require("markdown").markdown;
 
 var tmpl = require("../templates/note-view.hbs");
 
@@ -10,8 +10,6 @@ var tmpl = require("../templates/note-view.hbs");
 var NoteViewView = Backbone.View.extend({
 
   template: tmpl,
-
-  converter: new Showdown.converter(),
 
   initialize: function () {
     this.listenTo(this.model, {
@@ -25,7 +23,7 @@ var NoteViewView = Backbone.View.extend({
   render: function () {
     this.$el.html(this.template({
       title: this.model.get("title"),
-      text: this.converter.makeHtml(this.model.get("text"))
+      text: markdown.toHTML(this.model.get("text"))
     }));
     return this;
   }
