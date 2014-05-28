@@ -164,7 +164,7 @@ define([
 
         // Check the `NoteView` view rendered the new markdown.
         expect($("#pane-text").html())
-          .to.match(/<h1 id=".*?">A Heading!<\/h1>/);
+          .to.equal("<h1>A Heading!</h1>");
       }));
     });
   });
