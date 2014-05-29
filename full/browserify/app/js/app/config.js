@@ -8,7 +8,7 @@ var config = {
   storeName: "notes-amd",
 
   // Decide `localStorage` vs. REST backend.
-  useLocalStorage: true
+  useLocalStorage: false
 };
 
 module.exports = config;

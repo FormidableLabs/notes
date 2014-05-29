@@ -22,6 +22,11 @@ Tasks
 * (BUG) Backbone can't get jQuery. Need an expose or a dependency or something.
     * `browserify-shim`? Package.json deps?
 
+* (CHORE) LocalStorage vs. REST: Check build switch and test more.
+    * Maybe move **entirely** to `config.js` for everything...
+    * AMD: `_USE_LOCAL_STORAGE`
+    * Browserify: `useLocalStorage: false`
+
 ## Training
 
 * **Backbone.js**
@@ -29,9 +34,6 @@ Tasks
         * Children views.
 
 ## Full
-
-* LocalStorage vs. REST: Check build switch and test more.
-    * Maybe move **entirely** to `config.js` for everything...
 
 * Prune all extra bower and npm dependencies (probably lots!)
 
