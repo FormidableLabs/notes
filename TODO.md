@@ -3,23 +3,23 @@ Tasks
 
 ## Browserify
 
-* Switch to `markdown` in AMD/Skeleton/Browserify.
-* *Error - Showdown Lib*: Actually **in** the library (ugh). `undefind`
-  `if (typeof module !== 'undefind' && typeof exports !== 'undefined' && typeof require !== 'undefind') {`
+* Gruntfile.js:
+    * Add tests, reenable tasks, etc.
+    * New `watch`, etc. tasks
 
-
-* **BUG**: Collection doesn't have model...
-    * `bug-collection-model-binding`
-
-* Grunt: New `watch`, etc. tasks
 * README: Add dev. workflow, etc.
+
 * LS vs. REST: Check build switch and test more.
     * Maybe move **entirely** to `config.js` for everything...
+
 * Backbone can't get jQuery. Need an expose or a dependency or something.
     * `browserify-shim`? Package.json deps?
+
 * Bootstrap is not available. (Maybe still need `bower` for this?).
     * `npm install bootstrap` is **wrong** ;)
+
 * Minification: `uglifyify` or `minifyify`
+
 * Optional Libs: `grunt-watchify`, `browserify-shim`.
 
 ## Skeleton
