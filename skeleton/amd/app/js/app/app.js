@@ -71,18 +71,6 @@ define([
   });
 
   // --------------------------------------------------------------------------
-  // Adjustments **just** for this demo page.
-  // --------------------------------------------------------------------------
-  // Hide the existing Notes HTML content for our skeleton application.
-  // This hide can be removed later, once you are using the HTML content
-  // in `index.html`.
-  $(".notes-html").hide();
-
-  // Dynamically add our element for the Backbone.js view
-  // (Usually done in actual HTML).
-  $("<div class='hello' />").appendTo($("body"));
-
-  // --------------------------------------------------------------------------
   // Application Bootstrap
   // --------------------------------------------------------------------------
   // Actually wire up and kick everything off!

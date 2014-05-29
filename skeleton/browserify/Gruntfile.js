@@ -91,16 +91,6 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     // Development servers.
     // ------------------------------------------------------------------------
-    // Full REST backend with Express.
-    nodemon: {
-      dev: {
-        script: "server/index.js"
-      },
-      options: {
-        watch: ["server"]
-      }
-    },
-
     // Pure static (localStorage) server.
     connect: {
       // Run examples server at: http://127.0.0.1:9874
@@ -119,7 +109,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-browserify");
   grunt.loadNpmTasks("grunt-contrib-connect");
-  grunt.loadNpmTasks("grunt-nodemon");
   grunt.loadNpmTasks("grunt-contrib-jshint");
 
   // --------------------------------------------------------------------------
@@ -150,7 +139,6 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: Default
   // --------------------------------------------------------------------------
-  grunt.registerTask("server",    ["nodemon:dev"]);
   grunt.registerTask("static",    ["connect:dev"]);
   grunt.registerTask("watch",     ["browserify:watch"]);
   grunt.registerTask("default",   ["build", "check", "watch"]);

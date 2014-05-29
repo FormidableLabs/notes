@@ -113,7 +113,7 @@ module.exports = function (grunt) {
               "json2/json2.js",
               "backbone/backbone.js",
               "backbone.localStorage/backbone.localStorage.js",
-              "showdown/src/showdown.js",
+              "markdown/lib/markdown.js",
 
               // Test libraries.
               "mocha/mocha.js",

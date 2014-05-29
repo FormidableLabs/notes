@@ -3,28 +3,35 @@ Tasks
 
 ## Browserify
 
-* Switch to `markdown` in AMD/Skeleton/Browserify.
-* *Error - Showdown Lib*: Actually **in** the library (ugh). `undefind`
-  `if (typeof module !== 'undefind' && typeof exports !== 'undefined' && typeof require !== 'undefind') {`
-
-
-* **BUG**: Collection doesn't have model...
-    * `bug-collection-model-binding`
-
-* Grunt: New `watch`, etc. tasks
-* README: Add dev. workflow, etc.
-* LS vs. REST: Check build switch and test more.
-    * Maybe move **entirely** to `config.js` for everything...
-* Backbone can't get jQuery. Need an expose or a dependency or something.
-    * `browserify-shim`? Package.json deps?
-* Bootstrap is not available. (Maybe still need `bower` for this?).
+* (BUG) **Bootstrap**: Not available (Maybe still need `bower` for this?).
+    * Both `full` and `skeleton` are missing.
     * `npm install bootstrap` is **wrong** ;)
-* Minification: `uglifyify` or `minifyify`
-* Optional Libs: `grunt-watchify`, `browserify-shim`.
 
-## Skeleton
+* (FEATURE) Grunt: New `watch`, etc. tasks
+    * `watch`: Make consistent across amd / browserify
+    * `default`: Make consistent to. Try to add a static server.
 
-* Remove `notes` app HTML setup and make clean.
+* (FEATURE) Minification: `uglifyify` or `minifyify`
+    * Optional Libs: `grunt-watchify`, `browserify-shim`.
+
+* (FEATURE) README:
+    * Add dev. workflow, etc.
+    * Update for AMD, Browserify full's.
+    * Add to skeletons.
+
+* (BUG) Backbone can't get jQuery. Need an expose or a dependency or something.
+    * `browserify-shim`? Package.json deps?
+
+* (CHORE) LocalStorage vs. REST: Check build switch and test more.
+    * Maybe move **entirely** to `config.js` for everything...
+    * AMD: `_USE_LOCAL_STORAGE`
+    * Browserify: `useLocalStorage: false`
+
+## Training
+
+* **Backbone.js**
+    * Challenges: Make these easier and more structured.
+        * Children views.
 
 ## Full
 
