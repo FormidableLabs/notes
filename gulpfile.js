@@ -91,6 +91,7 @@ gulp.task("jshint", ["jshint:frontend", "jshint:backend"]);
 // File globs.
 var FILES = {
   AMD: {
+    KEY: "amd",
     GRUNT: "*/amd/Gruntfile.js",
     SOURCES: [
       "full/amd/{.,}*",
@@ -104,43 +105,70 @@ var FILES = {
       "!full/amd/bower_components/{.,}**/{.,}*",
       "!full/amd/node_modules/{.,}**/{.,}*"
     ]
+  },
+  BROWSERIFY: {
+    KEY: "browserify",
+    GRUNT: "*/browserify/Gruntfile.js",
+    SOURCES: [
+      "full/browserify/{.,}*",
+      "!full/browserify/README.md",
+
+      "full/browserify/app/css/**",
+      "full/browserify/test/*/*.html",
+      "full/browserify/test/*/js/*.js",
+
+      "!full/browserify/bower_components/{.,}**/{.,}*",
+      "!full/browserify/node_modules/{.,}**/{.,}*"
+    ]
   }
 };
 
-// Generally speaking, `full` implementations control `skeleton`
-// implementations. These tasks bring the skeletons into sync with the fulls.
-gulp.task("sync:amd", function () {
-  gulp
-    .src(FILES.AMD.SOURCES, { base: "full/amd" })
-    .pipe(gulp.dest("skeleton/amd"));
+// Set up skeleton tasks.
+Object.keys(FILES).forEach(function (key) {
+  var cfg = FILES[key];
+
+  // Generally speaking, `full` implementations control `skeleton`
+  // implementations. These tasks bring the skeletons into sync with the fulls.
+  gulp.task("sync:" + cfg.KEY, function () {
+    gulp
+      .src(cfg.SOURCES, { base: "full/" + cfg.KEY })
+      .pipe(gulp.dest("skeleton/" + cfg.KEY));
+  });
+
+  gulp.task("install:" + cfg.KEY, function () {
+    gulp
+      .src(cfg.GRUNT)
+      .pipe(_execTask("npm", "install"));
+  });
+
+  gulp.task("build:" + cfg.KEY, function () {
+    gulp
+      .src(cfg.GRUNT)
+      .pipe(_gruntTask("build"));
+  });
+
+  gulp.task("check:" + cfg.KEY, function () {
+    gulp
+      .src(cfg.GRUNT)
+      .pipe(_gruntTask("check"));
+  });
+
+  gulp.task("check:all:" + cfg.KEY, function () {
+    gulp
+      .src(cfg.GRUNT)
+      .pipe(_gruntTask("check:all"));
+  });
+
+  gulp.task("watch:" + cfg.KEY, function () {
+    gulp.watch(cfg.SOURCES, ["sync:" + cfg.KEY]);
+  });
 });
 
-gulp.task("install:amd", function () {
+// Sync extra stuff from AMD -> Browserify
+gulp.task("sync:amd-to-browserify", function () {
   gulp
-    .src(FILES.AMD.GRUNT)
-    .pipe(_execTask("npm", "install"));
-});
-
-gulp.task("build:amd", function () {
-  gulp
-    .src(FILES.AMD.GRUNT)
-    .pipe(_gruntTask("build"));
-});
-
-gulp.task("check:amd", function () {
-  gulp
-    .src(FILES.AMD.GRUNT)
-    .pipe(_gruntTask("check"));
-});
-
-gulp.task("check:all:amd", function () {
-  gulp
-    .src(FILES.AMD.GRUNT)
-    .pipe(_gruntTask("check:all"));
-});
-
-gulp.task("watch:amd", function () {
-  gulp.watch(FILES.AMD.SOURCES, ["sync:amd"]);
+    .src(["skeleton/amd/app/js/app/templates/*.hbs"], { base: "skeleton/amd" })
+    .pipe(gulp.dest("skeleton/browserify"));
 });
 
 // Switch between `localStorage` and REST backends.
@@ -164,11 +192,12 @@ gulp.task("replace:backend", function () {
 // ----------------------------------------------------------------------------
 // Aggregated Tasks
 // ----------------------------------------------------------------------------
-gulp.task("sync",       ["sync:amd"]);
-gulp.task("install",    ["install:amd"]);
-gulp.task("build",      ["build:amd"]);
+gulp.task("sync",       ["sync:amd", "sync:browserify",
+                         "sync:amd-to-browserify"]);
+gulp.task("install",    ["install:amd", "install:browserify"]);
+gulp.task("build",      ["build:amd", "build:browserify"]);
 
-gulp.task("watch",      ["watch:amd"]);
+gulp.task("watch",      ["watch:amd", "watch:browserify"]);
 
 gulp.task("check",      ["jshint"]);
 gulp.task("check:ci",   ["jshint:backend"]);
