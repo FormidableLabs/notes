@@ -165,10 +165,21 @@ Object.keys(FILES).forEach(function (key) {
 });
 
 // Sync extra stuff from AMD -> Browserify
-gulp.task("sync:amd-to-browserify", function () {
+gulp.task("sync:skel:amd-to-browserify", function () {
   gulp
-    .src(["skeleton/amd/app/js/app/templates/*.hbs"], { base: "skeleton/amd" })
+    .src([
+      "skeleton/amd/app/js/app/templates/*.hbs"
+    ], { base: "skeleton/amd" })
     .pipe(gulp.dest("skeleton/browserify"));
+});
+
+gulp.task("sync:full:amd-to-browserify", function () {
+  gulp
+    .src([
+      "full/amd/app/js/app/templates/*.hbs",
+      "full/amd/server/**"
+    ], { base: "full/amd" })
+    .pipe(gulp.dest("full/browserify"));
 });
 
 // Switch between `localStorage` and REST backends.
@@ -193,7 +204,8 @@ gulp.task("replace:backend", function () {
 // Aggregated Tasks
 // ----------------------------------------------------------------------------
 gulp.task("sync",       ["sync:amd", "sync:browserify",
-                         "sync:amd-to-browserify"]);
+                         "sync:skel:amd-to-browserify",
+                         "sync:full:amd-to-browserify"]);
 gulp.task("install",    ["install:amd", "install:browserify"]);
 gulp.task("build",      ["build:amd", "build:browserify"]);
 
