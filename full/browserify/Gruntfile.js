@@ -139,7 +139,7 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: Default
   // --------------------------------------------------------------------------
-  grunt.registerTask("server",    ["nodemon:dev"]);
   grunt.registerTask("static",    ["connect:dev"]);
-  grunt.registerTask("default",   ["build", "check"]);
+  grunt.registerTask("watch",     ["browserify:watch"]);
+  grunt.registerTask("default",   ["build", "check", "watch"]);
 };
