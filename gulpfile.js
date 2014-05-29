@@ -96,7 +96,6 @@ var FILES = {
       "full/amd/{.,}*",
       "!full/amd/README.md",
 
-      "full/amd/app/*.html",
       "full/amd/app/js/*.js",
       "full/amd/app/css/**",
       "full/amd/test/*/*.html",
@@ -154,9 +153,7 @@ var newBack = useLs ? "true" : "false";
 gulp.task("replace:backend", function () {
   gulp
     .src([
-      "full/amd/app/*.html",
       "full/amd/app/js/app/**/*.js",
-      "full/amd/test/*/*.html",
       "full/amd/test/*/js/**/*.js"
     ], { base: "full/amd/" })
     .pipe(replace("window._USE_LOCAL_STORAGE = " + oldBack + ";",
