@@ -22,6 +22,11 @@ Tasks
 * (BUG) Backbone can't get jQuery. Need an expose or a dependency or something.
     * `browserify-shim`? Package.json deps?
 
+## Training
+
+* **Backbone.js**
+    * Challenges: Make these easier and more structured.
+        * Children views.
 
 ## Full
 
