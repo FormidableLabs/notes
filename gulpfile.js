@@ -201,8 +201,9 @@ gulp.task("watch",      ["watch:amd", "watch:browserify"]);
 
 gulp.task("check",      ["jshint"]);
 gulp.task("check:ci",   ["jshint:backend"]);
-gulp.task("check:fast", ["jshint:backend", "check:amd"]);
-gulp.task("check:all",  ["jshint:backend", "check:all:amd"]);
+gulp.task("check:fast", ["jshint:backend", "check:amd", "check:browserify"]);
+gulp.task("check:all",  ["jshint:backend", "check:all:amd",
+                         "check:all:browserify"]);
 
 gulp.task("setup", function (cb) {
   _seq([
