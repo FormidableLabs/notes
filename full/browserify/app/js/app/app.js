@@ -1,14 +1,14 @@
 /**
  * Application bootstrap.
  */
-var $ = require("jquery"),
-  Backbone = require("backbone");
+var $ = require("jquery");
+var Backbone = require("backbone");
 
 // TODO: Need actual dep for $ for Backbone.
 Backbone.$ = $;
 
-var NotesCollection = require("./collections/notes"),
-  Router = require("./routers/router");
+var NotesCollection = require("./collections/notes");
+var Router = require("./routers/router");
 
 $(function () {
   // Initialize application components.

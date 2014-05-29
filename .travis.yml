@@ -17,6 +17,12 @@ install:
   - cd skeleton/amd
   - npm install
   - cd ../..
+  - cd full/browserify
+  - npm install
+  - cd ../..
+  - cd skeleton/browserify
+  - npm install
+  - cd ../..
   - ./node_modules/.bin/gulp build
 
 script:
@@ -27,5 +33,11 @@ script:
   - ./node_modules/.bin/grunt check:ci
   - cd ../..
   - cd skeleton/amd
+  - ./node_modules/.bin/grunt check:ci
+  - cd ../..
+  - cd full/browserify
+  - ./node_modules/.bin/grunt check:ci
+  - cd ../..
+  - cd skeleton/browserify
   - ./node_modules/.bin/grunt check:ci
   - cd ../..

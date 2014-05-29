@@ -21,6 +21,9 @@
     shim: {
       "jquery": {
         exports: "$"
+      },
+      "markdown": {
+        exports: "markdown"
       }
     },
 

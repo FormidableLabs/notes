@@ -1,7 +1,7 @@
-Notes (AMD) Full
-================
+Notes (Browserify) Full
+=======================
 
-A version of Notes written using [AMD][amd] via [RequireJS][requirejs].
+A version of Notes written using [Browserify][browserify].
 
 ## Sources
 
@@ -16,7 +16,7 @@ The relevant pages for this project are:
 and available as source in the directory:
 
 ```
-full/amd/
+full/browserify/
   app/                // Application directory.
     js/               // JS sources (not served in prod)
     js-dist/          // Production bundle
@@ -31,7 +31,7 @@ The application uses [Grunt][grunt] for the frontend development workflow.
 Typically, a developer:
 
 * Installs all necessary components.
-* Runs a development server.
+* Runs a watch process and a development server.
 * Develops!
 
 ### Setup
@@ -42,14 +42,18 @@ First, install NPM and Bower dependencies:
 $ npm install
 ```
 
-Then copy over the vendor libraries to the application directory
-"app/js/vendor", which is `.gitignore`'d and *not* kept in source.
+Then build your JavaScript into a web-ready bundle.
 
 ```
+# One time only.
 $ grunt build
+
+# Keep building with watch
+$ grunt watch
 ```
 
-Initialize a database. You can rerun this later to reset the database.
+In a separate terminal, initialize a database. You can rerun this later to reset
+the database.
 
 ```
 $ node server/init-db.js
@@ -116,6 +120,5 @@ available Grunt tasks with:
 $ grunt --help
 ```
 
-[amd]: http://requirejs.org/docs/whyamd.html
+[browserify]: http://browserify.org/
 [grunt]: http://gruntjs.com/
-[requirejs]: http://requirejs.org/
