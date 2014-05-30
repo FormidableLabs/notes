@@ -20,6 +20,7 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     // Application production (bundled) distribution path.
     distPath: "app/js-dist",
+    mochaDistPath: "test/mocha/js-dist",
 
     // ------------------------------------------------------------------------
     // Clean tasks.
@@ -70,10 +71,14 @@ module.exports = function (grunt) {
         options: {
           transform: ["hbsfy"]
         },
-        src: [
-          "./app/js/app/app.js"
-        ],
-        dest: "<%= distPath %>/bundle.js"
+        files: {
+          "<%= distPath %>/bundle.js": [
+            "./app/js/app/app.js"
+          ],
+          "<%= mochaDistPath %>/bundle.js": [
+            "./test/mocha/js/main-browser.js"
+          ]
+        }
       },
       watch: {
         options: {
@@ -81,10 +86,11 @@ module.exports = function (grunt) {
           keepAlive: true,
           transform: ["hbsfy"]
         },
-        src: [
-          "./app/js/app/app.js"
-        ],
-        dest: "<%= distPath %>/bundle.js"
+        files: {
+          "<%= distPath %>/bundle.js": [
+            "./app/js/app/app.js"
+          ]
+        }
       }
     },
 

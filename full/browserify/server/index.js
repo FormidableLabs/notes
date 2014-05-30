@@ -10,6 +10,7 @@ function serverSetup() {
   app.use("/", express["static"]("app"));
   app.use("/app", express["static"]("app"));
   app.use("/test", express["static"]("test"));
+  app.use("/node_modules", express["static"]("node_modules"));
   app.use(bodyParser());
 
   app.get("/notes", function (req, res) {
