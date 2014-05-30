@@ -3,7 +3,7 @@
  */
 var root = window,
   mocha = root.mocha, // Off static include.
-  chai = root.chai, // Off static include (TODO SWITCH TO BROWSERIFY?)
+  chai = require("chai"),
   $ = require("jquery");
 
 // --------------------------------------------------------------------------
