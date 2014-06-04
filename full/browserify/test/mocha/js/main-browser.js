@@ -7,7 +7,8 @@ var root = window,
   chai = require("chai"),
   sinon = require("sinon"),
   sinonChai = require("sinon-chai"),
-  $ = require("jquery");
+  $ = require("jquery"),
+  appConfig = require("../../../app/js/app/config");
 
 // --------------------------------------------------------------------------
 // Chai / Sinon / Mocha configuration.
@@ -28,6 +29,9 @@ mocha.setup({
 // --------------------------------------------------------------------------
 // Test Bootstrap / Includes
 // --------------------------------------------------------------------------
+// Configuration
+appConfig.storeName = "notes-browserify-browser-mocha";
+
 // Add DOM fixture.
 $("<div id='fixtures' />")
   .css({ display: "none", visibility: "hidden" })

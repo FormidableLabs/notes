@@ -3,6 +3,8 @@ Tasks
 
 ## Browserify
 
+* (CHORE) **Relative Test Path**: to `app/`...
+
 * (BUG) **Grunt Browserify Watch**: Only watches **first** entry in `files`.
 
 * (BUG) **Bootstrap**: Not available (Maybe still need `bower` for this?).
