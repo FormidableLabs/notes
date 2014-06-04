@@ -3,6 +3,8 @@ Tasks
 
 ## Browserify
 
+* (BUG) **Grunt Browserify Watch**: Only watches **first** entry in `files`.
+
 * (BUG) **Bootstrap**: Not available (Maybe still need `bower` for this?).
     * Both `full` and `skeleton` are missing.
     * `npm install bootstrap` is **wrong** ;)

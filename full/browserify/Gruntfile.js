@@ -89,6 +89,9 @@ module.exports = function (grunt) {
         files: {
           "<%= distPath %>/bundle.js": [
             "./app/js/app/app.js"
+          ],
+          "<%= mochaDistPath %>/bundle.js": [
+            "./test/mocha/js/main-browser.js"
           ]
         }
       }
