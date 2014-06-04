@@ -77,6 +77,9 @@ module.exports = function (grunt) {
           ],
           "<%= mochaDistPath %>/bundle.js": [
             "./test/mocha/js/main-browser.js"
+          ],
+          "<%= mochaDistPath %>/bundle-karma.js": [
+            "./test/mocha/js/main-karma.js"
           ]
         }
       },
@@ -92,6 +95,9 @@ module.exports = function (grunt) {
           ],
           "<%= mochaDistPath %>/bundle.js": [
             "./test/mocha/js/main-browser.js"
+          ],
+          "<%= mochaDistPath %>/bundle-karma.js": [
+            "./test/mocha/js/main-karma.js"
           ]
         }
       }

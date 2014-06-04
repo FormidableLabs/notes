@@ -39,6 +39,4 @@ $("<div id='fixtures' />")
 
 // The file `spec/deps.js` specifies all test dependencies.
 require("./spec/deps");
-$(function () {
-  mocha.run();
-});
+mocha.run();
