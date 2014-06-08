@@ -1,6 +1,11 @@
 Tasks
 =====
 
+## General
+
+* (FEATURE): Jade-build the base README to a full HTML page and better
+  `gh-pages`.
+
 ## Browserify
 
 * (CHORE) **Relative Test Path**: to `app/`...
