@@ -90,9 +90,11 @@ define([
     // Update the model data. Without, renders `defaults.message`.
     helloView.model.fetch()
       .done(function () {
+        // Success!
         helloView.render();
       })
       .fail(function (jqXHR, textStatus) {
+        // Failure!
         var err = jqXHR.responseText || jqXHR.statusText || textStatus;
         helloView.$el.html(
           "<div>Model fetch failed with: <code>" + err + "</code></div>");
