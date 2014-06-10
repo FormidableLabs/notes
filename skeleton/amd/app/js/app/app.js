@@ -38,7 +38,12 @@ define([
   // The model contains the data. Typically this is sync'ed with remote or
   // local storage.
   var HelloModel = Backbone.Model.extend({
+    // Backend REST url prefix.
+    urlRoot: "/hello",
+
+    // Default values.
     defaults: {
+      id: 0,
       message: "I am the default message"
     }
   });
@@ -81,8 +86,16 @@ define([
   $(function () {
     // Now instantiate our view and render!
     var helloView = new HelloView();
+
     // Update the model data. Without, renders `defaults.message`.
-    helloView.model.set("message", "Hello World!");
-    helloView.render();
+    helloView.model.fetch()
+      .done(function () {
+        helloView.render();
+      })
+      .fail(function (jqXHR, textStatus) {
+        var err = jqXHR.responseText || jqXHR.statusText || textStatus;
+        helloView.$el.append(
+          "<div>Model fetch failed with: <code>" + err + "</code></div>");
+      });
   });
 });
