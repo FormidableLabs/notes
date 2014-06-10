@@ -94,7 +94,7 @@ define([
       })
       .fail(function (jqXHR, textStatus) {
         var err = jqXHR.responseText || jqXHR.statusText || textStatus;
-        helloView.$el.append(
+        helloView.$el.html(
           "<div>Model fetch failed with: <code>" + err + "</code></div>");
       });
   });
