@@ -12,6 +12,25 @@ module.exports = function (grunt) {
     return JSON.parse(grunt.file.read(name).replace(/\/\/.*\n/g, ""));
   };
 
+  // Declarations:
+  var KARMA_JASMINE_OPTIONS = {}; // TODO
+  var KARMA_MOCHA_OPTIONS = {
+    runnerPort: 9999,
+    reporters: ["spec"],
+    frameworks: ["mocha"],
+    files: [
+      // Off of the bundle.
+      "<%= mochaDistPath %>/bundle-karma.js"
+
+      // TODO: Try individual specs instead.
+    ],
+    client: {
+      mocha: {
+        ui: "bdd"
+      }
+    }
+  };
+
   // Configuration.
   grunt.initConfig({
 
@@ -104,6 +123,62 @@ module.exports = function (grunt) {
     },
 
     // ------------------------------------------------------------------------
+    // Karma test driver.
+    // ------------------------------------------------------------------------
+    karma: {
+      "mocha-fast": {
+        options: KARMA_MOCHA_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS"]
+      },
+      "jasmine-fast": {
+        options: KARMA_JASMINE_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS"]
+      },
+      "mocha-windows": {
+        options: KARMA_MOCHA_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "IE", "Chrome"]
+      },
+      "jasmine-windows": {
+        options: KARMA_JASMINE_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "IE", "Chrome"]
+      },
+      "mocha-ci": {
+        options: KARMA_MOCHA_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "Firefox"]
+      },
+      "jasmine-ci": {
+        options: KARMA_JASMINE_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "Firefox"]
+      },
+      "mocha-all": {
+        options: KARMA_MOCHA_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
+      },
+      "jasmine-all": {
+        options: KARMA_JASMINE_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
+      },
+      "jasmine-dev": {
+        // Runs tests automatically on changes in ongoing terminal.
+        options: KARMA_JASMINE_OPTIONS,
+        browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
+      },
+      "mocha-dev": {
+        // Runs tests automatically on changes in ongoing terminal.
+        options: KARMA_MOCHA_OPTIONS,
+        browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
+      }
+    },
+
+    // ------------------------------------------------------------------------
     // Development servers.
     // ------------------------------------------------------------------------
     // Full REST backend with Express.
@@ -136,6 +211,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-connect");
   grunt.loadNpmTasks("grunt-nodemon");
   grunt.loadNpmTasks("grunt-contrib-jshint");
+  grunt.loadNpmTasks("grunt-karma");
 
   // --------------------------------------------------------------------------
   // Tasks: Build
@@ -148,19 +224,15 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: QA
   // --------------------------------------------------------------------------
-  /* TODO
   grunt.registerTask("karma:fast",  ["karma:mocha-fast", "karma:jasmine-fast"]);
   grunt.registerTask("karma:ci",    ["karma:mocha-ci", "karma:jasmine-ci"]);
   grunt.registerTask("karma:all",   ["karma:mocha-all", "karma:jasmine-all"]);
-  */
 
-  grunt.registerTask("test",        []); // TODO["karma:fast"]);
+  grunt.registerTask("test",        ["karma:fast"]);
 
   grunt.registerTask("check",       ["jshint", "test"]);
-  /* TODO
   grunt.registerTask("check:ci",    ["jshint", "karma:ci"]);
   grunt.registerTask("check:all",   ["jshint", "karma:all"]);
-  */
 
   // --------------------------------------------------------------------------
   // Tasks: Default
