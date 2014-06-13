@@ -13,6 +13,15 @@ module.exports = function (grunt) {
   };
 
   // Declarations:
+  var BUNDLES = {
+    "<%= distPath %>/bundle.js": [
+      "./app/js/app/app.js"
+    ],
+    "<%= mochaDistPath %>/bundle.js": [
+      "./test/mocha/js/main.js"
+    ]
+  };
+
   var KARMA_JASMINE_OPTIONS = {}; // TODO
   var KARMA_MOCHA_OPTIONS = {
     runnerPort: 9999,
@@ -20,10 +29,7 @@ module.exports = function (grunt) {
     frameworks: ["mocha"],
     files: [
       // Off of the bundle.
-      "<%= mochaDistPath %>/bundle-karma.js",
-
-      // TODO: Try individual specs instead.
-      { pattern: "test/mocha/js/spec/**/*.spec.js",  included: false }
+      "<%= mochaDistPath %>/bundle.js"
     ],
     client: {
       mocha: {
@@ -91,17 +97,7 @@ module.exports = function (grunt) {
         options: {
           transform: ["hbsfy"]
         },
-        files: {
-          "<%= distPath %>/bundle.js": [
-            "./app/js/app/app.js"
-          ],
-          "<%= mochaDistPath %>/bundle.js": [
-            "./test/mocha/js/main-browser.js"
-          ],
-          "<%= mochaDistPath %>/bundle-karma.js": [
-            "./test/mocha/js/main-karma.js"
-          ]
-        }
+        files: BUNDLES
       },
       watch: {
         options: {
@@ -109,17 +105,7 @@ module.exports = function (grunt) {
           keepAlive: true,
           transform: ["hbsfy"]
         },
-        files: {
-          "<%= distPath %>/bundle.js": [
-            "./app/js/app/app.js"
-          ],
-          "<%= mochaDistPath %>/bundle.js": [
-            "./test/mocha/js/main-browser.js"
-          ],
-          "<%= mochaDistPath %>/bundle-karma.js": [
-            "./test/mocha/js/main-karma.js"
-          ]
-        }
+        files: BUNDLES
       }
     },
 
