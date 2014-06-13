@@ -19,21 +19,21 @@
 
   // Custom globals.
   "predef"        : [
-      // App
-      "module",
-      "require",
+    // App
+    "module",
+    "require",
 
-      // Jasmine / Mocha / Chai
-      "describe",
-      "before",
-      "beforeEach",
-      "after",
-      "afterEach",
-      "it",
-      "expect",
+    // Jasmine / Mocha / Chai
+    "describe",
+    "before",
+    "beforeEach",
+    "after",
+    "afterEach",
+    "it",
+    "expect",
 
-      // Sinon.JS
-      "sinon"
+    // Sinon.JS
+    "sinon"
   ],
 
   // Development.

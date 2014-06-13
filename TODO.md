@@ -1,11 +1,25 @@
 Tasks
 =====
 
+## General
+
+* (FEATURE): Jade-build the base README to a full HTML page and better
+  `gh-pages`.
+
 ## Browserify
+
+### Mandatory
+
+* (CHORE) **Relative Test Path**: to `app/`...
+
+* (BUG) **Grunt Browserify Watch**: Only watches **first** entry in `files`.
 
 * (BUG) **Bootstrap**: Not available (Maybe still need `bower` for this?).
     * Both `full` and `skeleton` are missing.
     * `npm install bootstrap` is **wrong** ;)
+    * `twbs`?
+
+### Optional
 
 * (FEATURE) Grunt: New `watch`, etc. tasks
     * `watch`: Make consistent across amd / browserify

@@ -5,7 +5,7 @@
  */
 var config = {
   // Local Storage Name
-  storeName: "notes-amd",
+  storeName: "notes-browserify",
 
   // Decide `localStorage` vs. REST backend.
   useLocalStorage: false

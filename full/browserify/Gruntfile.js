@@ -12,6 +12,32 @@ module.exports = function (grunt) {
     return JSON.parse(grunt.file.read(name).replace(/\/\/.*\n/g, ""));
   };
 
+  // Declarations:
+  var BUNDLES = {
+    "<%= distPath %>/bundle.js": [
+      "./app/js/app/app.js"
+    ],
+    "<%= mochaDistPath %>/bundle.js": [
+      "./test/mocha/js/main.js"
+    ]
+  };
+
+  var KARMA_JASMINE_OPTIONS = {}; // TODO
+  var KARMA_MOCHA_OPTIONS = {
+    runnerPort: 9999,
+    reporters: ["spec"],
+    frameworks: ["mocha"],
+    files: [
+      // Off of the bundle.
+      "<%= mochaDistPath %>/bundle.js"
+    ],
+    client: {
+      mocha: {
+        ui: "bdd"
+      }
+    }
+  };
+
   // Configuration.
   grunt.initConfig({
 
@@ -20,6 +46,7 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     // Application production (bundled) distribution path.
     distPath: "app/js-dist",
+    mochaDistPath: "test/mocha/js-dist",
 
     // ------------------------------------------------------------------------
     // Clean tasks.
@@ -70,10 +97,7 @@ module.exports = function (grunt) {
         options: {
           transform: ["hbsfy"]
         },
-        src: [
-          "./app/js/app/app.js"
-        ],
-        dest: "<%= distPath %>/bundle.js"
+        files: BUNDLES
       },
       watch: {
         options: {
@@ -81,10 +105,63 @@ module.exports = function (grunt) {
           keepAlive: true,
           transform: ["hbsfy"]
         },
-        src: [
-          "./app/js/app/app.js"
-        ],
-        dest: "<%= distPath %>/bundle.js"
+        files: BUNDLES
+      }
+    },
+
+    // ------------------------------------------------------------------------
+    // Karma test driver.
+    // ------------------------------------------------------------------------
+    karma: {
+      "mocha-fast": {
+        options: KARMA_MOCHA_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS"]
+      },
+      "jasmine-fast": {
+        options: KARMA_JASMINE_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS"]
+      },
+      "mocha-windows": {
+        options: KARMA_MOCHA_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "IE", "Chrome"]
+      },
+      "jasmine-windows": {
+        options: KARMA_JASMINE_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "IE", "Chrome"]
+      },
+      "mocha-ci": {
+        options: KARMA_MOCHA_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "Firefox"]
+      },
+      "jasmine-ci": {
+        options: KARMA_JASMINE_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "Firefox"]
+      },
+      "mocha-all": {
+        options: KARMA_MOCHA_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
+      },
+      "jasmine-all": {
+        options: KARMA_JASMINE_OPTIONS,
+        singleRun: true,
+        browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
+      },
+      "jasmine-dev": {
+        // Runs tests automatically on changes in ongoing terminal.
+        options: KARMA_JASMINE_OPTIONS,
+        browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
+      },
+      "mocha-dev": {
+        // Runs tests automatically on changes in ongoing terminal.
+        options: KARMA_MOCHA_OPTIONS,
+        browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
       }
     },
 
@@ -121,6 +198,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-connect");
   grunt.loadNpmTasks("grunt-nodemon");
   grunt.loadNpmTasks("grunt-contrib-jshint");
+  grunt.loadNpmTasks("grunt-karma");
 
   // --------------------------------------------------------------------------
   // Tasks: Build
@@ -133,19 +211,15 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: QA
   // --------------------------------------------------------------------------
-  /* TODO
-  grunt.registerTask("karma:fast",  ["karma:mocha-fast", "karma:jasmine-fast"]);
-  grunt.registerTask("karma:ci",    ["karma:mocha-ci", "karma:jasmine-ci"]);
-  grunt.registerTask("karma:all",   ["karma:mocha-all", "karma:jasmine-all"]);
-  */
+  grunt.registerTask("karma:fast",  ["karma:mocha-fast"]);  // TODO: JASMINE
+  grunt.registerTask("karma:ci",    ["karma:mocha-ci"]);    // TODO: JASMINE
+  grunt.registerTask("karma:all",   ["karma:mocha-all"]);   // TODO: JASMINE
 
-  grunt.registerTask("test",        []); // TODO["karma:fast"]);
+  grunt.registerTask("test",        ["karma:fast"]);
 
   grunt.registerTask("check",       ["jshint", "test"]);
-  /* TODO
   grunt.registerTask("check:ci",    ["jshint", "karma:ci"]);
   grunt.registerTask("check:all",   ["jshint", "karma:all"]);
-  */
 
   // --------------------------------------------------------------------------
   // Tasks: Default

@@ -43,7 +43,7 @@
     "sinon": "1.10.0",
     "sinon-chai": "2.5.0",
     "sqlite3": "2.2.3",
-    "uglifyify": "^2.4.0"
+    "uglifyify": "2.4.0"
   },
   "scripts": {
     "test": "./node_modules/.bin/grunt"
