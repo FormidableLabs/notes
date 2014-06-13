@@ -20,9 +20,10 @@ module.exports = function (grunt) {
     frameworks: ["mocha"],
     files: [
       // Off of the bundle.
-      "<%= mochaDistPath %>/bundle-karma.js"
+      "<%= mochaDistPath %>/bundle-karma.js",
 
       // TODO: Try individual specs instead.
+      { pattern: "test/mocha/js/spec/**/*.spec.js",  included: false }
     ],
     client: {
       mocha: {
@@ -126,6 +127,10 @@ module.exports = function (grunt) {
     // Karma test driver.
     // ------------------------------------------------------------------------
     karma: {
+      "mocha-DEBUG": {
+        options: KARMA_MOCHA_OPTIONS,
+        browsers: ["Chrome"]
+      },
       "mocha-fast": {
         options: KARMA_MOCHA_OPTIONS,
         singleRun: true,
