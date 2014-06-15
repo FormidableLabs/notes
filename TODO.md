@@ -12,6 +12,8 @@ Tasks
 
 * (CHORE) **Relative Test Path**: to `app/`...
 
+* (CHORE) Dev without minify.
+
 * (BUG) **Grunt Watch**: Doesn't pick up changes.
 
 * (BUG) **Bootstrap**: Not available (Maybe still need `bower` for this?).
