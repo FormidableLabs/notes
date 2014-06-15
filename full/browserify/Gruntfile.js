@@ -2,6 +2,7 @@
  * Gruntfile
  */
 var _ = require("lodash");
+var path = require("path");
 
 module.exports = function (grunt) {
 
@@ -23,9 +24,11 @@ module.exports = function (grunt) {
     dist: {
       options: {
         plugin: [["minifyify", {
-          compressPath: "app",
-          map: "bundle.map.json",
-          output: "app/js-dist/bundle.map.json"
+          compressPath: function (p) {
+            return "http://127.0.0.1:3000/app/" + path.relative("app", p);
+          },
+          map: "http://127.0.0.1:3000/app/js-map/bundle.map.json",
+          output: "app/js-map/bundle.map.json"
         }]]
       },
       src: "./app/js/app/app.js",
@@ -67,13 +70,17 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     // Application production (bundled) distribution path.
     distPath: "app/js-dist",
+    mapPath: "app/js-map",
     mochaDistPath: "test/mocha/js-dist",
 
     // ------------------------------------------------------------------------
     // Clean tasks.
     // ------------------------------------------------------------------------
     clean: {
-      dist: "<%= distPath %>",
+      dist: [
+        "<%= distPath %>",
+        "<%= mapPath %>"
+      ],
       mocha: "<%= mochaDistPath %>"
     },
 
@@ -226,9 +233,14 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: Build
   // --------------------------------------------------------------------------
+  // Make map directory.
+  grunt.registerTask("create:map", function () {
+    grunt.file.mkdir(grunt.config("mapPath"));
+  });
   // Development build: Everything, no minification.
   grunt.registerTask("build:dev", [
     "clean:dist",
+    "create:map",
     "clean:mocha",
     "browserify:dist",
     "browserify:mocha"
@@ -236,6 +248,7 @@ module.exports = function (grunt) {
   // Production build: App-only, minified.
   grunt.registerTask("build:prod", [
     "clean:dist",
+    "create:map",
     "browserify:dist"
   ]);
 
