@@ -1,6 +1,8 @@
 /**
  * Gruntfile
  */
+var _ = require("lodash");
+
 module.exports = function (grunt) {
 
   // Helpers
@@ -14,13 +16,25 @@ module.exports = function (grunt) {
 
   // Declarations:
   var BUNDLES = {
-    "<%= distPath %>/bundle.js": [
-      "./app/js/app/app.js"
-    ],
-    "<%= mochaDistPath %>/bundle.js": [
-      "./test/mocha/js/main.js"
-    ]
+    dist: {
+      src: "./app/js/app/app.js",
+      dest: "<%= distPath %>/bundle.js"
+    },
+    mocha: {
+      src: "./test/mocha/js/main.js",
+      dest: "<%= mochaDistPath %>/bundle.js"
+    }
   };
+  var WATCH = {
+    options: {
+      watch: true,
+      keepAlive: true
+    }
+  };
+  var BUNDLES_WATCH = _.chain(BUNDLES)
+    .map(function (v, k) { return [k + "-watch", _.extend(WATCH, v)]; })
+    .object()
+    .value();
 
   var KARMA_JASMINE_OPTIONS = {}; // TODO
   var KARMA_MOCHA_OPTIONS = {
@@ -52,7 +66,8 @@ module.exports = function (grunt) {
     // Clean tasks.
     // ------------------------------------------------------------------------
     clean: {
-      dist: "<%= distPath %>"
+      dist: "<%= distPath %>",
+      mocha: "<%= mochaDistPath %>"
     },
 
     // ------------------------------------------------------------------------
@@ -92,21 +107,21 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     // Bundle.
     // ------------------------------------------------------------------------
-    browserify: {
-      dist: {
-        options: {
-          transform: ["hbsfy"]
-        },
-        files: BUNDLES
-      },
-      watch: {
-        options: {
-          watch: true,
-          keepAlive: true,
-          transform: ["hbsfy"]
-        },
-        files: BUNDLES
+    browserify: _.extend({
+      options: {
+        transform: ["hbsfy"]
       }
+    }, BUNDLES, BUNDLES_WATCH),
+
+    concurrent: {
+      options: {
+        logConcurrentOutput: true,
+        limit: 8
+      },
+      "watch": [
+        "browserify:dist-watch",
+        "browserify:mocha-watch"
+      ]
     },
 
     // ------------------------------------------------------------------------
@@ -199,13 +214,16 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-nodemon");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-karma");
+  grunt.loadNpmTasks("grunt-concurrent");
 
   // --------------------------------------------------------------------------
   // Tasks: Build
   // --------------------------------------------------------------------------
   grunt.registerTask("build", [
     "clean:dist",
-    "browserify:dist"
+    "clean:mocha",
+    "browserify:dist",
+    "browserify:mocha"
   ]);
 
   // --------------------------------------------------------------------------
@@ -226,6 +244,6 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   grunt.registerTask("server",    ["nodemon:dev"]);
   grunt.registerTask("static",    ["connect:dev"]);
-  grunt.registerTask("watch",     ["browserify:watch"]);
+  grunt.registerTask("watch",     ["concurrent:watch"]);
   grunt.registerTask("default",   ["build", "check", "watch"]);
 };

@@ -13,6 +13,7 @@
     "grunt": "0.4.4",
     "grunt-browserify": "2.1.0",
     "grunt-cli": "0.1.13",
+    "grunt-concurrent": "0.5.0",
     "grunt-contrib-clean": "0.5.0",
     "grunt-contrib-connect": "0.7.1",
     "grunt-contrib-copy": "0.5.0",
@@ -36,16 +37,16 @@
     "karma-safari-launcher": "0.1.1",
     "karma-spec-reporter": "0.0.12",
     "lodash": "2.4.1",
+    "markdown": "0.5.0",
     "minimatch": "0.2.14",
     "mocha": "1.19.0",
     "ps-tree": "0.0.3",
-    "markdown": "0.5.0",
     "sinon": "1.10.0",
     "sinon-chai": "2.5.0",
     "sqlite3": "2.2.3",
     "uglifyify": "2.4.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/grunt"
+    "test": "./node_modules/.bin/grunt check"
   }
 }
