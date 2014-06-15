@@ -16,11 +16,6 @@ Tasks
 
 * (BUG) **Grunt Watch**: Doesn't pick up changes.
 
-* (BUG) **Bootstrap**: Not available (Maybe still need `bower` for this?).
-    * Both `full` and `skeleton` are missing.
-    * `npm install bootstrap` is **wrong** ;)
-    * `twbs`?
-
 * (CHORE): Naming - `grunt build`, `grunt build:dev`, `grunt build:prod`
 
 ### Optional

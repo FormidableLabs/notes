@@ -4,8 +4,12 @@
 var $ = require("jquery");
 var Backbone = require("backbone");
 
-// TODO: Need actual dep for $ for Backbone.
+// jQuery: Backbone needs explicit set and bootstrap needs global. (Sigh).
 Backbone.$ = $;
+global.jQuery = $;
+
+// Side-effect: Add in bootstrap.js
+require("bootstrap/dist/js/bootstrap");
 
 var NotesCollection = require("./collections/notes");
 var Router = require("./routers/router");
