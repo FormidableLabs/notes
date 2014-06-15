@@ -41,7 +41,12 @@ module.exports = function (grunt) {
   };
   var BUNDLES_WATCH = _.chain(BUNDLES)
     .map(function (v, k) {
-      return [k + "-watch", _.extend({ watch: true, keepAlive: true }, v)];
+      return [k + "-watch", _.merge({
+        options: {
+          watch: true,
+          keepAlive: true
+        }
+      }, v)];
     })
     .object()
     .value();
