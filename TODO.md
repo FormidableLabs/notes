@@ -19,6 +19,8 @@ Tasks
     * `npm install bootstrap` is **wrong** ;)
     * `twbs`?
 
+* (CHORE): Naming - `grunt build`, `grunt build:dev`, `grunt build:prod`
+
 ### Optional
 
 * (FEATURE) Grunt: New `watch`, etc. tasks

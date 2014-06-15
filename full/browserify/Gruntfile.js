@@ -256,6 +256,7 @@ module.exports = function (grunt) {
     "create:map",
     "browserify:dist"
   ]);
+  grunt.registerTask("build",       ["build:dev"]);
 
   // --------------------------------------------------------------------------
   // Tasks: QA
