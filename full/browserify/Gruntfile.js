@@ -21,6 +21,13 @@ module.exports = function (grunt) {
   // * `mocha-watch`
   var BUNDLES = {
     dist: {
+      options: {
+        plugin: [["minifyify", {
+          compressPath: "app",
+          map: "bundle.map.json",
+          output: "app/js-dist/bundle.map.json"
+        }]]
+      },
       src: "./app/js/app/app.js",
       dest: "<%= distPath %>/bundle.js"
     },
@@ -107,7 +114,7 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     // Bundle.
     // ------------------------------------------------------------------------
-    browserify: _.extend({
+    browserify: _.merge({
       options: {
         transform: ["hbsfy"]
       }
