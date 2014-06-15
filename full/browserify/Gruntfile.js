@@ -25,14 +25,10 @@ module.exports = function (grunt) {
       dest: "<%= mochaDistPath %>/bundle.js"
     }
   };
-  var WATCH = {
-    options: {
-      watch: true,
-      keepAlive: true
-    }
-  };
   var BUNDLES_WATCH = _.chain(BUNDLES)
-    .map(function (v, k) { return [k + "-watch", _.extend(WATCH, v)]; })
+    .map(function (v, k) {
+      return [k + "-watch", _.extend({ watch: true, keepAlive: true }, v)];
+    })
     .object()
     .value();
 
@@ -219,11 +215,17 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: Build
   // --------------------------------------------------------------------------
-  grunt.registerTask("build", [
+  // Development build: Everything, no minification.
+  grunt.registerTask("build:dev", [
     "clean:dist",
     "clean:mocha",
     "browserify:dist",
     "browserify:mocha"
+  ]);
+  // Production build: App-only, minified.
+  grunt.registerTask("build:prod", [
+    "clean:dist",
+    "browserify:dist"
   ]);
 
   // --------------------------------------------------------------------------
@@ -245,5 +247,5 @@ module.exports = function (grunt) {
   grunt.registerTask("server",    ["nodemon:dev"]);
   grunt.registerTask("static",    ["connect:dev"]);
   grunt.registerTask("watch",     ["concurrent:watch"]);
-  grunt.registerTask("default",   ["build", "check", "watch"]);
+  grunt.registerTask("default",   ["build:dev", "check", "watch"]);
 };
