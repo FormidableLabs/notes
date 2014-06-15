@@ -1,6 +1,9 @@
 /**
  * Gruntfile
  */
+var _ = require("lodash");
+var path = require("path");
+
 module.exports = function (grunt) {
 
   // Helpers
@@ -12,15 +15,41 @@ module.exports = function (grunt) {
     return JSON.parse(grunt.file.read(name).replace(/\/\/.*\n/g, ""));
   };
 
-  // Declarations:
+  // Declarations: Individual tasks:
+  // * `dist`
+  // * `dist-watch`
+  // * `mocha`
+  // * `mocha-watch`
   var BUNDLES = {
-    "<%= distPath %>/bundle.js": [
-      "./app/js/app/app.js"
-    ],
-    "<%= mochaDistPath %>/bundle.js": [
-      "./test/mocha/js/main.js"
-    ]
+    dist: {
+      options: {
+        plugin: [["minifyify", {
+          compressPath: function (p) {
+            return "http://127.0.0.1:3000/app/" + path.relative("app", p);
+          },
+          map: "http://127.0.0.1:3000/<%= mapPath %>/bundle.map.json",
+          output: "<%= mapPath %>/bundle.map.json"
+        }]]
+      },
+      src: "./app/js/app/app.js",
+      dest: "<%= distPath %>/bundle.js"
+    },
+    mocha: {
+      src: "./test/mocha/js/main.js",
+      dest: "<%= mochaDistPath %>/bundle.js"
+    }
   };
+  var BUNDLES_WATCH = _.chain(BUNDLES)
+    .map(function (v, k) {
+      return [k + "-watch", _.merge({
+        options: {
+          watch: true,
+          keepAlive: true
+        }
+      }, v)];
+    })
+    .object()
+    .value();
 
   var KARMA_JASMINE_OPTIONS = {}; // TODO
   var KARMA_MOCHA_OPTIONS = {
@@ -46,13 +75,18 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     // Application production (bundled) distribution path.
     distPath: "app/js-dist",
+    mapPath: "app/js-map",
     mochaDistPath: "test/mocha/js-dist",
 
     // ------------------------------------------------------------------------
     // Clean tasks.
     // ------------------------------------------------------------------------
     clean: {
-      dist: "<%= distPath %>"
+      dist: [
+        "<%= distPath %>",
+        "<%= mapPath %>"
+      ],
+      mocha: "<%= mochaDistPath %>"
     },
 
     // ------------------------------------------------------------------------
@@ -92,21 +126,21 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     // Bundle.
     // ------------------------------------------------------------------------
-    browserify: {
-      dist: {
-        options: {
-          transform: ["hbsfy"]
-        },
-        files: BUNDLES
-      },
-      watch: {
-        options: {
-          watch: true,
-          keepAlive: true,
-          transform: ["hbsfy"]
-        },
-        files: BUNDLES
+    browserify: _.merge({
+      options: {
+        transform: ["hbsfy"]
       }
+    }, BUNDLES, BUNDLES_WATCH),
+
+    concurrent: {
+      options: {
+        logConcurrentOutput: true,
+        limit: 8
+      },
+      "watch": [
+        "browserify:dist-watch",
+        "browserify:mocha-watch"
+      ]
     },
 
     // ------------------------------------------------------------------------
@@ -199,14 +233,30 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-nodemon");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-karma");
+  grunt.loadNpmTasks("grunt-concurrent");
 
   // --------------------------------------------------------------------------
   // Tasks: Build
   // --------------------------------------------------------------------------
-  grunt.registerTask("build", [
+  // Make map directory.
+  grunt.registerTask("create:map", function () {
+    grunt.file.mkdir(grunt.config("mapPath"));
+  });
+  // Development build: Everything, no minification.
+  grunt.registerTask("build:dev", [
     "clean:dist",
+    "create:map",
+    "clean:mocha",
+    "browserify:dist",
+    "browserify:mocha"
+  ]);
+  // Production build: App-only, minified.
+  grunt.registerTask("build:prod", [
+    "clean:dist",
+    "create:map",
     "browserify:dist"
   ]);
+  grunt.registerTask("build",       ["build:dev"]);
 
   // --------------------------------------------------------------------------
   // Tasks: QA
@@ -226,6 +276,6 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   grunt.registerTask("server",    ["nodemon:dev"]);
   grunt.registerTask("static",    ["connect:dev"]);
-  grunt.registerTask("watch",     ["browserify:watch"]);
-  grunt.registerTask("default",   ["build", "check", "watch"]);
+  grunt.registerTask("watch",     ["concurrent:watch"]);
+  grunt.registerTask("default",   ["build:dev", "check", "watch"]);
 };

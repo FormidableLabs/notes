@@ -168,7 +168,8 @@ Object.keys(FILES).forEach(function (key) {
 gulp.task("sync:skel:amd-to-browserify", function () {
   gulp
     .src([
-      "skeleton/amd/app/js/app/templates/*.hbs"
+      "skeleton/amd/app/js/app/templates/*.hbs",
+      "skeleton/amd/server/**"
     ], { base: "skeleton/amd" })
     .pipe(gulp.dest("skeleton/browserify"));
 });
