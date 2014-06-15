@@ -6,9 +6,7 @@ var Backbone = require("backbone");
 
 // jQuery: Backbone needs explicit set and bootstrap needs global. (Sigh).
 Backbone.$ = $;
-/*globals global:true */
-global.jQuery = $;
-/*unset global */
+window.jQuery = $;
 
 // Side-effect: Add in bootstrap.js
 require("bootstrap/dist/js/bootstrap");
