@@ -14,7 +14,11 @@ module.exports = function (grunt) {
     return JSON.parse(grunt.file.read(name).replace(/\/\/.*\n/g, ""));
   };
 
-  // Declarations:
+  // Declarations: Individual tasks:
+  // * `dist`
+  // * `dist-watch`
+  // * `mocha`
+  // * `mocha-watch`
   var BUNDLES = {
     dist: {
       src: "./app/js/app/app.js",
