@@ -27,8 +27,8 @@ module.exports = function (grunt) {
           compressPath: function (p) {
             return "http://127.0.0.1:3000/app/" + path.relative("app", p);
           },
-          map: "http://127.0.0.1:3000/app/js-map/bundle.map.json",
-          output: "app/js-map/bundle.map.json"
+          map: "http://127.0.0.1:3000/<%= mapPath %>/bundle.map.json",
+          output: "<%= mapPath %>/bundle.map.json"
         }]]
       },
       src: "./app/js/app/app.js",
