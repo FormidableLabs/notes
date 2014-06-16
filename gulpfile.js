@@ -147,6 +147,12 @@ Object.keys(FILES).forEach(function (key) {
       .pipe(_gruntTask("build"));
   });
 
+  gulp.task("build-dev:" + cfg.KEY, function () {
+    gulp
+      .src(cfg.GRUNT)
+      .pipe(_gruntTask("build:dev"));
+  });
+
   gulp.task("check:" + cfg.KEY, function () {
     gulp
       .src(cfg.GRUNT)
@@ -209,6 +215,7 @@ gulp.task("sync",       ["sync:amd", "sync:browserify",
                          "sync:full:amd-to-browserify"]);
 gulp.task("install",    ["install:amd", "install:browserify"]);
 gulp.task("build",      ["build:amd", "build:browserify"]);
+gulp.task("build-dev",  ["build-dev:amd", "build-dev:browserify"]);
 
 gulp.task("watch",      ["watch:amd", "watch:browserify"]);
 
@@ -222,7 +229,7 @@ gulp.task("setup", function (cb) {
   _seq([
     "sync",
     "install",
-    "build",
+    "build-dev"
   ], cb)();
 });
 

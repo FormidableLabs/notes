@@ -256,7 +256,7 @@ module.exports = function (grunt) {
   grunt.registerTask("build:prod", [
     "clean:dist",
     "create:map",
-    "browserify:dist"
+    "browserify:dist-min"
   ]);
   grunt.registerTask("build",       ["build:prod"]);
 

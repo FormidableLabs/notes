@@ -23,6 +23,9 @@ install:
   - cd skeleton/browserify
   - npm install
   - cd ../..
+  # Check production build actually works.
+  - ./node_modules/.bin/gulp build
+  # Overwrite with dev build for tests, etc.
   - ./node_modules/.bin/gulp build:dev
 
 script:
