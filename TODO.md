@@ -14,7 +14,9 @@ Tasks
 
 * (CHORE) Dev without minify.
 
-* (CHORE) Have extra `underscore` dep. in bundle. Fix up with `lodash`.
+* (CHORE) STILL have extra `underscore` dep. in bundle.
+  https://github.com/thlorenz/browserify-shim/issues/29
+  https://github.com/jeromegn/Backbone.localStorage/issues/134
 
 * (BUG) **Grunt Watch**: Doesn't pick up changes.
 
