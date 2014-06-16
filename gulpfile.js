@@ -215,7 +215,7 @@ gulp.task("sync",       ["sync:amd", "sync:browserify",
                          "sync:full:amd-to-browserify"]);
 gulp.task("install",    ["install:amd", "install:browserify"]);
 gulp.task("build",      ["build:amd", "build:browserify"]);
-gulp.task("build-dev",  ["build-dev:amd", "build-dev:browserify"]);
+gulp.task("build:dev",  ["build-dev:amd", "build-dev:browserify"]);
 
 gulp.task("watch",      ["watch:amd", "watch:browserify"]);
 
