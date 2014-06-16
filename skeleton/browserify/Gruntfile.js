@@ -17,20 +17,12 @@ module.exports = function (grunt) {
 
   // Declarations: Individual tasks:
   // * `dist`
+  // * `dist-min`
   // * `dist-watch`
   // * `mocha`
   // * `mocha-watch`
   var BUNDLES = {
     dist: {
-      options: {
-        plugin: [["minifyify", {
-          compressPath: function (p) {
-            return "http://127.0.0.1:3000/app/" + path.relative("app", p);
-          },
-          map: "http://127.0.0.1:3000/<%= mapPath %>/bundle.map.json",
-          output: "<%= mapPath %>/bundle.map.json"
-        }]]
-      },
       src: "./app/js/app/app.js",
       dest: "<%= distPath %>/bundle.js"
     },
@@ -50,6 +42,18 @@ module.exports = function (grunt) {
     })
     .object()
     .value();
+
+  BUNDLES["dist-min"] = _.merge({
+    options: {
+      plugin: [["minifyify", {
+        compressPath: function (p) {
+          return "http://127.0.0.1:3000/app/" + path.relative("app", p);
+        },
+        map: "http://127.0.0.1:3000/<%= mapPath %>/bundle.map.json",
+        output: "<%= mapPath %>/bundle.map.json"
+      }]]
+    }
+  }, BUNDLES["dist"]);
 
   var KARMA_JASMINE_OPTIONS = {}; // TODO
   var KARMA_MOCHA_OPTIONS = {
@@ -254,7 +258,7 @@ module.exports = function (grunt) {
   grunt.registerTask("build:prod", [
     "clean:dist",
     "create:map",
-    "browserify:dist"
+    "browserify:dist-min"
   ]);
   grunt.registerTask("build",       ["build:dev"]);
 

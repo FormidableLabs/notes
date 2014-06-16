@@ -14,6 +14,8 @@ Tasks
 
 * (CHORE) Dev without minify.
 
+* (CHORE) Have extra `underscore` dep. in bundle. Fix up with `lodash`.
+
 * (BUG) **Grunt Watch**: Doesn't pick up changes.
 
 * (CHORE): Naming - `grunt build`, `grunt build:dev`, `grunt build:prod`
