@@ -49,5 +49,8 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/grunt check"
+  },
+  "browser": {
+    "underscore": "lodash/dist/lodash.underscore"
   }
 }

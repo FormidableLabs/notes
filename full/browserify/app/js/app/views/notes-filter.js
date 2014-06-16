@@ -1,5 +1,5 @@
 var $ = require("jquery");
-var _ = require("lodash/dist/lodash.underscore");
+var _ = require("underscore");
 var Backbone = require("backbone");
 
 var NotesCollection = require("../collections/notes");
