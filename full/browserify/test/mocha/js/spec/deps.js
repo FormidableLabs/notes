@@ -16,7 +16,7 @@ appConfig.useLocalStorage ?
   require("./collections/notes-rest.spec");
 
 require("./models/note.spec");
-// TODO require("./routers/router.spec");
+require("./routers/router.spec");
 require("./views/note.spec");
 require("./views/note-nav.spec");
 require("./views/note-view.spec");
