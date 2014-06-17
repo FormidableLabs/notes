@@ -6,13 +6,9 @@ Tasks
 * (FEATURE): Jade-build the base README to a full HTML page and better
   `gh-pages`.
 
+* Prune all extra bower and npm dependencies (probably lots!)
+
 ## Browserify
-
-### Mandatory
-
-* (FEATURE): Port over Jasmine tests.
-
-### Later
 
 * (CHORE) Dev with source maps, but **without** minify.
 
@@ -43,10 +39,6 @@ Tasks
 * **Backbone.js**
     * Challenges: Make these easier and more structured.
         * Children views.
-
-## Full
-
-* Prune all extra bower and npm dependencies (probably lots!)
 
 ## Meta Infrastructure
 

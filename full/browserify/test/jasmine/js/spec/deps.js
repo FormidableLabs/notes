@@ -8,7 +8,7 @@
 var appConfig = require("app/config"),
   cfgId = !!window.__karma__ ? "karma" : "browser";
 
-appConfig.storeName = "notes-browserify-" + cfgId + "-mocha";
+appConfig.storeName = "notes-browserify-" + cfgId + "-jasmine";
 
 // Require each module directly.
 appConfig.useLocalStorage ?
