@@ -45,7 +45,7 @@ describe("app/collections/notes", function () {
 
   });
 
-  xdescribe("modification", function () {
+  describe("modification", function () {
 
     beforeEach(function () {
       // Load a pre-existing note.
