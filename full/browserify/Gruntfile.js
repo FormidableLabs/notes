@@ -318,9 +318,9 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: QA
   // --------------------------------------------------------------------------
-  grunt.registerTask("karma:fast",  ["karma:mocha-fast", "karma:jasmine-fast"]);  // TODO: JASMINE
-  grunt.registerTask("karma:ci",    ["karma:mocha-ci"]);    // TODO: JASMINE
-  grunt.registerTask("karma:all",   ["karma:mocha-all"]);   // TODO: JASMINE
+  grunt.registerTask("karma:fast",  ["karma:mocha-fast", "karma:jasmine-fast"]);
+  grunt.registerTask("karma:ci",    ["karma:mocha-ci", "karma:jasmine-ci"]);
+  grunt.registerTask("karma:all",   ["karma:mocha-all", "karma:jasmine-all"]);
 
   grunt.registerTask("test",        ["karma:fast"]);
 
