@@ -49,7 +49,7 @@
     "sqlite3": "2.2.3"
   },
   "scripts": {
-    "test": "node_modules/.bin/grunt check"
+    "test": "grunt build:dev check"
   },
   "browser": {
     "underscore": "lodash/dist/lodash.underscore"

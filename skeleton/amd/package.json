@@ -32,7 +32,7 @@
     "sqlite3": "2.2.3"
   },
   "scripts": {
-    "postinstall": "node_modules/.bin/bower install",
-    "test": "node_modules/.bin/grunt"
+    "postinstall": "bower install",
+    "test": "grunt"
   }
 }
