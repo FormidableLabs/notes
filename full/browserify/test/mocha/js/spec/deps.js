@@ -11,4 +11,15 @@ var appConfig = require("../../../../app/js/app/config"),
 appConfig.storeName = "notes-browserify-" + cfgId + "-mocha";
 
 // Require each module directly.
-require("./hello.spec");
+appConfig.useLocalStorage ?
+  require("./collections/notes.spec") :
+  require("./collections/notes-rest.spec");
+
+require("./models/note.spec");
+require("./routers/router.spec");
+require("./views/note.spec");
+require("./views/note-nav.spec");
+require("./views/note-view.spec");
+require("./views/notes.spec");
+require("./views/notes-filter.spec");
+require("./views/notes-item.spec");

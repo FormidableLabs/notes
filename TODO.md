@@ -10,13 +10,17 @@ Tasks
 
 ### Mandatory
 
-* (CHORE) **Relative Test Path**: to `app/`...
+* (FEATURE): Port over Jasmine tests.
 
-* (CHORE) Dev without minify.
+### Later
 
-* (BUG) **Grunt Watch**: Doesn't pick up changes.
+* (CHORE) Dev with source maps, but **without** minify.
 
-* (CHORE): Naming - `grunt build`, `grunt build:dev`, `grunt build:prod`
+* (BUG) **Grunt Watch**: Doesn't pick up changes with minify.
+
+* (CHORE) STILL have extra `underscore` dep. in bundle.
+  https://github.com/thlorenz/browserify-shim/issues/29
+  https://github.com/jeromegn/Backbone.localStorage/issues/134
 
 ### Optional
 

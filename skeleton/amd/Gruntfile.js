@@ -336,6 +336,7 @@ module.exports = function (grunt) {
     "build:vendor",
     "build:dist"
   ]);
+  grunt.registerTask("build:dev",   ["build"]);
 
   // --------------------------------------------------------------------------
   // Tasks: QA

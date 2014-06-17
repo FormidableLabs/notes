@@ -26,6 +26,9 @@ define([
       // Start history to enable routes to fire.
       Backbone.history.start();
 
+      // Navigate to home page to start.
+      ctx.router.navigate("", { trigger: false, replace: true });
+
       // Spy on all route events.
       ctx.routerSpy = sinon.spy();
       ctx.router.on("route", ctx.routerSpy);
@@ -59,11 +62,6 @@ define([
     });
 
     afterEach(function () {
-      // Navigate to home page and stop history.
-      if (this.router) {
-        this.router.navigate("", opts);
-      }
-
       Backbone.history.stop();
       this.sandbox.restore();
     });
