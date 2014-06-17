@@ -5,7 +5,7 @@
  * are run by our infrastructure.
  */
 // App configuration.
-var appConfig = require("../../../../app/js/app/config"),
+var appConfig = require("app/config"),
   cfgId = !!window.__karma__ ? "karma" : "browser";
 
 appConfig.storeName = "notes-browserify-" + cfgId + "-mocha";

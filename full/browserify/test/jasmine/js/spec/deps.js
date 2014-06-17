@@ -1,24 +1,25 @@
-require("./collections/notes-rest.spec");
+/**
+ * Test dependencies.
+ *
+ * This file lists out all of the individual spec (test) files so that they
+ * are run by our infrastructure.
+ */
+// App configuration.
+var appConfig = require("app/config"),
+  cfgId = !!window.__karma__ ? "karma" : "browser";
 
-// // Decide `localStorage` vs. REST backend.
-// window._USE_LOCAL_STORAGE = false;
+appConfig.storeName = "notes-browserify-" + cfgId + "-jasmine";
 
-// /**
-//  * Test dependencies.
-//  *
-//  * This file lists out all of the individual spec (test) files so that they
-//  * are run by our infrastructure.
-//  */
-// define([
-//   window._USE_LOCAL_STORAGE === true ?
-//     "spec/collections/notes.spec" :
-//     "spec/collections/notes-rest.spec",
-//   "spec/models/note.spec",
-//   "spec/routers/router.spec",
-//   "spec/views/note.spec",
-//   "spec/views/note-nav.spec",
-//   "spec/views/note-view.spec",
-//   "spec/views/notes.spec",
-//   "spec/views/notes-filter.spec",
-//   "spec/views/notes-item.spec"
-// ]);
+// Require each module directly.
+appConfig.useLocalStorage ?
+  require("./collections/notes.spec") :
+  require("./collections/notes-rest.spec");
+
+// require("./models/note.spec");
+// require("./routers/router.spec");
+// require("./views/note.spec");
+// require("./views/note-nav.spec");
+// require("./views/note-view.spec");
+// require("./views/notes.spec");
+// require("./views/notes-filter.spec");
+// require("./views/notes-item.spec");
