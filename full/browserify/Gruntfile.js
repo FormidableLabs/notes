@@ -15,7 +15,7 @@ module.exports = function (grunt) {
     return JSON.parse(grunt.file.read(name).replace(/\/\/.*\n/g, ""));
   };
 
-  // Minify configurations.
+  // Common configurations.
   var MINIFY = {
     minify: false,
     compressPath: function (p) {
@@ -24,6 +24,11 @@ module.exports = function (grunt) {
     map: "http://127.0.0.1:3000/<%= mapPath %>/bundle.map.json",
     output: "<%= mapPath %>/bundle.map.json"
   };
+  var REMAP = [{
+    src: "**/*.js",
+    expose: "app",
+    cwd: "./app/js/app"
+  }];
 
   // Declarations: Individual tasks:
   // * `dist`
@@ -31,6 +36,8 @@ module.exports = function (grunt) {
   // * `dist-min`
   // * `mocha`
   // * `mocha-watch`
+  // * `jasmine`
+  // * `jasmine-watch`
   var BUNDLES = {
     dist: {
       // options: {
@@ -41,20 +48,23 @@ module.exports = function (grunt) {
     },
     mocha: {
       options: {
-        // Remap root to `"app"`.
         plugin: [
-          ["remapify", [
-            {
-              src: "**/*.js",
-              expose: "app",
-              cwd: "./app/js/app"
-            }
-          ]]
+          ["remapify", REMAP]
           //["minifyify", [MINIFY]]
         ]
       },
       src: "./test/mocha/js/main.js",
       dest: "<%= mochaDistPath %>/bundle.js"
+    },
+    jasmine: {
+      options: {
+        plugin: [
+          ["remapify", REMAP]
+          //["minifyify", [MINIFY]]
+        ]
+      },
+      src: "./test/jasmine/js/main.js",
+      dest: "<%= jasmineDistPath %>/bundle.js"
     }
   };
   var BUNDLES_WATCH = _.chain(BUNDLES)
@@ -103,6 +113,7 @@ module.exports = function (grunt) {
     distPath: "app/js-dist",
     mapPath: "app/js-map",
     mochaDistPath: "test/mocha/js-dist",
+    jasmineDistPath: "test/jasmine/js-dist",
 
     // ------------------------------------------------------------------------
     // Clean tasks.
@@ -112,7 +123,8 @@ module.exports = function (grunt) {
         "<%= distPath %>",
         "<%= mapPath %>"
       ],
-      mocha: "<%= mochaDistPath %>"
+      mocha: "<%= mochaDistPath %>",
+      jasmine: "<%= jasmineDistPath %>"
     },
 
     // ------------------------------------------------------------------------
@@ -165,7 +177,8 @@ module.exports = function (grunt) {
       },
       "watch": [
         "browserify:dist-watch",
-        "browserify:mocha-watch"
+        "browserify:mocha-watch",
+        "browserify:jasmine-watch"
       ]
     },
 
@@ -273,8 +286,10 @@ module.exports = function (grunt) {
     "clean:dist",
     "create:map",
     "clean:mocha",
+    "clean:jasmine",
     "browserify:dist",
-    "browserify:mocha"
+    "browserify:mocha",
+    "browserify:jasmine"
   ]);
   // Production build: App-only, minified.
   grunt.registerTask("build:prod", [
