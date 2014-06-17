@@ -43,6 +43,7 @@
     "minimatch": "0.2.14",
     "mocha": "1.19.0",
     "ps-tree": "0.0.3",
+    "remapify": "0.1.6",
     "sinon": "1.10.0",
     "sinon-chai": "2.5.0",
     "sqlite3": "2.2.3"

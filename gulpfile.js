@@ -229,7 +229,7 @@ gulp.task("setup", function (cb) {
   _seq([
     "sync",
     "install",
-    "build-dev"
+    "build:dev"
   ], cb)();
 });
 

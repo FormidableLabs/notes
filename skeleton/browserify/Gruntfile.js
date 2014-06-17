@@ -15,17 +15,44 @@ module.exports = function (grunt) {
     return JSON.parse(grunt.file.read(name).replace(/\/\/.*\n/g, ""));
   };
 
+  // Minify configurations.
+  var MINIFY = {
+    minify: false,
+    compressPath: function (p) {
+      return "http://127.0.0.1:3000/app/" + path.relative("app", p);
+    },
+    map: "http://127.0.0.1:3000/<%= mapPath %>/bundle.map.json",
+    output: "<%= mapPath %>/bundle.map.json"
+  };
+
   // Declarations: Individual tasks:
   // * `dist`
   // * `dist-watch`
+  // * `dist-min`
   // * `mocha`
   // * `mocha-watch`
   var BUNDLES = {
     dist: {
+      // options: {
+      //   plugin: [["minifyify", [MINIFY]]]
+      // },
       src: "./app/js/app/app.js",
       dest: "<%= distPath %>/bundle.js"
     },
     mocha: {
+      options: {
+        // Remap root to `"app"`.
+        plugin: [
+          ["remapify", [
+            {
+              src: "**/*.js",
+              expose: "app",
+              cwd: "./app/js/app"
+            }
+          ]]
+          //["minifyify", [MINIFY]]
+        ]
+      },
       src: "./test/mocha/js/main.js",
       dest: "<%= mochaDistPath %>/bundle.js"
     }
@@ -41,15 +68,9 @@ module.exports = function (grunt) {
     })
     .object()
     .value();
-  BUNDLES["dist-min"] = _.merge({
+  BUNDLES["dist-min"] = _.extend({
     options: {
-      plugin: [["minifyify", {
-        compressPath: function (p) {
-          return "http://127.0.0.1:3000/app/" + path.relative("app", p);
-        },
-        map: "http://127.0.0.1:3000/<%= mapPath %>/bundle.map.json",
-        output: "<%= mapPath %>/bundle.map.json"
-      }]]
+      plugin: [["minifyify", [_.extend({ minify: true }, MINIFY)]]]
     }
   }, BUNDLES.dist);
 
@@ -59,6 +80,9 @@ module.exports = function (grunt) {
     reporters: ["spec"],
     frameworks: ["mocha"],
     files: [
+      // Test libraries.
+      "node_modules/sinon/pkg/sinon.js",
+
       // Off of the bundle.
       "<%= mochaDistPath %>/bundle.js"
     ],
