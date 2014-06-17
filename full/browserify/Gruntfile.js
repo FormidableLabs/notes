@@ -154,7 +154,7 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     browserify: _.merge({
       options: {
-        transform: ["hbsfy"],
+        transform: ["hbsfy"]
       }
     }, BUNDLES, BUNDLES_WATCH),
 
