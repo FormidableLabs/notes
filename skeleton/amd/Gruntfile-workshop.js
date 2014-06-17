@@ -194,14 +194,7 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     jshint: {
       options: _readJsonCfg(".jshint-frontend.json"),
-      client: {
-        files: {
-          src: [
-            "app/js/*.js",
-            "app/js/app/**/*.js"
-          ]
-        }
-      },
+      //TODO: add hinting for the client side
       test: {
         options: {
           "es3": false // Allow old-IE breaking variations for `to.be.true`.
@@ -285,14 +278,7 @@ module.exports = function (grunt) {
     // Development servers.
     // ------------------------------------------------------------------------
     // Full REST backend with Express.
-    nodemon: {
-      dev: {
-        script: "server/index.js"
-      },
-      options: {
-        watch: ["server"]
-      }
-    },
+    // TODO: add nodemon configuration
 
     // Pure static (localStorage) server.
     connect: {
@@ -310,7 +296,7 @@ module.exports = function (grunt) {
 
   // Load dependencies.
   // TODO: clean plugin
-  grunt.loadNpmTasks("grunt-nodemon");
+  // TODO: nodemon plugin
   grunt.loadNpmTasks("grunt-contrib-connect");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-requirejs");
@@ -348,7 +334,7 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: Default
   // --------------------------------------------------------------------------
-  grunt.registerTask("server",    ["nodemon:dev"]);
+  // TODO: alias nodemon task
   grunt.registerTask("static",    ["connect:dev"]);
   grunt.registerTask("default",   ["build", "check"]);
 };
