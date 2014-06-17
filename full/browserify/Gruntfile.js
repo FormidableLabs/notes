@@ -84,7 +84,23 @@ module.exports = function (grunt) {
     }
   }, BUNDLES.dist);
 
-  var KARMA_JASMINE_OPTIONS = {}; // TODO
+  var KARMA_JASMINE_OPTIONS = {
+    runnerPort: 9999,
+    reporters: ["spec"],
+    frameworks: ["jasmine"],
+    files: [
+      // Test libraries.
+      "node_modules/sinon/pkg/sinon.js",
+
+      // Off of the bundle.
+      "<%= jasmineDistPath %>/bundle.js"
+    ],
+    client: {
+      mocha: {
+        ui: "bdd"
+      }
+    }
+  };
   var KARMA_MOCHA_OPTIONS = {
     runnerPort: 9999,
     reporters: ["spec"],
@@ -302,7 +318,7 @@ module.exports = function (grunt) {
   // --------------------------------------------------------------------------
   // Tasks: QA
   // --------------------------------------------------------------------------
-  grunt.registerTask("karma:fast",  ["karma:mocha-fast"]);  // TODO: JASMINE
+  grunt.registerTask("karma:fast",  ["karma:mocha-fast", "karma:jasmine-fast"]);  // TODO: JASMINE
   grunt.registerTask("karma:ci",    ["karma:mocha-ci"]);    // TODO: JASMINE
   grunt.registerTask("karma:all",   ["karma:mocha-all"]);   // TODO: JASMINE
 
