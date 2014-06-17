@@ -148,7 +148,7 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     jshint: {
       options: _readJsonCfg(".jshint-frontend.json"),
-      // TODO: Add a `client` configuration for:
+      // TODO (WORKSHOP): Add a `client` configuration for:
       // - Files in `app/js/` directory with `.js` suffix.
       // - Files in **anywhere within** `app/js/app/` directory with `.js`
       //   suffix.
