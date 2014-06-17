@@ -5,9 +5,10 @@
 var root = window,
   mocha = root.mocha, // Off static include.
   chai = require("chai"),
-  sinon = require("sinon"),
+  sinon = root.sinon, // Off static include.
   sinonChai = require("sinon-chai"),
   $ = require("jquery"),
+  Backbone = require("backbone"),
   isKarma = !!root.__karma__;
 
 // --------------------------------------------------------------------------
@@ -15,7 +16,7 @@ var root = window,
 // --------------------------------------------------------------------------
 // Exports
 root.expect = chai.expect;
-root.sinon = sinon;
+Backbone.$ = $;
 
 // Plugins
 chai.use(sinonChai);

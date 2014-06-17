@@ -80,6 +80,9 @@ module.exports = function (grunt) {
     reporters: ["spec"],
     frameworks: ["mocha"],
     files: [
+      // Test libraries.
+      "node_modules/sinon/pkg/sinon.js",
+
       // Off of the bundle.
       "<%= mochaDistPath %>/bundle.js"
     ],

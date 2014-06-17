@@ -5,8 +5,6 @@ var NotesCollection = require("app/collections/notes");
 
 describe("app/collections/notes", function () {
 
-  console.log("TODO HERE", sinon);
-
   beforeEach(function () {
     // stub for express server
     this.stubServer = sinon.fakeServer.create();
