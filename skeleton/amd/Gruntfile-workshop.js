@@ -183,17 +183,14 @@ module.exports = function (grunt) {
   // Tasks: Build
   // --------------------------------------------------------------------------
   grunt.registerTask("build:vendor", [
-    // TODO (WORKSHOP): UNCOMMENT after `clean` configured "clean:vendor",
-    "copy:vendor"
+    // TODO (WORKSHOP): Need to `clean` and `copy` the vendor files.
   ]);
   grunt.registerTask("build:dist", [
-    // TODO (WORKSHOP): UNCOMMENT after `clean` configured "clean:dist",
-    "copy:dist",
-    "requirejs"
+    // TODO (WORKSHOP): Need to `copy` the distribution files and build
+    //                  the RequireJS bundle (hint: `requirejs`)
   ]);
   grunt.registerTask("build", [
-    "build:vendor",
-    "build:dist"
+    // TODO (WORKSHOP): Need to aggregate the two previous tasks ;)
   ]);
 
   // --------------------------------------------------------------------------
