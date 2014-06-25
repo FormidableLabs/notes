@@ -34,6 +34,7 @@ module.exports = function (grunt) {
   // * `dist`
   // * `dist-watch`
   // * `dist-min`
+  // * `dist-min-watch`
   // * `mocha`
   // * `mocha-watch`
   // * `jasmine`
@@ -58,6 +59,11 @@ module.exports = function (grunt) {
       dest: "<%= jasmineDistPath %>/bundle.js"
     }
   };
+  BUNDLES["dist-min"] = _.extend({
+    options: {
+      plugin: [["minifyify", MINIFY]]
+    }
+  }, BUNDLES.dist);
   var BUNDLES_WATCH = _.chain(BUNDLES)
     .map(function (v, k) {
       return [k + "-watch", _.merge({
@@ -69,11 +75,6 @@ module.exports = function (grunt) {
     })
     .object()
     .value();
-  BUNDLES["dist-min"] = _.extend({
-    options: {
-      plugin: [["minifyify", MINIFY]]
-    }
-  }, BUNDLES.dist);
 
   var KARMA_JASMINE_OPTIONS = {
     runnerPort: 9999,
