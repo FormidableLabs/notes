@@ -17,7 +17,7 @@ module.exports = function (grunt) {
 
   // Common configurations.
   var MINIFY = {
-    minify: false,
+    minify: true,
     compressPath: function (p) {
       return "http://127.0.0.1:3000/app/" + path.relative("app", p);
     },
@@ -40,28 +40,19 @@ module.exports = function (grunt) {
   // * `jasmine-watch`
   var BUNDLES = {
     dist: {
-      // options: {
-      //   plugin: [["minifyify", [MINIFY]]]
-      // },
       src: "./app/js/app/app.js",
       dest: "<%= distPath %>/bundle.js"
     },
     mocha: {
       options: {
-        plugin: [
-          ["remapify", REMAP]
-          //["minifyify", [MINIFY]]
-        ]
+        plugin: [["remapify", REMAP]]
       },
       src: "./test/mocha/js/main.js",
       dest: "<%= mochaDistPath %>/bundle.js"
     },
     jasmine: {
       options: {
-        plugin: [
-          ["remapify", REMAP]
-          //["minifyify", [MINIFY]]
-        ]
+        plugin: [["remapify", REMAP]]
       },
       src: "./test/jasmine/js/main.js",
       dest: "<%= jasmineDistPath %>/bundle.js"
@@ -80,7 +71,7 @@ module.exports = function (grunt) {
     .value();
   BUNDLES["dist-min"] = _.extend({
     options: {
-      plugin: [["minifyify", [_.extend({ minify: true }, MINIFY)]]]
+      plugin: [["minifyify", MINIFY]]
     }
   }, BUNDLES.dist);
 
