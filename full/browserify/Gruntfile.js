@@ -16,6 +16,12 @@ module.exports = function (grunt) {
   };
 
   // Common configurations.
+
+  // Swap for debugging.
+  // https://github.com/ben-ng/minifyify/issues/49
+  // var MINIFY = {
+  //   minify: false
+  // };
   var MINIFY = {
     minify: true,
     compressPath: function (p) {

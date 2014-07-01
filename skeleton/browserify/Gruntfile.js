@@ -16,8 +16,14 @@ module.exports = function (grunt) {
   };
 
   // Common configurations.
+
+  // Swap for debugging.
+  // https://github.com/ben-ng/minifyify/issues/49
+  // var MINIFY = {
+  //   minify: false
+  // };
   var MINIFY = {
-    minify: false,
+    minify: true,
     compressPath: function (p) {
       return "http://127.0.0.1:3000/app/" + path.relative("app", p);
     },
@@ -34,39 +40,36 @@ module.exports = function (grunt) {
   // * `dist`
   // * `dist-watch`
   // * `dist-min`
+  // * `dist-min-watch`
   // * `mocha`
   // * `mocha-watch`
   // * `jasmine`
   // * `jasmine-watch`
   var BUNDLES = {
     dist: {
-      // options: {
-      //   plugin: [["minifyify", [MINIFY]]]
-      // },
       src: "./app/js/app/app.js",
       dest: "<%= distPath %>/bundle.js"
     },
     mocha: {
       options: {
-        plugin: [
-          ["remapify", REMAP]
-          //["minifyify", [MINIFY]]
-        ]
+        plugin: [["remapify", REMAP]]
       },
       src: "./test/mocha/js/main.js",
       dest: "<%= mochaDistPath %>/bundle.js"
     },
     jasmine: {
       options: {
-        plugin: [
-          ["remapify", REMAP]
-          //["minifyify", [MINIFY]]
-        ]
+        plugin: [["remapify", REMAP]]
       },
       src: "./test/jasmine/js/main.js",
       dest: "<%= jasmineDistPath %>/bundle.js"
     }
   };
+  BUNDLES["dist-min"] = _.extend({
+    options: {
+      plugin: [["minifyify", MINIFY]]
+    }
+  }, BUNDLES.dist);
   var BUNDLES_WATCH = _.chain(BUNDLES)
     .map(function (v, k) {
       return [k + "-watch", _.merge({
@@ -78,11 +81,6 @@ module.exports = function (grunt) {
     })
     .object()
     .value();
-  BUNDLES["dist-min"] = _.extend({
-    options: {
-      plugin: [["minifyify", [_.extend({ minify: true }, MINIFY)]]]
-    }
-  }, BUNDLES.dist);
 
   var KARMA_JASMINE_OPTIONS = {
     runnerPort: 9999,
