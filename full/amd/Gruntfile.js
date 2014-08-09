@@ -113,7 +113,7 @@ module.exports = function (grunt) {
               "json2/json2.js",
               "backbone/backbone.js",
               "backbone.localStorage/backbone.localStorage.js",
-              "showdown/src/showdown.js",
+              "markdown/lib/markdown.js",
 
               // Test libraries.
               "mocha/mocha.js",
@@ -196,7 +196,7 @@ module.exports = function (grunt) {
     // JsHint style checks.
     // ------------------------------------------------------------------------
     jshint: {
-      options: _readJsonCfg(".jshint.json"),
+      options: _readJsonCfg(".jshint-frontend.json"),
       client: {
         files: {
           src: [
@@ -212,6 +212,15 @@ module.exports = function (grunt) {
         files: {
           src: [
             "test/*/js/**/*.js"
+          ]
+        }
+      },
+      server: {
+        options: _readJsonCfg(".jshint-backend.json"),
+        files: {
+          src: [
+            "*.js",
+            "server/**/*.js"
           ]
         }
       }
@@ -327,6 +336,7 @@ module.exports = function (grunt) {
     "build:vendor",
     "build:dist"
   ]);
+  grunt.registerTask("build:dev",   ["build"]);
 
   // --------------------------------------------------------------------------
   // Tasks: QA
