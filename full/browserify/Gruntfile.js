@@ -30,6 +30,8 @@ module.exports = function (grunt) {
     cwd: "./app/js/app"
   }];
 
+  process.env.BROWSERIFYSWAP_ENV = "production";
+
   // Declarations: Individual tasks:
   // * `dist`
   // * `dist-watch`
