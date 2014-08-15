@@ -67,7 +67,7 @@
       "backbone",
       "backbone.localStorage"
     ],
-    "all": {
+    "production": {
       "underscore.js": "lodash/dist/lodash.underscore"
     }
   }

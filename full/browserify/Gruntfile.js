@@ -30,6 +30,7 @@ module.exports = function (grunt) {
     cwd: "./app/js/app"
   }];
 
+  // Need to exactly match string in `package.json`.
   process.env.BROWSERIFYSWAP_ENV = "production";
 
   // Declarations: Individual tasks:
