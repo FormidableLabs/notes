@@ -77,7 +77,11 @@ module.exports = function (grunt) {
     // ------------------------------------------------------------------------
     clean: {
       vendor: "<%= vendorPath %>",
-      dist: "<%= distPath %>"
+      dist: [
+        "<%= distPath %>",
+        "<%= distMapPath %>"
+      ],
+      "build-map": "<%= distPath %>/bundle.js.map"
     },
 
     // ------------------------------------------------------------------------
@@ -175,6 +179,16 @@ module.exports = function (grunt) {
             ]
           }
         ]
+      },
+
+      // Build map to target map.
+      "build-map": {
+        files: [
+          {
+            src: "<%= distPath %>/bundle.js.map",
+            dest: "<%= distMapPath %>/bundle.js.map",
+          }
+        ]
       }
     },
 
@@ -196,6 +210,10 @@ module.exports = function (grunt) {
           generateSourceMaps: true
         }
       }
+    },
+
+    replace: {
+
     },
 
     // ------------------------------------------------------------------------
@@ -336,7 +354,10 @@ module.exports = function (grunt) {
   grunt.registerTask("build:dist", [
     "clean:dist",
     "copy:dist",
-    "requirejs:app"
+    "requirejs:app",
+    // Modify soure map.
+    "copy:build-map",
+    "clean:build-map"
   ]);
   grunt.registerTask("build", [
     "build:vendor",
