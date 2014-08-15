@@ -9,6 +9,7 @@
     "bootstrap": "3.1.1",
     "bower": "1.3.3",
     "browserify": "4.1.5",
+    "browserify-swap": "0.2.1",
     "chai": "1.9.1",
     "express": "4.2.0",
     "grunt": "0.4.4",
@@ -54,5 +55,20 @@
   },
   "browser": {
     "underscore": "lodash/dist/lodash.underscore"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-swap"
+    ]
+  },
+  "browserify-swap": {
+    "@packages": [
+      "underscore",
+      "backbone",
+      "backbone.localStorage"
+    ],
+    "production": {
+      "underscore.js$": "lodash/dist/lodash.underscore"
+    }
   }
 }
