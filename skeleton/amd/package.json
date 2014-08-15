@@ -15,6 +15,7 @@
     "grunt-contrib-requirejs": "0.4.4",
     "grunt-karma": "0.8.3",
     "grunt-nodemon": "0.3.0",
+    "grunt-text-replace": "^0.3.12",
     "karma": "0.12.17",
     "karma-chrome-launcher": "0.1.4",
     "karma-firefox-launcher": "0.1.3",
