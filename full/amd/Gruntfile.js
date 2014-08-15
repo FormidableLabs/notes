@@ -70,13 +70,19 @@ module.exports = function (grunt) {
     vendorPath: "app/js/vendor",
     // Application production (bundled) distribution path.
     distPath: "app/js-dist",
+    distMapPath: "app/js-map",
+    sourcesUrl: "http://127.0.0.1:3000",
 
     // ------------------------------------------------------------------------
     // Clean tasks.
     // ------------------------------------------------------------------------
     clean: {
       vendor: "<%= vendorPath %>",
-      dist: "<%= distPath %>"
+      dist: [
+        "<%= distPath %>",
+        "<%= distMapPath %>"
+      ],
+      "build-map": "<%= distPath %>/bundle.js.map"
     },
 
     // ------------------------------------------------------------------------
@@ -174,6 +180,16 @@ module.exports = function (grunt) {
             ]
           }
         ]
+      },
+
+      // Build map to target map.
+      "build-map": {
+        files: [
+          {
+            src: "<%= distPath %>/bundle.js.map",
+            dest: "<%= distMapPath %>/bundle.js.map"
+          }
+        ]
       }
     },
 
@@ -181,14 +197,30 @@ module.exports = function (grunt) {
     // Bundle tasks.
     // ------------------------------------------------------------------------
     requirejs: {
+      options: {
+        name: "app/app",
+        baseUrl: "app/js/vendor",
+        mainConfigFile: "app/js/config.js",
+        out: "<%= distPath %>/bundle.js",
+        optimize: "uglify2"
+      },
+      "app-no-map": {},
       app: {
         options: {
-          name: "app/app",
-          baseUrl: "app/js/vendor",
-          mainConfigFile: "app/js/config.js",
-          out: "<%= distPath %>/bundle.js",
-          optimize: "uglify2"
+          preserveLicenseComments: false,
+          generateSourceMaps: true
         }
+      }
+    },
+
+    replace: {
+      "build-map": {
+        src: ["<%= distPath %>/bundle.js"],
+        overwrite: true,
+        replacements: [{
+          from: "sourceMappingURL=",
+          to: "sourceMappingURL=<%= sourcesUrl %>/js-map/"
+        }]
       }
     },
 
@@ -317,6 +349,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-connect");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-requirejs");
+  grunt.loadNpmTasks("grunt-text-replace");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-karma");
 
@@ -330,7 +363,11 @@ module.exports = function (grunt) {
   grunt.registerTask("build:dist", [
     "clean:dist",
     "copy:dist",
-    "requirejs"
+    "requirejs:app",
+    // Modify soure map.
+    "copy:build-map",
+    "clean:build-map",
+    "replace:build-map"
   ]);
   grunt.registerTask("build", [
     "build:vendor",
