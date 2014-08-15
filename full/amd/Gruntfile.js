@@ -71,6 +71,7 @@ module.exports = function (grunt) {
     // Application production (bundled) distribution path.
     distPath: "app/js-dist",
     distMapPath: "app/js-map",
+    sourcesUrl: "http://127.0.0.1:3000",
 
     // ------------------------------------------------------------------------
     // Clean tasks.
@@ -213,7 +214,14 @@ module.exports = function (grunt) {
     },
 
     replace: {
-
+      "build-map": {
+        src: ["<%= distPath %>/bundle.js"],
+        overwrite: true,
+        replacements: [{
+          from: "sourceMappingURL=",
+          to: "sourceMappingURL=<%= sourcesUrl %>/js-map/"
+        }]
+      }
     },
 
     // ------------------------------------------------------------------------
@@ -341,6 +349,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-connect");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-requirejs");
+  grunt.loadNpmTasks("grunt-text-replace");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-karma");
 
@@ -357,7 +366,8 @@ module.exports = function (grunt) {
     "requirejs:app",
     // Modify soure map.
     "copy:build-map",
-    "clean:build-map"
+    "clean:build-map",
+    "replace:build-map"
   ]);
   grunt.registerTask("build", [
     "build:vendor",
