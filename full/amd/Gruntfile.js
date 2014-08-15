@@ -70,6 +70,7 @@ module.exports = function (grunt) {
     vendorPath: "app/js/vendor",
     // Application production (bundled) distribution path.
     distPath: "app/js-dist",
+    distMapPath: "app/js-map",
 
     // ------------------------------------------------------------------------
     // Clean tasks.
@@ -181,13 +182,18 @@ module.exports = function (grunt) {
     // Bundle tasks.
     // ------------------------------------------------------------------------
     requirejs: {
+      options: {
+        name: "app/app",
+        baseUrl: "app/js/vendor",
+        mainConfigFile: "app/js/config.js",
+        out: "<%= distPath %>/bundle.js",
+        optimize: "uglify2"
+      },
+      "app-no-map": {},
       app: {
         options: {
-          name: "app/app",
-          baseUrl: "app/js/vendor",
-          mainConfigFile: "app/js/config.js",
-          out: "<%= distPath %>/bundle.js",
-          optimize: "uglify2"
+          preserveLicenseComments: false,
+          generateSourceMaps: true
         }
       }
     },
@@ -330,7 +336,7 @@ module.exports = function (grunt) {
   grunt.registerTask("build:dist", [
     "clean:dist",
     "copy:dist",
-    "requirejs"
+    "requirejs:app"
   ]);
   grunt.registerTask("build", [
     "build:vendor",
