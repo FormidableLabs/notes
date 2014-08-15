@@ -187,7 +187,7 @@ module.exports = function (grunt) {
         files: [
           {
             src: "<%= distPath %>/bundle.js.map",
-            dest: "<%= distMapPath %>/bundle.js.map",
+            dest: "<%= distMapPath %>/bundle.js.map"
           }
         ]
       }
