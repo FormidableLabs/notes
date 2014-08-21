@@ -8,10 +8,7 @@ var gulp = require("gulp");
 var jshint = require("gulp-jshint");
 var nodemon = require("gulp-nodemon");
 var webpack = require("gulp-webpack");
-
-// TODO: add `gulp clean`.
-// TODO: minify
-// TODO: Source map.
+var rimraf = require("gulp-rimraf");
 
 // ----------------------------------------------------------------------------
 // Globals
@@ -96,11 +93,36 @@ gulp.task("jshint", ["jshint:client", "jshint:test", "jshint:backend"]);
 // ----------------------------------------------------------------------------
 // Builders
 // ----------------------------------------------------------------------------
-gulp.task("webpack", function () {
+var _webpack = function (opts) {
   return gulp
     .src(CONFIG.APP.ENTRY)
-    .pipe(webpack(CONFIG.WEBPACK))
+    .pipe(webpack(_.merge({}, CONFIG.WEBPACK, opts)))
     .pipe(gulp.dest(path.dirname(CONFIG.DIST.PATH)));
+};
+
+gulp.task("clean", function () {
+  return gulp.src([
+      path.dirname(CONFIG.DIST.PATH)
+    ], { read: false })
+    .pipe(rimraf());
+});
+
+gulp.task("build:dev", ["clean"], function () {
+  return _webpack({
+    // Add source map.
+    devtool: "#source-map"
+  });
+});
+
+gulp.task("build:prod", ["clean"], function () {
+  return _webpack({
+    optimize: {
+      minimize: true
+    },
+    // TODO: Need to hide this from production.
+    // TODO: Need to make 127.0.0.1 serving.
+    devtool: "#source-map"
+  });
 });
 
 gulp.task("server", function () {
@@ -114,5 +136,5 @@ gulp.task("server", function () {
 // Aggregations
 // ----------------------------------------------------------------------------
 gulp.task("check",    ["jshint"]);
-gulp.task("build",    ["webpack"]);
-gulp.task("default",  ["build", "check"]);
+gulp.task("build",    ["build:prod"]);
+gulp.task("default",  ["build:dev", "check"]);
