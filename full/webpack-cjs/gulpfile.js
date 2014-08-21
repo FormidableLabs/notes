@@ -2,10 +2,47 @@
  * Gulpfile
  */
 var fs = require("fs");
+var path = require("path");
 var _ = require("lodash");
 var gulp = require("gulp");
 var jshint = require("gulp-jshint");
 var webpack = require("gulp-webpack");
+
+// TODO: add `gulp clean`.
+// TODO: minify
+// TODO: Source map.
+
+// ----------------------------------------------------------------------------
+// Globals
+// ----------------------------------------------------------------------------
+var CONFIG = {
+  APP: {
+    ENTRY: "app/js/app/app.js"
+  },
+  DIST: {
+    PATH: "app/js-dist/bundle.js"
+  }
+};
+
+CONFIG.WEBPACK = {
+  cache: true,
+  context: path.join(__dirname, "/app"),
+  entry: path.join(__dirname, CONFIG.APP.ENTRY),
+  output: {
+    path: path.join(__dirname, path.dirname(CONFIG.DIST.PATH)),
+    filename: path.basename(CONFIG.DIST.PATH)
+  },
+  module: {
+    loaders: [
+      { test: /\.hbs$/, loader: "handlebars-loader" }
+    ]
+  },
+  resolve: {
+    alias: {
+      "underscore": "lodash/dist/lodash.underscore"
+    }
+  }
+};
 
 // ----------------------------------------------------------------------------
 // Helpers
@@ -60,9 +97,9 @@ gulp.task("jshint", ["jshint:client", "jshint:test", "jshint:backend"]);
 // ----------------------------------------------------------------------------
 gulp.task("webpack", function () {
   return gulp
-    .src("app/js/app/app.js")
-    .pipe(webpack({ /* webpack configuration */ }))
-    .pipe(gulp.dest("app/js-dist/bundle.js"));
+    .src(CONFIG.APP.ENTRY)
+    .pipe(webpack(CONFIG.WEBPACK))
+    .pipe(gulp.dest(path.dirname(CONFIG.DIST.PATH)));
 });
 
 gulp.task("server", function () {
