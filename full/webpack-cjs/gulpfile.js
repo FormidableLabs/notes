@@ -6,6 +6,7 @@ var path = require("path");
 var _ = require("lodash");
 var gulp = require("gulp");
 var jshint = require("gulp-jshint");
+var nodemon = require("gulp-nodemon");
 var webpack = require("gulp-webpack");
 
 // TODO: add `gulp clean`.
@@ -103,10 +104,15 @@ gulp.task("webpack", function () {
 });
 
 gulp.task("server", function () {
+  nodemon({
+    script: "server/index.js",
+    ext: "js"
+  });
 });
 
 // ----------------------------------------------------------------------------
 // Aggregations
 // ----------------------------------------------------------------------------
 gulp.task("check",    ["jshint"]);
-gulp.task("default",  ["check"]);
+gulp.task("build",    ["webpack"]);
+gulp.task("default",  ["build", "check"]);
