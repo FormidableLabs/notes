@@ -2,20 +2,25 @@
   "name": "notes-webpack-cjs",
   "version": "0.0.3",
   "description": "Notes application (Webpack CommonJS)",
+  "dependencies": {
+    "express": "4.2.0",
+    "body-parser": "1.2.0",
+    "handlebars": "1.3.0",
+    "handlebars-loader": "0.1.7",
+    "ps-tree": "0.0.3",
+    "sqlite3": "2.2.3",
+    "webpack": "1.4.0-beta3"
+  },
   "devDependencies": {
     "backbone": "1.1.2",
     "backbone.localstorage": "1.1.7",
-    "body-parser": "1.2.0",
     "bootstrap": "3.1.1",
     "chai": "1.9.1",
-    "express": "4.2.0",
     "gulp": "3.8.7",
     "gulp-jshint": "1.8.4",
     "gulp-nodemon": "1.0.4",
     "gulp-rimraf": "0.1.0",
-    "gulp-webpack": "0.3.0",
-    "handlebars": "1.3.0",
-    "handlebars-loader": "0.1.7",
+    "gulp-util": "3.0.1",
     "jquery": "2.1.1",
     "json2": "0.4.0",
     "karma": "0.12.16",
@@ -32,14 +37,12 @@
     "markdown": "0.5.0",
     "minimatch": "0.2.14",
     "mocha": "1.19.0",
-    "ps-tree": "0.0.3",
-    "remapify": "0.1.6",
     "sinon": "1.10.0",
-    "sinon-chai": "2.5.0",
-    "sqlite3": "2.2.3"
+    "sinon-chai": "2.5.0"
   },
   "scripts": {
     "test": "gulp build check",
+    "build": "webpack --config webpack.config.js",
     "shrink": "rm -f npm-shrinkwrap.json && npm shrinkwrap --dev"
   }
 }

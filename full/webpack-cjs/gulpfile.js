@@ -5,42 +5,13 @@ var fs = require("fs");
 var path = require("path");
 var _ = require("lodash");
 var gulp = require("gulp");
+var gutil = require("gulp-util");
 var jshint = require("gulp-jshint");
 var nodemon = require("gulp-nodemon");
-var webpack = require("gulp-webpack");
+var webpack = require("webpack");
 var rimraf = require("gulp-rimraf");
 
-// ----------------------------------------------------------------------------
-// Globals
-// ----------------------------------------------------------------------------
-var CONFIG = {
-  APP: {
-    ENTRY: "app/js/app/app.js"
-  },
-  DIST: {
-    PATH: "app/js-dist/bundle.js"
-  }
-};
-
-CONFIG.WEBPACK = {
-  cache: true,
-  context: path.join(__dirname, "/app"),
-  entry: path.join(__dirname, CONFIG.APP.ENTRY),
-  output: {
-    path: path.join(__dirname, path.dirname(CONFIG.DIST.PATH)),
-    filename: path.basename(CONFIG.DIST.PATH)
-  },
-  module: {
-    loaders: [
-      { test: /\.hbs$/, loader: "handlebars-loader" }
-    ]
-  },
-  resolve: {
-    alias: {
-      "underscore": "lodash/dist/lodash.underscore"
-    }
-  }
-};
+var buildCfg = require("./webpack.config.js");
 
 // ----------------------------------------------------------------------------
 // Helpers
@@ -93,37 +64,38 @@ gulp.task("jshint", ["jshint:client", "jshint:test", "jshint:backend"]);
 // ----------------------------------------------------------------------------
 // Builders
 // ----------------------------------------------------------------------------
-var _webpack = function (opts) {
-  return gulp
-    .src(CONFIG.APP.ENTRY)
-    .pipe(webpack(_.merge({}, CONFIG.WEBPACK, opts)))
-    .pipe(gulp.dest(path.dirname(CONFIG.DIST.PATH)));
+// Create webpack task.
+var _webpack = function (cfg) {
+  var compiler = webpack(cfg); // Single compiler for caching.
+
+  return function (done) {
+    compiler.run(function (err, stats) {
+      if (err) { throw new gutil.PluginError("webpack", err); }
+
+      gutil.log("[webpack]", stats.toString({
+        hash: true,
+        colors: true
+      }));
+
+      done();
+    });
+  };
 };
 
 gulp.task("clean", function () {
   return gulp.src([
-      path.dirname(CONFIG.DIST.PATH)
+      "app/js-dist"
     ], { read: false })
     .pipe(rimraf());
 });
 
-gulp.task("build:dev", ["clean"], function () {
-  return _webpack({
-    // Add source map.
-    devtool: "#source-map"
-  });
-});
+gulp.task("build:dev", ["clean"], _webpack(_.merge({}, buildCfg, {
+  optimize: {
+    minimize: false
+  }
+})));
 
-gulp.task("build:prod", ["clean"], function () {
-  return _webpack({
-    optimize: {
-      minimize: true
-    },
-    // TODO: Need to hide this from production.
-    // TODO: Need to make 127.0.0.1 serving.
-    devtool: "#source-map"
-  });
-});
+gulp.task("build:prod", ["clean"], _webpack(buildCfg));
 
 gulp.task("server", function () {
   nodemon({
