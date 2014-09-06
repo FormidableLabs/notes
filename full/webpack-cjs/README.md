@@ -16,7 +16,7 @@ The relevant pages for this project are:
 and available as source in the directory:
 
 ```
-full/browserify/
+full/webpack-cjs/
   app/                // Application directory.
     js/               // JS sources (not served in prod)
     js-dist/          // Production bundle
@@ -70,9 +70,6 @@ and from there you can view the application at:
 * [http://127.0.0.1:3000](http://127.0.0.1:3000): Full production
   bundle as a single file. (Have to run `grunt build:dist` to pick up new
   changes.)
-* [http://127.0.0.1:3000?_dist=0](http://127.0.0.1:3000?_dist=0):
-  Development-only version that uses raw, indivudal JS sources, downloading
-  each individually.
 
 and the test results at:
 

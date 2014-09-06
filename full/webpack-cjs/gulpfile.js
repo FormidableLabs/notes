@@ -8,6 +8,7 @@ var gulp = require("gulp");
 var gutil = require("gulp-util");
 var jshint = require("gulp-jshint");
 var nodemon = require("gulp-nodemon");
+var connect = require("gulp-connect");
 var webpack = require("webpack");
 var rimraf = require("gulp-rimraf");
 
@@ -97,18 +98,28 @@ gulp.task("build:dev", ["clean"], _webpack(_.merge({}, buildCfg, {
 
 gulp.task("watch", function () {
   gulp.watch([
-    "app/js/app/**/*.js",
+    "app/js/app/**/*.js"
   ], ["build:dev"]);
 });
 
-// TODO: Don't serve source map in prod
-// TODO: (OR) build / copy to separate directory.
 gulp.task("build:prod", ["clean"], _webpack(buildCfg));
 
+// ----------------------------------------------------------------------------
+// Servers
+// ----------------------------------------------------------------------------
+// Dev. server
 gulp.task("server", function () {
   nodemon({
     script: "server/index.js",
     ext: "js"
+  });
+});
+
+// Source maps server
+gulp.task("server:sources", function () {
+  connect.server({
+    root: __dirname,
+    port: 3001
   });
 });
 

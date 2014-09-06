@@ -7,6 +7,9 @@ var express = require("express"),
   PORT = process.env.PORT || 3000;
 
 function serverSetup() {
+  app.use("/js-dist/*.map", function (req, res) {
+    res.send(404, "404"); // Prevent sourcemap serving.
+  });
   app.use("/", express["static"]("app"));
   app.use("/app", express["static"]("app"));
   app.use("/test", express["static"]("test"));
