@@ -95,6 +95,14 @@ gulp.task("build:dev", ["clean"], _webpack(_.merge({}, buildCfg, {
   }
 })));
 
+gulp.task("watch", function () {
+  gulp.watch([
+    "app/js/app/**/*.js",
+  ], ["build:dev"]);
+});
+
+// TODO: Don't serve source map in prod
+// TODO: (OR) build / copy to separate directory.
 gulp.task("build:prod", ["clean"], _webpack(buildCfg));
 
 gulp.task("server", function () {
@@ -107,6 +115,7 @@ gulp.task("server", function () {
 // ----------------------------------------------------------------------------
 // Aggregations
 // ----------------------------------------------------------------------------
+gulp.task("dev",      ["build:dev", "watch"]);
 gulp.task("check",    ["jshint"]);
 gulp.task("build",    ["build:prod"]);
 gulp.task("default",  ["build:dev", "check"]);
