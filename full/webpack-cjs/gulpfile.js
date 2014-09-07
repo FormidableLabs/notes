@@ -13,6 +13,7 @@ var webpack = require("webpack");
 var rimraf = require("gulp-rimraf");
 
 var buildCfg = require("./webpack.config.js");
+var mochaCfg = require("./test/mocha/webpack.config.js");
 
 // ----------------------------------------------------------------------------
 // Helpers
@@ -83,26 +84,47 @@ var _webpack = function (cfg) {
   };
 };
 
-gulp.task("clean", function () {
-  return gulp.src([
-      "app/js-dist"
-    ], { read: false })
+// -----------
+// Development
+// -----------
+gulp.task("clean:app", function () {
+  return gulp.src(["app/js-dist"], { read: false })
     .pipe(rimraf());
 });
 
-gulp.task("build:dev", ["clean"], _webpack(_.merge({}, buildCfg, {
+gulp.task("build:dev", _webpack(_.merge({}, buildCfg, {
   optimize: {
     minimize: false
   }
 })));
 
-gulp.task("watch", function () {
+gulp.task("watch:dev", function () {
   gulp.watch([
     "app/js/app/**/*.js"
   ], ["build:dev"]);
 });
 
-gulp.task("build:prod", ["clean"], _webpack(buildCfg));
+// -----
+// Mocha
+// -----
+gulp.task("clean:mocha", function () {
+  return gulp.src(["test/mocha/js-dist"], { read: false })
+    .pipe(rimraf());
+});
+
+// TODO: Put `clean:*` tasks back in as deps! (???)
+// TODO: Doc `sources` server at: http://127.0.0.1:3001/test/mocha/test.html
+gulp.task("build:mocha", _webpack(mochaCfg));
+
+gulp.task("watch:mocha", function () {
+  gulp.watch([
+    "test/mocha/js/**/*.js"
+  ], ["build:mocha"]);
+});
+
+gulp.task("watch", ["watch:dev", "watch:mocha"]);
+
+gulp.task("build:prod", ["clean:app"], _webpack(buildCfg));
 
 // ----------------------------------------------------------------------------
 // Servers
