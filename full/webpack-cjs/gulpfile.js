@@ -118,6 +118,7 @@ gulp.task("build:mocha", _webpack(mochaCfg));
 
 gulp.task("watch:mocha", function () {
   gulp.watch([
+    "app/js/app/**/*.js",
     "test/mocha/js/**/*.js"
   ], ["build:mocha"]);
 });
