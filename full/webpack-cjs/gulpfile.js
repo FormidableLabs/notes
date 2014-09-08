@@ -14,6 +14,7 @@ var rimraf = require("gulp-rimraf");
 
 var buildCfg = require("./webpack.config.js");
 var mochaCfg = require("./test/mocha/webpack.config.js");
+var jasmineCfg = require("./test/jasmine/webpack.config.js");
 
 // ----------------------------------------------------------------------------
 // Helpers
@@ -104,6 +105,9 @@ gulp.task("watch:dev", function () {
   ], ["build:dev"]);
 });
 
+// TODO: Put `clean:*` tasks back in as deps! (???)
+// TODO: Doc `sources` server at: http://127.0.0.1:3001/test/mocha/test.html
+
 // -----
 // Mocha
 // -----
@@ -112,8 +116,6 @@ gulp.task("clean:mocha", function () {
     .pipe(rimraf());
 });
 
-// TODO: Put `clean:*` tasks back in as deps! (???)
-// TODO: Doc `sources` server at: http://127.0.0.1:3001/test/mocha/test.html
 gulp.task("build:mocha", _webpack(mochaCfg));
 
 gulp.task("watch:mocha", function () {
@@ -123,9 +125,29 @@ gulp.task("watch:mocha", function () {
   ], ["build:mocha"]);
 });
 
-gulp.task("watch", ["watch:dev", "watch:mocha"]);
+
+// -----
+// Mocha
+// -----
+gulp.task("clean:jasmine", function () {
+  return gulp.src(["test/jasmine/js-dist"], { read: false })
+    .pipe(rimraf());
+});
+
+gulp.task("build:jasmine", _webpack(jasmineCfg));
+
+gulp.task("watch:jasmine", function () {
+  gulp.watch([
+    "app/js/app/**/*.js",
+    "test/jasmine/js/**/*.js"
+  ], ["build:jasmine"]);
+});
+
+gulp.task("watch", ["watch:dev", "watch:mocha", "watch:jasmine"]);
 
 gulp.task("build:prod", ["clean:app"], _webpack(buildCfg));
+
+gulp.task("build:all", ["build:dev", "build:mocha", "build:jasmine"]);
 
 // ----------------------------------------------------------------------------
 // Servers
@@ -149,7 +171,7 @@ gulp.task("server:sources", function () {
 // ----------------------------------------------------------------------------
 // Aggregations
 // ----------------------------------------------------------------------------
-gulp.task("dev",      ["build:dev", "watch"]);
+gulp.task("dev",      ["build:all", "watch"]);
 gulp.task("check",    ["jshint"]);
 gulp.task("build",    ["build:prod"]);
-gulp.task("default",  ["build:dev", "check"]);
+gulp.task("default",  ["build:all", "check"]);

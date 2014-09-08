@@ -22,6 +22,7 @@
     "gulp-nodemon": "1.0.4",
     "gulp-rimraf": "0.1.0",
     "gulp-util": "3.0.1",
+    "jasmine-node": "2.0.0-beta4",
     "jquery": "2.1.1",
     "json2": "0.4.0",
     "karma": "0.12.16",
