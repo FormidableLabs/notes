@@ -88,21 +88,21 @@ var _webpack = function (cfg) {
 // -----------
 // Development
 // -----------
-gulp.task("clean:app", function () {
+gulp.task("clean:dist", function () {
   return gulp.src(["app/js-dist"], { read: false })
     .pipe(rimraf());
 });
 
-gulp.task("build:dev", _webpack(_.merge({}, buildCfg, {
+gulp.task("build:dist", _webpack(_.merge({}, buildCfg, {
   optimize: {
     minimize: false
   }
 })));
 
-gulp.task("watch:dev", function () {
+gulp.task("watch:dist", function () {
   gulp.watch([
     "app/js/app/**/*.js"
-  ], ["build:dev"]);
+  ], ["build:dist"]);
 });
 
 // TODO: Put `clean:*` tasks back in as deps! (???)
@@ -143,11 +143,11 @@ gulp.task("watch:jasmine", function () {
   ], ["build:jasmine"]);
 });
 
-gulp.task("watch", ["watch:dev", "watch:mocha", "watch:jasmine"]);
+gulp.task("watch", ["watch:dist", "watch:mocha", "watch:jasmine"]);
 
-gulp.task("build:prod", ["clean:app"], _webpack(buildCfg));
+gulp.task("build:prod", ["clean:dist"], _webpack(buildCfg));
 
-gulp.task("build:all", ["build:dev", "build:mocha", "build:jasmine"]);
+gulp.task("build:dev", ["build:dist", "build:mocha", "build:jasmine"]);
 
 // ----------------------------------------------------------------------------
 // Servers
