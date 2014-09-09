@@ -1,25 +1,24 @@
 /**
  * Test dependencies.
- *
- * This file lists out all of the individual spec (test) files so that they
- * are run by our infrastructure.
  */
 // App configuration.
-var appConfig = require("app/config"),
+var _ = require("underscore"),
+  appConfig = require("app/config"),
   cfgId = !!window.__karma__ ? "karma" : "browser";
 
-appConfig.storeName = "notes-browserify-" + cfgId + "-mocha";
+appConfig.storeName = "notes-cjs-wp-" + cfgId + "-mocha";
 
-// Require each module directly.
+// Use webpack to infer tests automatically.
+var testsReq = require.context(".", true, /\.spec.js$/);
+
+// Require collection module directly.
 appConfig.useLocalStorage ?
   require("./collections/notes.spec") :
   require("./collections/notes-rest.spec");
 
-require("./models/note.spec");
-require("./routers/router.spec");
-require("./views/note.spec");
-require("./views/note-nav.spec");
-require("./views/note-view.spec");
-require("./views/notes.spec");
-require("./views/notes-filter.spec");
-require("./views/notes-item.spec");
+// Automatically import the rest.
+_.chain(testsReq.keys())
+  .reject(function (mod) { return /collections\/notes/.test(mod); })
+  .each(function (mod) {
+    testsReq(mod);
+  });
