@@ -11,21 +11,25 @@ before_install:
 install:
   - npm install
   # Install and build all sub-projects.
+  # ======= full/amd =======
   - cd full/amd
   - npm install
   - cd ../..
+  # ======= skeleton/amd =======
   - cd skeleton/amd
   - npm install
   - cd ../..
+  # ======= full/browserify =======
   - cd full/browserify
   - npm install
   - cd ../..
+  # ======= skeleton/browserify =======
   - cd skeleton/browserify
   - npm install
   - cd ../..
-  # Check production build actually works.
+  # ======= full/webpack-cls =======
+  - cd full/webpack-cls
   - ./node_modules/.bin/gulp build
-  # Overwrite with dev build for tests, etc.
   - ./node_modules/.bin/gulp build:dev
   - cd ../..
 
@@ -33,18 +37,23 @@ script:
   # Root level checks.
   - ./node_modules/.bin/gulp check:ci
   # Sub-project checks.
+  # ======= full/amd =======
   - cd full/amd
   - ./node_modules/.bin/grunt check:ci
   - cd ../..
+  # ======= skeleton/amd =======
   - cd skeleton/amd
   - ./node_modules/.bin/grunt check:ci
   - cd ../..
+  # ======= full/browserify =======
   - cd full/browserify
   - ./node_modules/.bin/grunt check:ci
   - cd ../..
+  # ======= skeleton/browserify =======
   - cd skeleton/browserify
   - ./node_modules/.bin/grunt check:ci
   - cd ../..
+  # ======= full/webpack-cls =======
   - cd full/webpack-cls
   - ./node_modules/.bin/gulp check:ci
   - cd ../..
