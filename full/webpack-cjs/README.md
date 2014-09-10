@@ -1,7 +1,7 @@
-Notes (Browserify) Full
-=======================
+Notes (CommonJS Webpack) Full
+=============================
 
-A version of Notes written using [Browserify][browserify].
+A version of Notes written using CommonJS, built with [Webpack][webpack].
 
 ## Sources
 
@@ -25,97 +25,6 @@ full/webpack-cjs/
     mocha/            // Mocha test directory
 ```
 
-## Development
+## TODO - Rest of Documentation
 
-The application uses [Grunt][grunt] for the frontend development workflow.
-Typically, a developer:
-
-* Installs all necessary components.
-* Runs a watch process and a development server.
-* Develops!
-
-### Setup
-
-First, install NPM and Bower dependencies:
-
-```
-$ npm install
-```
-
-Then build your JavaScript into a web-ready bundle.
-
-```
-# One time only.
-$ grunt build
-
-# Keep building with watch
-$ grunt watch
-```
-
-In a separate terminal, initialize a database. You can rerun this later to reset
-the database.
-
-```
-$ node server/init-db.js
-```
-
-From there, fire up a local static development server with:
-
-```
-$ grunt server
-```
-
-and from there you can view the application at:
-
-* [http://127.0.0.1:3000](http://127.0.0.1:3000): Full production
-  bundle as a single file. (Have to run `grunt build:dist` to pick up new
-  changes.)
-
-and the test results at:
-
-* [http://127.0.0.1:3000/test/jasmine/test.html](http://127.0.0.1:3000/test/jasmine/test.html)
-* [http://127.0.0.1:3000/test/mocha/test.html](http://127.0.0.1:3000/test/mocha/test.html)
-
-Note that the application **needs** to be served and not accessed via
-`file://` in order for all parts to properly work. You will want to leave
-the server running during development and refresh your browser to see changes.
-
-### Code Quality
-
-We have several code quality checks for the project.
-
-Run JsHint style checks:
-
-```
-$ grunt jshint
-```
-
-Run unit tests using Karma:
-
-```
-$ grunt test
-```
-
-Run everything:
-
-```
-$ grunt check
-```
-
-### Next Steps
-
-Generally speaking, just running:
-
-```
-$ grunt
-```
-
-builds the app and runs a basic set of quality checks. You can see more about
-available Grunt tasks with:
-
-```
-$ grunt --help
-```
-
-[browserify]: http://browserify.org/
-[grunt]: http://gruntjs.com/
+[webpack]: http://webpack.github.io/
