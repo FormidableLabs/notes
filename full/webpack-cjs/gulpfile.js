@@ -120,14 +120,50 @@ var _karma = function (baseCfg, cfg) {
 };
 
 gulp.task("test:karma:mocha-fast", _karma(KARMA_MOCHA_OPTIONS, {
-  singleRun: true,
   browsers: ["PhantomJS"]
 }));
 
 gulp.task("test:karma:jasmine-fast", _karma(KARMA_JASMINE_OPTIONS, {
-  singleRun: true,
   browsers: ["PhantomJS"]
 }));
+
+gulp.task("test:karma:mocha-windows", _karma(KARMA_MOCHA_OPTIONS, {
+  browsers: ["PhantomJS", "IE", "Chrome"]
+}));
+
+gulp.task("test:karma:jasmine-windows", _karma(KARMA_JASMINE_OPTIONS, {
+  browsers: ["PhantomJS", "IE", "Chrome"]
+}));
+
+gulp.task("test:karma:mocha-ci", _karma(KARMA_MOCHA_OPTIONS, {
+  browsers: ["PhantomJS", "Firefox"]
+}));
+
+gulp.task("test:karma:jasmine-ci", _karma(KARMA_JASMINE_OPTIONS, {
+  browsers: ["PhantomJS", "Firefox"]
+}));
+
+gulp.task("test:karma:mocha-all", _karma(KARMA_MOCHA_OPTIONS, {
+  browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
+}));
+
+gulp.task("test:karma:jasmine-all", _karma(KARMA_JASMINE_OPTIONS, {
+  browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
+}));
+
+gulp.task("test:karma:mocha-dev", _karma(KARMA_MOCHA_OPTIONS, {
+  // Runs tests automatically on changes in ongoing terminal.
+  action: "watch",
+  browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
+}));
+
+gulp.task("test:karma:jasmine-dev", _karma(KARMA_JASMINE_OPTIONS, {
+  // Runs tests automatically on changes in ongoing terminal.
+  action: "watch",
+  browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
+}));
+
+gulp.task("test:karma:dev", ["test:karma:mocha-dev", "test:karma:jasmine-dev"]);
 
 // ----------------------------------------------------------------------------
 // Builders
