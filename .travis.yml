@@ -27,6 +27,7 @@ install:
   - ./node_modules/.bin/gulp build
   # Overwrite with dev build for tests, etc.
   - ./node_modules/.bin/gulp build:dev
+  - cd ../..
 
 script:
   # Root level checks.
@@ -43,4 +44,7 @@ script:
   - cd ../..
   - cd skeleton/browserify
   - ./node_modules/.bin/grunt check:ci
+  - cd ../..
+  - cd full/webpack-cls
+  - ./node_modules/.bin/gulp check:ci
   - cd ../..

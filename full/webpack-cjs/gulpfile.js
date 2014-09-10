@@ -119,51 +119,59 @@ var _karma = function (baseCfg, cfg) {
   };
 };
 
-gulp.task("test:karma:mocha-fast", _karma(KARMA_MOCHA_OPTIONS, {
+gulp.task("karma:mocha-fast", _karma(KARMA_MOCHA_OPTIONS, {
   browsers: ["PhantomJS"]
 }));
 
-gulp.task("test:karma:jasmine-fast", _karma(KARMA_JASMINE_OPTIONS, {
+gulp.task("karma:jasmine-fast", _karma(KARMA_JASMINE_OPTIONS, {
   browsers: ["PhantomJS"]
 }));
 
-gulp.task("test:karma:mocha-windows", _karma(KARMA_MOCHA_OPTIONS, {
+gulp.task("karma:mocha-windows", _karma(KARMA_MOCHA_OPTIONS, {
   browsers: ["PhantomJS", "IE", "Chrome"]
 }));
 
-gulp.task("test:karma:jasmine-windows", _karma(KARMA_JASMINE_OPTIONS, {
+gulp.task("karma:jasmine-windows", _karma(KARMA_JASMINE_OPTIONS, {
   browsers: ["PhantomJS", "IE", "Chrome"]
 }));
 
-gulp.task("test:karma:mocha-ci", _karma(KARMA_MOCHA_OPTIONS, {
+gulp.task("karma:mocha-ci", _karma(KARMA_MOCHA_OPTIONS, {
   browsers: ["PhantomJS", "Firefox"]
 }));
 
-gulp.task("test:karma:jasmine-ci", _karma(KARMA_JASMINE_OPTIONS, {
+gulp.task("karma:jasmine-ci", _karma(KARMA_JASMINE_OPTIONS, {
   browsers: ["PhantomJS", "Firefox"]
 }));
 
-gulp.task("test:karma:mocha-all", _karma(KARMA_MOCHA_OPTIONS, {
+gulp.task("karma:mocha-all", _karma(KARMA_MOCHA_OPTIONS, {
   browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
 }));
 
-gulp.task("test:karma:jasmine-all", _karma(KARMA_JASMINE_OPTIONS, {
+gulp.task("karma:jasmine-all", _karma(KARMA_JASMINE_OPTIONS, {
   browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
 }));
 
-gulp.task("test:karma:mocha-dev", _karma(KARMA_MOCHA_OPTIONS, {
+gulp.task("karma:mocha-dev", _karma(KARMA_MOCHA_OPTIONS, {
   // Runs tests automatically on changes in ongoing terminal.
   action: "watch",
   browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
 }));
 
-gulp.task("test:karma:jasmine-dev", _karma(KARMA_JASMINE_OPTIONS, {
+gulp.task("karma:jasmine-dev", _karma(KARMA_JASMINE_OPTIONS, {
   // Runs tests automatically on changes in ongoing terminal.
   action: "watch",
   browsers: ["PhantomJS", "Chrome", "Firefox", "Safari"]
 }));
 
-gulp.task("test:karma:dev", ["test:karma:mocha-dev", "test:karma:jasmine-dev"]);
+gulp.task("karma:fast", ["karma:mocha-fast", "karma:jasmine-fast"]);
+gulp.task("karma:ci",   ["karma:mocha-ci", "karma:jasmine-ci"]);
+gulp.task("karma:all",  ["karma:mocha-all", "karma:jasmine-all"]);
+
+gulp.task("test",       ["karma:fast"]);
+
+gulp.task("check",      ["jshint", "test"]);
+gulp.task("check:ci",   ["jshint", "karma:ci"]);
+gulp.task("check:all",  ["jshint", "karma:all"]);
 
 // ----------------------------------------------------------------------------
 // Builders
@@ -273,6 +281,5 @@ gulp.task("server:sources", function () {
 // Aggregations
 // ----------------------------------------------------------------------------
 gulp.task("dev",      ["build:dev", "watch"]);
-gulp.task("check",    ["jshint"]);
 gulp.task("build",    ["build:prod"]);
 gulp.task("default",  ["build:dev", "check"]);
