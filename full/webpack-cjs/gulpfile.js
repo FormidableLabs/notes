@@ -7,6 +7,7 @@ var _ = require("lodash");
 var gulp = require("gulp");
 var gutil = require("gulp-util");
 var jshint = require("gulp-jshint");
+var karma = require("gulp-karma");
 var nodemon = require("gulp-nodemon");
 var connect = require("gulp-connect");
 var webpack = require("webpack");
@@ -63,6 +64,63 @@ gulp.task("jshint:backend", function () {
 });
 
 gulp.task("jshint", ["jshint:client", "jshint:test", "jshint:backend"]);
+
+// ----------------------------------------------------------------------------
+// Tests
+// ----------------------------------------------------------------------------
+var KARMA_JASMINE_OPTIONS = {
+  runnerPort: 9999,
+  reporters: ["spec"],
+  frameworks: ["jasmine"],
+  files: [
+    // Test libraries.
+    "node_modules/sinon/pkg/sinon.js",
+
+    // Off of the bundle.
+    "test/jasmine/js-dist/bundle.js"
+  ],
+  client: {
+    mocha: {
+      ui: "bdd"
+    }
+  }
+};
+
+var KARMA_MOCHA_OPTIONS = {
+  runnerPort: 9999,
+  reporters: ["spec"],
+  frameworks: ["mocha"],
+  files: [
+    // Test libraries.
+    "node_modules/sinon/pkg/sinon.js",
+
+    // Off of the bundle.
+    "test/mocha/js-dist/bundle.js"
+  ],
+  client: {
+    mocha: {
+      ui: "bdd"
+    }
+  }
+};
+
+var _karma = function (baseCfg, cfg) {
+  cfg = _.extend({}, baseCfg, cfg);
+
+  return function () {
+    gulp
+      .src(cfg.files)
+      .pipe(karma(cfg))
+      .on("error", function (err) {
+        throw new gutil.PluginError("karma", err);
+      });
+  };
+};
+
+gulp.task("test:karma:mocha-fast", _karma(KARMA_MOCHA_OPTIONS, {
+  singleRun: true,
+  browsers: ["PhantomJS"]
+}));
 
 // ----------------------------------------------------------------------------
 // Builders
