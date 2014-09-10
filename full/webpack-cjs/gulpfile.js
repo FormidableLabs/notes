@@ -171,7 +171,7 @@ gulp.task("server:sources", function () {
 // ----------------------------------------------------------------------------
 // Aggregations
 // ----------------------------------------------------------------------------
-gulp.task("dev",      ["build:all", "watch"]);
+gulp.task("dev",      ["build:dev", "watch"]);
 gulp.task("check",    ["jshint"]);
 gulp.task("build",    ["build:prod"]);
-gulp.task("default",  ["build:all", "check"]);
+gulp.task("default",  ["build:dev", "check"]);
