@@ -6,9 +6,7 @@ var root = window,
   Backbone = require("backbone"),
   isKarma = !!root.__karma__;
 
-// `browserify-swap`: need to manually include mapped `underscore` to force
-// it to be part of the bundle. Without this, there is a *reference* to
-// the desired underscore lib, but no source. (Ugh.)
+// TODO(48): Needed for browserify. Check if can remove for webpack.
 require("underscore");
 
 // --------------------------------------------------------------------------
