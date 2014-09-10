@@ -7,6 +7,9 @@ before_install:
   # GUI for real browsers.
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  # Update and nuke NPM cache to avoid `cb()` build errors (ws, karma).
+  - npm update -g npm
+  - npm cache clear
 
 install:
   - npm install
