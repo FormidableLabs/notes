@@ -68,24 +68,7 @@ gulp.task("jshint", ["jshint:client", "jshint:test", "jshint:backend"]);
 // ----------------------------------------------------------------------------
 // Tests
 // ----------------------------------------------------------------------------
-var KARMA_JASMINE_OPTIONS = {
-  runnerPort: 9999,
-  reporters: ["spec"],
-  frameworks: ["jasmine"],
-  files: [
-    // Test libraries.
-    "node_modules/sinon/pkg/sinon.js",
-
-    // Off of the bundle.
-    "test/jasmine/js-dist/bundle.js"
-  ],
-  client: {
-    mocha: {
-      ui: "bdd"
-    }
-  }
-};
-
+// Base options.
 var KARMA_MOCHA_OPTIONS = {
   runnerPort: 9999,
   reporters: ["spec"],
@@ -104,6 +87,25 @@ var KARMA_MOCHA_OPTIONS = {
   }
 };
 
+var KARMA_JASMINE_OPTIONS = {
+  runnerPort: 9999,
+  reporters: ["spec"],
+  frameworks: ["jasmine"],
+  files: [
+    // Test libraries.
+    "node_modules/sinon/pkg/sinon.js",
+
+    // Off of the bundle.
+    "test/jasmine/js-dist/bundle.js"
+  ],
+  client: {
+    mocha: {
+      ui: "bdd"
+    }
+  }
+};
+
+// Task helper.
 var _karma = function (baseCfg, cfg) {
   cfg = _.extend({}, baseCfg, cfg);
 
@@ -118,6 +120,11 @@ var _karma = function (baseCfg, cfg) {
 };
 
 gulp.task("test:karma:mocha-fast", _karma(KARMA_MOCHA_OPTIONS, {
+  singleRun: true,
+  browsers: ["PhantomJS"]
+}));
+
+gulp.task("test:karma:jasmine-fast", _karma(KARMA_JASMINE_OPTIONS, {
   singleRun: true,
   browsers: ["PhantomJS"]
 }));
