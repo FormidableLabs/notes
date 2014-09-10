@@ -46,6 +46,7 @@
   "scripts": {
     "test": "gulp build check",
     "build": "webpack --config webpack.config.js",
+    "init-db": "node server/init-db.js",
     "shrink": "rm -f npm-shrinkwrap.json && npm shrinkwrap --dev"
   }
 }
