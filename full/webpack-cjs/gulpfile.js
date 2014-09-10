@@ -197,6 +197,16 @@ var _webpack = function (cfg) {
 // -----------
 // Development
 // -----------
+gulp.task("clean:all", function () {
+  return gulp
+    .src([
+        "app/js-dist",
+        "test/mocha/js-dist",
+        "test/jasmine/js-dist"
+      ], { read: false })
+    .pipe(rimraf());
+});
+
 gulp.task("clean:dist", function () {
   return gulp.src(["app/js-dist"], { read: false })
     .pipe(rimraf());
