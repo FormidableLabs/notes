@@ -3,7 +3,7 @@
  */
 
 var path = require("path");
-var SourceMapDevToolPlugin = require("webpack/lib/SourceMapDevToolPlugin");
+var webpack = require("webpack");
 
 module.exports = {
   cache: true,
@@ -28,7 +28,7 @@ module.exports = {
   },
   plugins: [
     // Manually do source maps to use alternate host.
-    new SourceMapDevToolPlugin(
+    new webpack.SourceMapDevToolPlugin(
       "bundle.js.map",
       "\n//# sourceMappingURL=http://127.0.0.1:3001/app/js-dist/[url]")
   ]
