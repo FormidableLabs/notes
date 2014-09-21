@@ -186,7 +186,8 @@ var _webpack = function (cfg) {
 
       gutil.log("[webpack]", stats.toString({
         hash: true,
-        colors: true
+        colors: true,
+        cached: false
       }));
 
       done();

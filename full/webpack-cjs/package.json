@@ -9,7 +9,7 @@
     "handlebars-loader": "0.1.7",
     "ps-tree": "0.0.3",
     "sqlite3": "2.2.3",
-    "webpack": "1.4.0-beta3"
+    "webpack": "1.4.1-beta1"
   },
   "devDependencies": {
     "backbone": "1.1.2",
