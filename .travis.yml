@@ -27,6 +27,7 @@ install:
   # ======= full/browserify =======
   - cd full/browserify
   - cp -rp ../../full/amd/node_modules .
+  - npm prune
   - npm install
   - cd ../..
   # ======= skeleton/browserify =======
@@ -34,9 +35,10 @@ install:
   - cp -rp ../../full/browserify/node_modules .
   - npm install
   - cd ../..
-  # ======= full/webpack-cls =======
-  - cd full/webpack-cls
+  # ======= full/webpack-cjs =======
+  - cd full/webpack-cjs
   - cp -rp ../../full/amd/node_modules .
+  - npm prune
   - ./node_modules/.bin/gulp build
   - ./node_modules/.bin/gulp build:dev
   - cd ../..
@@ -61,7 +63,7 @@ script:
   - cd skeleton/browserify
   - ./node_modules/.bin/grunt check:ci
   - cd ../..
-  # ======= full/webpack-cls =======
-  - cd full/webpack-cls
+  # ======= full/webpack-cjs =======
+  - cd full/webpack-cjs
   - ./node_modules/.bin/gulp check:ci
   - cd ../..
