@@ -12,6 +12,16 @@ before_install:
   # - npm update -g npm
   # - npm cache clear
 
+cache:
+  bundler: true
+  directories:
+    - node_modules
+    - full/amd/node_modules
+    - skeleton/amd/node_modules
+    - skeleton/browserify/node_modules
+    - full/browserify/node_modules
+    - alt/commonjs/node_modules
+
 install:
   # Root install
   - npm install
@@ -24,25 +34,19 @@ install:
   - cd ../..
   # ======= skeleton/amd =======
   - cd skeleton/amd
-  - cp -rp ../../full/amd/node_modules .
   - npm install
   - cd ../..
   # ======= full/browserify =======
   - cd full/browserify
-  - cp -rp ../../full/amd/node_modules .
-  - npm prune
   - npm install
   - cd ../..
   # ======= skeleton/browserify =======
   - cd skeleton/browserify
-  - cp -rp ../../full/browserify/node_modules .
   - npm install
   - cd ../..
   # ======= alt/commonjs =======
   - cd alt/commonjs
-  - cp -rp ../../full/browserify/node_modules .
-  - npm prune
-  - npm install || (cat npm-debug.log && exit 1)
+  - npm install
   - ./node_modules/.bin/gulp build
   - ./node_modules/.bin/gulp build:dev
   - cd ../..
