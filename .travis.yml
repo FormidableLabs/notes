@@ -12,15 +12,17 @@ before_install:
   # - npm update -g npm
   # - npm cache clear
 
-cache:
-  bundler: true
-  directories:
-    - node_modules
-    - full/amd/node_modules
-    - skeleton/amd/node_modules
-    - skeleton/browserify/node_modules
-    - full/browserify/node_modules
-    - alt/commonjs/node_modules
+# Oops. Only for private repos.
+# http://docs.travis-ci.com/user/caching/
+# cache:
+#   bundler: true
+#   directories:
+#     - node_modules
+#     - full/amd/node_modules
+#     - skeleton/amd/node_modules
+#     - skeleton/browserify/node_modules
+#     - full/browserify/node_modules
+#     - alt/commonjs/node_modules
 
 install:
   # Root install
@@ -34,26 +36,24 @@ install:
   - cd ../..
   # ======= skeleton/amd =======
   - cd skeleton/amd
-  # WS keeps having `npm ERR! cb() never called!` errors.
-  - npm install ws@0.4.32
+  - cp -rp ../../full/amd/node_modules .
   - npm install
   - cd ../..
   # ======= full/browserify =======
   - cd full/browserify
-  # WS keeps having `npm ERR! cb() never called!` errors.
-  - npm install ws@0.4.32
+  - cp -rp ../../full/amd/node_modules .
+  - npm prune
   - npm install
   - cd ../..
   # ======= skeleton/browserify =======
   - cd skeleton/browserify
-  # WS keeps having `npm ERR! cb() never called!` errors.
-  - npm install ws@0.4.32
+  - cp -rp ../../full/browserify/node_modules .
   - npm install
   - cd ../..
   # ======= alt/commonjs =======
   - cd alt/commonjs
-  # WS keeps having `npm ERR! cb() never called!` errors.
-  - npm install ws@0.4.32
+  - cp -rp ../../full/browserify/node_modules .
+  - npm prune
   - npm install
   - ./node_modules/.bin/gulp build
   - ./node_modules/.bin/gulp build:dev
