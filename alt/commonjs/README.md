@@ -16,7 +16,7 @@ The relevant pages for this project are:
 and available as source in the directory:
 
 ```
-full/webpack-cjs/
+alt/commonjs/
   app/                // Application directory.
     js/               // JS sources (not served in prod)
     js-dist/          // Production bundle

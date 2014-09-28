@@ -28,6 +28,8 @@ install:
   - cd full/browserify
   - cp -rp ../../full/amd/node_modules .
   - npm prune
+  # WS keeps having `npm ERR! cb() never called!` errors.
+  - npm install -g ws@0.4.32
   - npm install
   - cd ../..
   # ======= skeleton/browserify =======
@@ -35,8 +37,8 @@ install:
   - cp -rp ../../full/browserify/node_modules .
   - npm install
   - cd ../..
-  # ======= full/webpack-cjs =======
-  - cd full/webpack-cjs
+  # ======= alt/commonjs =======
+  - cd alt/commonjs
   - cp -rp ../../full/amd/node_modules .
   - npm prune
   - ./node_modules/.bin/gulp build
@@ -63,7 +65,7 @@ script:
   - cd skeleton/browserify
   - ./node_modules/.bin/grunt check:ci
   - cd ../..
-  # ======= full/webpack-cjs =======
-  - cd full/webpack-cjs
+  # ======= alt/commonjs =======
+  - cd alt/commonjs
   - ./node_modules/.bin/gulp check:ci
   - cd ../..
