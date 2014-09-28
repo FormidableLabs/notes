@@ -53,8 +53,6 @@ install:
   - cd alt/commonjs
   - cp -rp ../../full/browserify/node_modules .
   - npm install
-  - ./node_modules/.bin/gulp build
-  - ./node_modules/.bin/gulp build:dev
   - cd ../..
 
 script:
@@ -63,21 +61,27 @@ script:
   # Sub-project checks.
   # ======= full/amd =======
   - cd full/amd
+  - ./node_modules/.bin/grunt build:dev
   - ./node_modules/.bin/grunt check:ci
   - cd ../..
   # ======= skeleton/amd =======
   - cd skeleton/amd
+  - ./node_modules/.bin/grunt build:dev
   - ./node_modules/.bin/grunt check:ci
   - cd ../..
   # ======= full/browserify =======
   - cd full/browserify
+  - ./node_modules/.bin/grunt build:dev
   - ./node_modules/.bin/grunt check:ci
   - cd ../..
   # ======= skeleton/browserify =======
   - cd skeleton/browserify
+  - ./node_modules/.bin/grunt build:dev
   - ./node_modules/.bin/grunt check:ci
   - cd ../..
   # ======= alt/commonjs =======
   - cd alt/commonjs
+  - ./node_modules/.bin/gulp build
+  - ./node_modules/.bin/gulp build:dev
   - ./node_modules/.bin/gulp check:ci
   - cd ../..
