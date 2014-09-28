@@ -7,40 +7,81 @@ before_install:
   # GUI for real browsers.
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  # # Update and nuke NPM cache to avoid `cb()` build errors (ws, karma).
+  # (Doesn't seem to work. Remove?)
+  # - npm update -g npm
+  # - npm cache clear
+
+# Oops. Only for private repos.
+# http://docs.travis-ci.com/user/caching/
+# cache:
+#   bundler: true
+#   directories:
+#     - node_modules
+#     - full/amd/node_modules
+#     - skeleton/amd/node_modules
+#     - skeleton/browserify/node_modules
+#     - full/browserify/node_modules
+#     - alt/commonjs/node_modules
 
 install:
+  # Root install
   - npm install
   # Install and build all sub-projects.
+  # ======= full/amd =======
   - cd full/amd
+  # WS keeps having `npm ERR! cb() never called!` errors.
+  - npm install ws@0.4.32
   - npm install
   - cd ../..
+  # ======= skeleton/amd =======
   - cd skeleton/amd
+  - cp -rp ../../full/amd/node_modules .
   - npm install
   - cd ../..
+  # ======= full/browserify =======
   - cd full/browserify
+  - cp -rp ../../full/amd/node_modules .
   - npm install
   - cd ../..
+  # ======= skeleton/browserify =======
   - cd skeleton/browserify
+  - cp -rp ../../full/browserify/node_modules .
   - npm install
   - cd ../..
-  # Check production build actually works.
-  - ./node_modules/.bin/gulp build
-  # Overwrite with dev build for tests, etc.
-  - ./node_modules/.bin/gulp build:dev
+  # ======= alt/commonjs =======
+  - cd alt/commonjs
+  - cp -rp ../../full/browserify/node_modules .
+  - npm install
+  - cd ../..
 
 script:
   # Root level checks.
   - ./node_modules/.bin/gulp check:ci
   # Sub-project checks.
+  # ======= full/amd =======
   - cd full/amd
+  - ./node_modules/.bin/grunt build:dev
   - ./node_modules/.bin/grunt check:ci
   - cd ../..
+  # ======= skeleton/amd =======
   - cd skeleton/amd
+  - ./node_modules/.bin/grunt build:dev
   - ./node_modules/.bin/grunt check:ci
   - cd ../..
+  # ======= full/browserify =======
   - cd full/browserify
+  - ./node_modules/.bin/grunt build:dev
   - ./node_modules/.bin/grunt check:ci
   - cd ../..
+  # ======= skeleton/browserify =======
   - cd skeleton/browserify
+  - ./node_modules/.bin/grunt build:dev
   - ./node_modules/.bin/grunt check:ci
+  - cd ../..
+  # ======= alt/commonjs =======
+  - cd alt/commonjs
+  - ./node_modules/.bin/gulp build
+  - ./node_modules/.bin/gulp build:dev
+  - ./node_modules/.bin/gulp check:ci
   - cd ../..
