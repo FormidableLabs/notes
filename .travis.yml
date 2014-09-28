@@ -25,27 +25,35 @@ cache:
 install:
   # Root install
   - npm install
-  # WS keeps having `npm ERR! cb() never called!` errors.
-  - npm install -g ws@0.4.32
   # Install and build all sub-projects.
   # ======= full/amd =======
   - cd full/amd
+  # WS keeps having `npm ERR! cb() never called!` errors.
+  - npm install ws@0.4.32
   - npm install
   - cd ../..
   # ======= skeleton/amd =======
   - cd skeleton/amd
+  # WS keeps having `npm ERR! cb() never called!` errors.
+  - npm install ws@0.4.32
   - npm install
   - cd ../..
   # ======= full/browserify =======
   - cd full/browserify
+  # WS keeps having `npm ERR! cb() never called!` errors.
+  - npm install ws@0.4.32
   - npm install
   - cd ../..
   # ======= skeleton/browserify =======
   - cd skeleton/browserify
+  # WS keeps having `npm ERR! cb() never called!` errors.
+  - npm install ws@0.4.32
   - npm install
   - cd ../..
   # ======= alt/commonjs =======
   - cd alt/commonjs
+  # WS keeps having `npm ERR! cb() never called!` errors.
+  - npm install ws@0.4.32
   - npm install
   - ./node_modules/.bin/gulp build
   - ./node_modules/.bin/gulp build:dev
