@@ -42,7 +42,6 @@ install:
   # ======= full/browserify =======
   - cd full/browserify
   - cp -rp ../../full/amd/node_modules .
-  - npm prune
   - npm install
   - cd ../..
   # ======= skeleton/browserify =======
@@ -53,7 +52,6 @@ install:
   # ======= alt/commonjs =======
   - cd alt/commonjs
   - cp -rp ../../full/browserify/node_modules .
-  - npm prune
   - npm install
   - ./node_modules/.bin/gulp build
   - ./node_modules/.bin/gulp build:dev
