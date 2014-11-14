@@ -53,7 +53,7 @@ function serverSetup() {
     });
   });
 
-  app.listen(3000);
+  app.listen(PORT);
 }
 
 db = new sql.Database(dbPath, sql.OPEN_READWRITE, serverSetup);
